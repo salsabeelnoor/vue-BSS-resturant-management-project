@@ -12,6 +12,6 @@ export default {
 <style>
 body {
   /* min-height: 100vh; */
-  background-color: rgb(210, 205, 205);
+  background-color: #cad2db;
 }
 </style>

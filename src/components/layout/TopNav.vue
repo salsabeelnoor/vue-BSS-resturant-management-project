@@ -1,15 +1,8 @@
 <template>
-  <v-card>
-    <v-layout>
-      <v-app-bar color="primary" prominent>
-        <v-toolbar-title>My files</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn>BTN</v-btn>
-      </v-app-bar>
-
-      <v-main> </v-main>
-    </v-layout>
-  </v-card>
+  <v-app-bar color="#ccc" prominent>
+    <v-spacer></v-spacer>
+    <v-btn>BTN</v-btn>
+  </v-app-bar>
 </template>
     <script>
 export default {
