@@ -112,7 +112,7 @@ export default {
         if (res.data) {
           console.log("login", res.data);
           this.addUserInfo(res.data);
-          this.$router.push({ name: "dashboard" });
+          this.$router.push({ name: "admin" });
         }
       });
       // this.$store.dispatch("");

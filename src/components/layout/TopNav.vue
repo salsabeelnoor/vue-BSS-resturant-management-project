@@ -1,41 +1,24 @@
 <template>
-  <v-app-bar color="#ccc" prominent>
-    <v-spacer></v-spacer>
-    <v-btn>BTN</v-btn>
+  <v-app-bar prominent class="top-nav">
+    <v-container class="d-flex">
+      <v-toolbar-title class="text-white"> BSS Restaurant </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn class="login-btn">Log in </v-btn>
+    </v-container>
   </v-app-bar>
 </template>
     <script>
 export default {
   name: "TopNav",
-  data: () => ({
-    drawer: false,
-    group: null,
-    items: [
-      {
-        title: "Foo",
-        value: "foo",
-      },
-      {
-        title: "Bar",
-        value: "bar",
-      },
-      {
-        title: "Fizz",
-        value: "fizz",
-      },
-      {
-        title: "Buzz",
-        value: "buzz",
-      },
-    ],
-  }),
-
-  watch: {
-    group() {
-      this.drawer = false;
-    },
-  },
+  data: () => ({}),
 };
 </script>
-    <style scoped>
+<style scoped>
+.top-nav {
+  background-color: #143d6b;
+}
+.login-btn {
+  color: rgb(26, 21, 13);
+  background-color: #849db6;
+}
 </style>

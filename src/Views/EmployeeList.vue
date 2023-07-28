@@ -1,20 +1,23 @@
 <template>
-  <v-row>
-    <v-col>Employee List</v-col>
+  <v-container>
+    <v-row>
+      <v-col>Employee List</v-col>
 
-    <v-col class="d-flex justify-end"
-      ><v-btn @click="$router.push('/admin/add-employee')"
-        >Create New</v-btn
-      ></v-col
-    >
-  </v-row>
+      <v-col class="d-flex justify-end"
+        ><v-btn @click="$router.push('/admin/add-employee')"
+          >Create New</v-btn
+        ></v-col
+      >
+    </v-row>
+  </v-container>
   <v-data-table
+    elevation="12"
     v-model:page="page"
     :headers="headers"
     :items="employees"
     :items-per-page="itemsPerPage"
     hide-default-footer
-    class="elevation-1"
+    class="elevation-1 table"
   >
     <template v-slot:bottom>
       <div class="text-center pt-2">
@@ -56,3 +59,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.table {
+  width: 90%;
+  margin: auto;
+}
+</style>

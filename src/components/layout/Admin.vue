@@ -1,6 +1,12 @@
 <template>
   <v-layout>
-    <v-navigation-drawer expand-on-hover rail class="dashboard-drawer">
+    <top-nav></top-nav>
+
+    <v-navigation-drawer
+      expand-on-hover
+      rail
+      class="dashboard-drawer dashboard-container"
+    >
       <v-list>
         <v-list-item
           :prepend-avatar="
@@ -27,13 +33,13 @@
           value="employeeShared"
         ></v-list-item>
         <v-list-item
+          @click="$router.push('/login')"
           prepend-icon="mdi-star"
-          title="Starred"
+          title="Log in"
           value="starred"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <top-nav></top-nav>
     <v-main>
       <router-view />
     </v-main>
@@ -61,3 +67,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.dashboard-container {
+  background-color: rgba(150, 175, 248, 0.847);
+}
+</style>

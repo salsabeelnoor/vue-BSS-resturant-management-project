@@ -35,7 +35,9 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import TopNav from "./TopNav.vue";
 export default {
+  components: TopNav,
   name: "Common",
   methods: {
     ...mapActions(["logOut"]),

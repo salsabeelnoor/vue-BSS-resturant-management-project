@@ -11,7 +11,7 @@ export default {
 </script>
 <style>
 body {
-  /* min-height: 100vh; */
-  background-color: #cad2db;
+  min-height: 100vh;
+  background-color: #c4d4e6;
 }
 </style>
