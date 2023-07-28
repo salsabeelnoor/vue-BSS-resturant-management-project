@@ -139,7 +139,7 @@
                   label="Gender Id"
                   class="company-size-dropdown"
                   :items="gender"
-                  v-model="employeeInfo.gendersId"
+                  v-model="employeeInfo.genderId"
                   density="compact"
                   variant="outlined"
                 >
@@ -188,7 +188,7 @@ export default {
   name: "AddEmployee",
   data() {
     return {
-      gender: ["male", "female", "others"],
+      gender: [0, 1, 2],
       employeeInfo: {
         firstName: "",
         middleName: "",
@@ -202,9 +202,9 @@ export default {
         spouseName: "",
         dob: "",
         nid: "",
-        gendersId: "", //1
+        genderId: 0, //1
         image: "",
-        base64: null,
+        base64: "",
       },
     };
   },
@@ -229,11 +229,17 @@ export default {
       reader.readAsDataURL(fileObject);
     },
     async addEmployee() {
-      const response = await apiCall.post(
-        "api/Employee/create",
-        this.employeeInfo
-      );
-      console.log(response);
+      try {
+        console.log("start");
+        const response = await apiCall.post(
+          "api/Employee/create",
+          this.employeeInfo
+        );
+      } catch (e) {
+        console.log(e);
+      }
+
+      // console.log(response);
       this.$refs.form.reset();
     },
   },
