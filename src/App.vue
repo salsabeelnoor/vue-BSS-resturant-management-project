@@ -12,6 +12,6 @@ export default {
 <style>
 body {
   min-height: 100vh;
-  background-color: #ffff;
+  background-color: #f0eee7;
 }
 </style>

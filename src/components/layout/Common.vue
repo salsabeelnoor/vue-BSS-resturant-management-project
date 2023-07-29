@@ -1,5 +1,7 @@
 <template>
-  <top-nav></top-nav>
+  <v-layout>
+    <top-nav></top-nav>
+  </v-layout>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";

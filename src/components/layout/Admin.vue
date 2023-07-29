@@ -69,6 +69,6 @@ export default {
 </script>
 <style scoped>
 .dashboard-container {
-  background-color: rgba(150, 175, 248, 0.847);
+  background-color: #dbbe96e8;
 }
 </style>

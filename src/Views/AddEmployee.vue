@@ -2,7 +2,7 @@
   <section class="login-section">
     <div class="form-container">
       <v-container>
-        <v-card class="mx-auto pa-12 pb-8 form-card">
+        <v-card class="mx-auto pa-12 pb-8 form-card" elevation="8" rounded="lg">
           <v-form @submit.prevent="addEmployee" ref="form">
             <v-row>
               <v-col cols="12" md="8" sm="12" xs="12">
@@ -247,24 +247,24 @@ export default {
 </script>
 <style scoped>
 .login-section {
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #cad2db;
+  background-color: #f0eee7;
 }
 .form-container {
   /* margin-top: 20px; */
-  min-height: auto;
+  /* min-height: auto; */
 }
 
 .form-card {
-  background-color: rgb(226, 230, 232);
+  background-color: #e9e0d2;
   /* max-width: 1000px; */
 }
 
 .submit-btn {
   width: 100%;
-  background-color: #04386b;
+  background-color: #c7712b;
 }
 </style>
