@@ -11,6 +11,7 @@
                 <v-row class="form-first-row">
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
+                      class="mb-3"
                       v-model="employeeInfo.firstName"
                       density="compact"
                       placeholder=""
@@ -41,6 +42,7 @@
                   ></v-col>
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
+                      class="mb-3"
                       label="Email"
                       v-model="employeeInfo.email"
                       density="compact"
@@ -73,11 +75,9 @@
                   </v-col>
                 </v-row>
               </v-col>
-              <v-col cols="12" md="4" sm="12" xs="12">
+              <v-col cols="12" md="4" sm="12" xs="12" class="img-section">
                 <v-img
-                  class="bg-white ml-4"
-                  height="220"
-                  width="300"
+                  class="bg-white ma-0"
                   @click="onClickImage"
                   :aspect-ratio="1"
                   :src="
@@ -104,7 +104,7 @@
                 <v-text-field
                   label="Mother Name"
                   hide-details="auto"
-                  v-model="employeeInfo.spouseName"
+                  v-model="employeeInfo.motherName"
                   density="compact"
                   variant="outlined"
                   type="text"
@@ -112,6 +112,19 @@
                 </v-text-field>
               </v-col>
               <v-col cols="12" md="4" sm="12" xs="12">
+                <v-text-field
+                  label="Spouse Name"
+                  hide-details="auto"
+                  v-model="employeeInfo.spouseName"
+                  density="compact"
+                  variant="outlined"
+                  type="text"
+                >
+                </v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="6" sm="12" xs="12">
                 <v-text-field
                   label="Date of Birth"
                   v-model="employeeInfo.dob"
@@ -123,9 +136,7 @@
                 >
                 </v-text-field>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="4" sm="12" xs="12">
+              <v-col cols="12" md="6" sm="12" xs="12">
                 <v-text-field
                   hide-details="auto"
                   label="Employee Designation"
@@ -135,19 +146,22 @@
                   variant="outlined"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="4" sm="12" xs="12">
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="6" sm="12" xs="12">
                 <v-select
+                  v-model="employeeInfo.genderId"
                   hide-details="auto"
                   label="Gender Id"
                   class="company-size-dropdown"
-                  :items="gender"
-                  v-model="employeeInfo.genderId"
                   density="compact"
                   variant="outlined"
+                  :items="genders"
+                  @update:modelValue="updateGenderId"
                 >
                 </v-select>
               </v-col>
-              <v-col cols="12" md="4" sm="12" xs="12">
+              <v-col cols="12" md="6" sm="12" xs="12">
                 <v-text-field
                   hide-details="auto"
                   label="NID"
@@ -190,7 +204,7 @@ export default {
   name: "AddEmployee",
   data() {
     return {
-      gender: [0, 1, 2],
+      genders: ["male", "female", "other"],
       employeeInfo: {
         firstName: "",
         middleName: "",
@@ -211,6 +225,11 @@ export default {
     };
   },
   methods: {
+    updateGenderId() {
+      this.employeeInfo.genderId = this.genders.indexOf(
+        this.employeeInfo.genderId
+      );
+    },
     renderImage() {
       return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
     },
@@ -231,8 +250,8 @@ export default {
       reader.readAsDataURL(fileObject);
     },
     async addEmployee() {
+      console.log(this.employeeInfo.genderId);
       try {
-        console.log("start");
         const response = await apiCall.post(
           "api/Employee/create",
           this.employeeInfo
@@ -257,13 +276,36 @@ export default {
   background-color: #f0eee7;
 }
 h2 {
+  white-space: nowrap;
+  overflow: hidden;
   font-size: 34px;
+  animation: fadeInUp 1.5s forwards;
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate(0, 50px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .form-card {
   background-color: #e9e0d2;
 }
-
+.img-section {
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  width: 150px;
+}
+.img-section img {
+  display: block;
+}
 .submit-btn {
   width: 100%;
   background-color: #c7712b;

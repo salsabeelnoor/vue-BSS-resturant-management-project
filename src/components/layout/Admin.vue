@@ -77,6 +77,6 @@ export default {
 </script>
 <style scoped>
 .dashboard-container {
-  background-color: #dbbe96e8;
+  background-color: #ffd45f88;
 }
 </style>
