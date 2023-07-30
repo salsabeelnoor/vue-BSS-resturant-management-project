@@ -4,16 +4,19 @@ import CommonLayout from '../../components/layout/Common.vue'
 import LogIn from '../../Views/LogIn.vue'
 import EmployeeList from '../../Views/EmployeeList.vue'
 import AddEmployee from '../../Views/AddEmployee.vue'
+import AuthRequired from '../../utils/AuthRequired'
  
 const routes = [
    {
     path: '/',
     name: 'commonLayout',
+    beforeEnter: AuthRequired,
     component: CommonLayout
    },
    {
     path: '/admin',
     name: 'admin',
+    beforeEnter: AuthRequired,
     component: AdminLayout,
     redirect: '/admin/employee-list',
     children: [

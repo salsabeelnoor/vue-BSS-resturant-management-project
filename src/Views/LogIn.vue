@@ -18,13 +18,14 @@
                   />
                 </svg>
 
-                <p class="d-block form-label">User Name</p>
+                <p class="d-block form-label">User Email</p>
               </div>
               <v-text-field
                 class="mb-1"
+                :rules="[rules.required, rules.email]"
                 v-model="userInfo.userName"
                 density="compact"
-                placeholder="Enter your Name"
+                placeholder="Enter your Email"
                 variant="outlined"
               ></v-text-field>
               <div class="d-flex text-subtitle-1 text-medium-emphasis mb-3">
@@ -46,14 +47,19 @@
               <v-text-field
                 class="mb-3"
                 v-model="userInfo.password"
-                :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                :type="visible ? 'text' : 'password'"
+                :append-inner-icon="
+                  passwordIconVisible ? 'mdi-eye-off' : 'mdi-eye'
+                "
+                :type="passwordIconVisible ? 'text' : 'password'"
                 density="compact"
                 placeholder="Enter your password"
                 variant="outlined"
-                @click:append-inner="visible = !visible"
+                @click:append-inner="passwordIconVisible = !passwordIconVisible"
               ></v-text-field>
               <v-btn class="submit-btn text-white" type="submit">Log In</v-btn>
+              <p v-if="visible" class="text-red text-center mt-3">
+                {{ failedMessage }}
+              </p>
             </v-form>
           </v-col>
         </v-row>
@@ -97,25 +103,44 @@ export default {
       userName: "",
       password: "",
     },
+    failedMessage: "Invalid email or password",
+    passwordIconVisible: false,
     visible: false,
-    rules: [
-      (value) => {
-        if (value) return true;
-
-        return "You must enter a first name.";
+    rules: {
+      required: (value) => !!value || "Required.",
+      counter: (value) => value.length <= 20 || "Max 20 characters",
+      email: (value) => {
+        const pattern =
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || "Invalid e-mail.";
       },
-    ],
+    },
   }),
+
   methods: {
     ...mapActions(["addUserInfo"]),
     submit() {
-      apiCall.post("api/Auth/SignIn", this.userInfo).then((res) => {
-        if (res.data) {
-          console.log("login", res.data);
-          this.addUserInfo(res.data);
-          this.$router.push({ name: "admin" });
-        }
-      });
+      console.log("submit working");
+
+      // if (this.userInfo.userName.trim() === "") {
+      // }
+      apiCall
+        .post("api/Auth/SignIn", this.userInfo)
+        .then((res) => {
+          console.log("api calling");
+
+          if (res.data) {
+            // console.log(res.data);
+            this.visible = false;
+            this.addUserInfo(res.data);
+            this.$router.push({ name: "admin" });
+          } else {
+            this.visible = true;
+          }
+        })
+        .catch((e) => {
+          this.visible = true;
+        });
       // this.$store.dispatch("");
     },
   },

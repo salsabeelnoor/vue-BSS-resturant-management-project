@@ -35,7 +35,7 @@
         <v-list-item
           @click="$router.push('/login')"
           prepend-icon="mdi-star"
-          title="Log in"
+          :title="toggleBtnText"
           value="starred"
         ></v-list-item>
       </v-list>
@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       imageUrl: imageUrl,
+      btnText: "Log In",
     };
   },
   methods: {
@@ -64,6 +65,13 @@ export default {
   },
   computed: {
     ...mapGetters(["user"]),
+    toggleBtnText() {
+      if (this.user) {
+        return (this.btnText = "Log Out");
+      } else {
+        return (this.btnText = "Log In");
+      }
+    },
   },
 };
 </script>

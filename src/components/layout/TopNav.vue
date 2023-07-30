@@ -9,7 +9,7 @@
     >
 
     <!-- <v-btn variant="text" icon="mdi-dots-vertical"></v-btn> -->
-    <v-btn class="login-btn" @click="$router.push('/login')">Log in </v-btn>
+    <v-btn class="login-btn" @click="onNavBtnClick">{{ toggleBtnText }} </v-btn>
   </v-app-bar>
   <!-- <v-main>
     <router-view></router-view>
@@ -30,34 +30,30 @@
   </v-app-bar> -->
 </template>
     <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "TopNav",
   data: () => ({
-    drawer: false,
-    group: null,
-    items: [
-      {
-        title: "Foo",
-        value: "foo",
-      },
-      {
-        title: "Bar",
-        value: "bar",
-      },
-      {
-        title: "Fizz",
-        value: "fizz",
-      },
-      {
-        title: "Buzz",
-        value: "buzz",
-      },
-    ],
+    btnText: "Log In",
   }),
-
-  watch: {
-    group() {
-      this.drawer = false;
+  methods: {
+    ...mapActions(["logOut"]),
+    onNavBtnClick() {
+      if (this.btnText === "Log Out") {
+        this.logOut();
+      }
+      this.$router.push("/login");
+    },
+  },
+  computed: {
+    ...mapGetters(["user"]),
+    toggleBtnText() {
+      if (this.user) {
+        return (this.btnText = "Log Out");
+      } else {
+        return (this.btnText = "Log In");
+      }
     },
   },
 };

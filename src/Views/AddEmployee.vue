@@ -2,6 +2,8 @@
   <section class="login-section">
     <div class="form-container">
       <v-container>
+        <h2 class="text-center pb-10 employee-add-header">Add New Employee</h2>
+
         <v-card class="mx-auto pa-12 pb-8 form-card" elevation="8" rounded="lg">
           <v-form @submit.prevent="addEmployee" ref="form">
             <v-row>
@@ -238,29 +240,28 @@ export default {
       } catch (e) {
         console.log(e);
       }
-
-      // console.log(response);
       this.$refs.form.reset();
     },
   },
 };
 </script>
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .login-section {
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f0eee7;
 }
-.form-container {
-  /* margin-top: 20px; */
-  /* min-height: auto; */
+h2 {
+  font-size: 34px;
 }
 
 .form-card {
   background-color: #e9e0d2;
-  /* max-width: 1000px; */
 }
 
 .submit-btn {

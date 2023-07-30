@@ -6,10 +6,10 @@ export default {
     commit('setToken', payload.token)
     commit('setUser', payload.user)
   },
-  logOut({commit}) {
+  logOut({commit}, _) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     commit('setToken', '')
-    context.commit('setUser', null)
+    commit('setUser', null)
   }
 }
