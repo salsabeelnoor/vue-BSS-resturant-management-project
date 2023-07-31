@@ -239,6 +239,7 @@ export default {
     handleImage(e) {
       const selectedImage = e.target.files[0];
       this.employeeInfo.image = selectedImage.name;
+      // this.employeeInfo.image = URL.createObjectURL(selectedImage);
       this.createBase64Image(selectedImage);
     },
     createBase64Image(fileObject) {
@@ -247,10 +248,10 @@ export default {
         console.log("base 64 working", e.target.result);
         this.employeeInfo.base64 = e.target.result;
       };
+      console.log(this.employeeInfo.base64);
       reader.readAsDataURL(fileObject);
     },
     async addEmployee() {
-      console.log(this.employeeInfo.genderId);
       try {
         const response = await apiCall.post(
           "api/Employee/create",

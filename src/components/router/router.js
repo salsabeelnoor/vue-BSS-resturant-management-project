@@ -4,6 +4,7 @@ import CommonLayout from '../../components/layout/Common.vue'
 import LogIn from '../../Views/LogIn.vue'
 import EmployeeList from '../../Views/EmployeeList.vue'
 import AddEmployee from '../../Views/AddEmployee.vue'
+import EmployeeTable from '../../Views/EmployeeTable.vue'
 import AuthRequired from '../../utils/AuthRequired'
  
 const routes = [
@@ -30,6 +31,11 @@ const routes = [
             name: 'addEmployee',
             component: AddEmployee
         },
+        {
+            path: 'employee-table',
+            name: 'employeeTable',
+            component: EmployeeTable
+        }
     ]
    },
    {

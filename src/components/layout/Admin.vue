@@ -23,12 +23,14 @@
 
       <v-list density="compact" nav>
         <v-list-item
-          prepend-icon="mdi-folder"
+          prepend-icon="mdi-account-multiple"
+          @click="$router.push('/admin')"
           title="Employee List"
           value="employeeList"
         ></v-list-item>
         <v-list-item
-          prepend-icon="mdi-account-multiple"
+          prepend-icon="mdi-table-large"
+          @click="$router.push('/admin/employee-table')"
           title="Employee Table"
           value="employeeShared"
         ></v-list-item>
@@ -77,6 +79,6 @@ export default {
 </script>
 <style scoped>
 .dashboard-container {
-  background-color: #ffd45f88;
+  background-color: #e5c877ce;
 }
 </style>
