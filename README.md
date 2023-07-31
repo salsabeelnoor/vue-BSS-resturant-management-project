@@ -19,9 +19,9 @@ User Friendly online resturant management system with an admin role that allows 
 
 ## Tech Stack
 
-**Client:** Vuejs, Vuetify, vue-router, axios, vuex
+**Client Side:** HTML, CSS, Vuejs, Vuetify
 
-**Server:** C#
+**Server Side:** C#
 
 
 ## Screenshots
