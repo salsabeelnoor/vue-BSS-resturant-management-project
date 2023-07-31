@@ -3,6 +3,7 @@
     <div class="form-container">
       <h2 class="Log-in-header text-white rounded-t-xl">Log In</h2>
       <v-card class="mx-auto form-card" elevation="8" rounded="lg">
+        <Spinner v-if="showSpinner" />
         <v-row class="pa-0 ma-0">
           <v-col cols="12" class="pa-0 ma-0">
             <v-form @submit.prevent="submit">
@@ -93,12 +94,16 @@
   </v-container> -->
 </template>
 <script>
+import Spinner from "../components/utils/Spinner.vue";
 import apiCall from "../api/apiInterface";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "LogIn",
-  components: {},
+  components: {
+    Spinner,
+  },
   data: () => ({
+    showSpinner: false,
     userInfo: {
       userName: "",
       password: "",
@@ -117,28 +122,35 @@ export default {
     },
   }),
 
+  computed: {
+    // ...mapState(["showSpinner", "hideSpinner"]),
+  },
+
   methods: {
     ...mapActions(["addUserInfo"]),
     submit() {
-      console.log("submit working");
-
+      // this.$store.commit("showSpinner");
+      this.showSpinner = true;
+      console.log(this.showSpinner);
       // if (this.userInfo.userName.trim() === "") {
       // }
       apiCall
         .post("api/Auth/SignIn", this.userInfo)
         .then((res) => {
-          console.log("api calling");
-
           if (res.data) {
-            // console.log(res.data);
+            // this.$store.commit("hideSpinner");
+            this.showSpinner = false;
             this.visible = false;
             this.addUserInfo(res.data);
             this.$router.push({ name: "admin" });
           } else {
+            this.showSpinner = false;
+
             this.visible = true;
           }
         })
         .catch((e) => {
+          this.showSpinner = false;
           this.visible = true;
         });
       // this.$store.dispatch("");
@@ -167,6 +179,7 @@ export default {
   background: #6b7a8f;
 }
 .form-card {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

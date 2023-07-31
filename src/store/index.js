@@ -1,10 +1,12 @@
 import {createStore} from 'vuex'
 
 import authModule from './modules/auth/index'
+import spinnerModule from './modules/spinner';
 
 const store = createStore ({
     modules: {
-        auth: authModule
+        auth: authModule,
+        spinner: spinnerModule
     },
 
 })
