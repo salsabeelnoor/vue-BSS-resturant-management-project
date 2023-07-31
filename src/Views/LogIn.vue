@@ -152,7 +152,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0eee7;
+  background-color: #faf3dc;
 }
 .form-container {
   width: clamp(520.5px, -11.875rem + 17.333332999999996vw, 200px);
