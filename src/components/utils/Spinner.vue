@@ -5,7 +5,7 @@
     </div>
   </div>
 </template>
-<style scoped>
+<style>
 @keyframes ldio-bn6j0vmanrk {
   0% {
     transform: rotate(0deg);

@@ -13,30 +13,32 @@
         >
       </v-row>
     </v-container>
-    <v-data-table
-      v-model:page="page"
-      :headers="headers"
-      :items="employees"
-      :items-per-page="itemsPerPage"
-      hide-default-footer
-      class="elevation-5 table rounded-xl"
-    >
-      <template v-slot:bottom>
-        <div class="text-center pt-2">
-          <v-pagination v-model="page" :length="pageCount"></v-pagination>
-          <v-text-field
-            :model-value="itemsPerPage"
-            class="pa-2"
-            label="Items per page"
-            type="number"
-            min="-1"
-            max="15"
-            hide-details
-            @update:model-value="itemsPerPage = parseInt($event, 10)"
-          ></v-text-field>
-        </div>
-      </template>
-      <!-- <v-dialog v-if="dialogDelete" v-model="dialogDelete" max-width="500px">
+    <div class="table-container">
+      <Spinner v-if="showSpinner" class="spinner" />
+      <v-data-table
+        v-model:page="page"
+        :headers="headers"
+        :items="employees"
+        :items-per-page="itemsPerPage"
+        hide-default-footer
+        class="elevation-5 table rounded-xl"
+      >
+        <template v-slot:bottom>
+          <div class="text-center pt-2">
+            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+            <v-text-field
+              :model-value="itemsPerPage"
+              class="pa-2"
+              label="Items per page"
+              type="number"
+              min="-1"
+              max="15"
+              hide-details
+              @update:model-value="itemsPerPage = parseInt($event, 10)"
+            ></v-text-field>
+          </div>
+        </template>
+        <!-- <v-dialog v-if="dialogDelete" v-model="dialogDelete" max-width="500px">
         <v-card>
           <v-card-title class="text-h5"
             >Are you sure you want to delete this item?</v-card-title
@@ -56,16 +58,18 @@
           </v-card-actions>
         </v-card>
       </v-dialog> -->
-      <template v-slot:item.action="{ item }">
-        <v-btn
-          @click="deleteEmployee(item.key)"
-          icon="mdi-delete"
-          class="ma-1"
-          elevation="0"
-        >
-        </v-btn>
-      </template>
-    </v-data-table>
+        <template v-slot:item.action="{ item }">
+          <v-btn
+            @click="deleteEmployee(item.raw)"
+            icon="mdi-delete"
+            class="ma-1"
+            elevation="0"
+          >
+          </v-btn>
+        </template>
+      </v-data-table>
+    </div>
+
     <p class="ma-3 text-red text-center" v-if="errorMessage">
       {{ this.errorMessage }}
     </p>
@@ -73,10 +77,15 @@
 </template>
 <script>
 import apiCall from "../api/apiInterface";
+import Spinner from "../components/utils/Spinner.vue";
 export default {
   name: "EmployeeList",
+  components: {
+    Spinner,
+  },
   data() {
     return {
+      showSpinner: false,
       errorMessage: "",
       dialogDelete: false,
       page: 1,
@@ -113,7 +122,7 @@ export default {
     },
   },
   methods: {
-    async employeeList() {
+    async fetchEmployeeList() {
       try {
         const response = await apiCall.get("api/Employee/datatable");
         const rawData = response.data.data;
@@ -124,7 +133,9 @@ export default {
           designation: employee.designation,
         }));
         console.log(this.employees);
+        this.showSpinner = false;
       } catch (error) {
+        this.showSpinner = false;
         console.error(error);
       }
     },
@@ -132,14 +143,16 @@ export default {
       // this.editedIndex = this.employees.indexOf(employee);
       // this.editedItem = Object.assign({}, employee);
       // this.dialogDelete = true;
-      console.log(employeeId);
+      this.showSpinner = true;
+      console.log(employeeId.userid);
       try {
         const response = await apiCall.delete(
-          `api/Employee/delete/${employeeId}`
+          `api/Employee/delete/${employeeId.userid}`
         );
-        console.log(response);
         console.log(response.message);
+        this.showSpinner = false;
       } catch (e) {
+        this.showSpinner = false;
         this.errorMessage = e.message;
         console.log(e.message);
       }
@@ -161,7 +174,8 @@ export default {
     },
   },
   mounted() {
-    this.employeeList();
+    this.showSpinner = true;
+    this.fetchEmployeeList();
   },
 };
 </script>
@@ -173,6 +187,13 @@ export default {
 .create-btn {
   color: rgb(26, 21, 13);
   background-color: #f99d52;
+}
+.table-container {
+  width: 100%;
+}
+.spinner {
+  top: 150px;
+  left: 800px;
 }
 .table {
   width: 75%;

@@ -132,8 +132,6 @@ export default {
       // this.$store.commit("showSpinner");
       this.showSpinner = true;
       console.log(this.showSpinner);
-      // if (this.userInfo.userName.trim() === "") {
-      // }
       apiCall
         .post("api/Auth/SignIn", this.userInfo)
         .then((res) => {
