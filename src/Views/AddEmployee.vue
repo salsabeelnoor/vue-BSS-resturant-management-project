@@ -150,15 +150,23 @@
             <v-row>
               <v-col cols="12" md="6" sm="12" xs="12">
                 <v-select
-                  v-model="employeeInfo.genderId"
+                  v-model="selectedGender"
                   hide-details="auto"
                   label="Gender Id"
                   class="company-size-dropdown"
                   density="compact"
                   variant="outlined"
+                  item-title="text"
+                  item-value="value"
                   :items="genders"
-                  @update:modelValue="updateGenderId"
                 >
+                  <template v-slot:item="{ item, props }">
+                    <v-list-item v-bind="props">
+                      <template v-slot:title>
+                        {{ item.raw.text }}
+                      </template>
+                    </v-list-item>
+                  </template>
                 </v-select>
               </v-col>
               <v-col cols="12" md="6" sm="12" xs="12">
@@ -205,7 +213,11 @@ export default {
   name: "AddEmployee",
   data() {
     return {
-      genders: ["male", "female", "other"],
+      genders: [
+        {text: "Male", value: 1},
+        {text: "Female", value: 2},
+        {text: "Other", value: 3}
+      ],
       employeeInfo: {
         firstName: "",
         middleName: "",
@@ -219,18 +231,25 @@ export default {
         spouseName: "",
         dob: "",
         nid: "",
-        genderId: 0, //1
+        genderId: 1,
         image: "",
         base64: "",
       },
+      selectedGender: {
+        text: 'Male',
+        value: 1
+      }
     };
   },
+  watch: {
+    selectedGender: {
+      deep: true,
+      handler(value) {
+        this.employeeInfo.genderId = value
+      }
+    }
+  },
   methods: {
-    updateGenderId() {
-      this.employeeInfo.genderId = this.genders.indexOf(
-        this.employeeInfo.genderId
-      );
-    },
     renderImage() {
       return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
     },
