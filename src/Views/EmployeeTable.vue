@@ -1,5 +1,7 @@
 <template>
-  <h2>This is employee Table</h2>
+  <v-container>
+    <h2>This is employee Table</h2>
+  </v-container>
 </template>
 <script>
 export default {

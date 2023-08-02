@@ -1,15 +1,15 @@
 <template>
   <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
 
-  <v-app-bar color="#6B7A8F" prominent class="top-nav px-10">
-    <v-btn icon="mdi-food"></v-btn>
-
-    <v-toolbar-title class="font-weight-medium"
+  <v-app-bar color="" prominent class="top-nav px-10">
+    <v-toolbar-title class="nav-header text-white"
       >BSS Restaurant System</v-toolbar-title
     >
 
     <!-- <v-btn variant="text" icon="mdi-dots-vertical"></v-btn> -->
-    <v-btn class="login-btn" @click="onNavBtnClick">{{ toggleBtnText }} </v-btn>
+    <v-btn class="login-btn rounded-pill" @click="onNavBtnClick"
+      >{{ toggleBtnText }}
+    </v-btn>
   </v-app-bar>
   <!-- <v-main>
     <router-view></router-view>
@@ -62,18 +62,22 @@ export default {
 .top-nav {
   width: 80%;
   margin: 0 auto;
-  background-color: #143d6b;
+  background-color: #54595f;
 }
 .top-nav-container {
   border: 2px solid red;
 }
-.nav-bar-icon {
-}
-.nav-title {
-  border: 2px solid red;
+.nav-header {
+  font-size: 25px;
+  /* font-weight: 600; */
 }
 .login-btn {
-  color: rgb(26, 21, 13);
-  background-color: #f7c331;
+  color: #fff;
+  background-color: rgb(225, 102, 39);
+  transition: all 1s;
+}
+.login-btn:hover {
+  background-color: transparent;
+  border: 2px solid rgb(225, 102, 39);
 }
 </style>

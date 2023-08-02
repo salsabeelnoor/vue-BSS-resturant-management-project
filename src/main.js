@@ -9,6 +9,7 @@ import * as directives from 'vuetify/directives'
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import { library } from '@fortawesome/fontawesome-svg-core'
 
 import store from './store/index'
 import router from './components/router/router'

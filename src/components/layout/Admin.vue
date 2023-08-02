@@ -1,7 +1,6 @@
 <template>
   <v-layout>
     <top-nav></top-nav>
-
     <v-navigation-drawer
       expand-on-hover
       rail
@@ -29,10 +28,22 @@
           value="employeeList"
         ></v-list-item>
         <v-list-item
-          prepend-icon="mdi-table-large"
+          prepend-icon="mdi-clipboard-account"
           @click="$router.push('/admin/employee-table')"
           title="Employee Table"
-          value="employeeShared"
+          value="employeeTable"
+        ></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-table-large"
+          @click="$router.push('/admin/table')"
+          title="Table"
+          value="table"
+        ></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-star "
+          @click="$router.push('/admin/add-table')"
+          title="Add Table"
+          value="table"
         ></v-list-item>
         <v-list-item
           @click="$router.push('/login')"
@@ -79,6 +90,6 @@ export default {
 </script>
 <style scoped>
 .dashboard-container {
-  background-color: #e5c877ce;
+  background-color: #29aae1ab;
 }
 </style>

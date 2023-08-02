@@ -14,7 +14,6 @@
                       class="mb-3"
                       v-model="employeeInfo.firstName"
                       density="compact"
-                      placeholder=""
                       variant="outlined"
                       label="First Name"
                       hide-details="auto"
@@ -44,6 +43,7 @@
                     <v-text-field
                       class="mb-3"
                       label="Email"
+                      type="email"
                       v-model="employeeInfo.email"
                       density="compact"
                       placeholder=""
@@ -200,6 +200,7 @@
 </template>
 <script>
 import apiCall from "../api/apiInterface";
+
 export default {
   name: "AddEmployee",
   data() {

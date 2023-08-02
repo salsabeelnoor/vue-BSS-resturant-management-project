@@ -1,8 +1,8 @@
 export default {
   addUserInfo({commit}, payload) {
-    localStorage.setItem("token", JSON.stringify(payload.token));
+    localStorage.setItem("token", JSON.stringify( 'Bearer ' + payload.token));
     localStorage.setItem("user", JSON.stringify(payload.user));
-    commit('setToken', payload.token)
+    commit('setToken',  'Bearer ' + payload.token)
     commit('setUser', payload.user)
   },
   logOut({commit}, _) {

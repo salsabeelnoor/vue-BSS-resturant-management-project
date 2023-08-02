@@ -6,7 +6,8 @@
 
         <v-col class="d-flex justify-end"
           ><v-btn
-            class="create-btn"
+            class="create-btn rounded-pill"
+            elevation="1"
             @click="$router.push('/admin/add-employee')"
             >Create New</v-btn
           ></v-col
@@ -14,19 +15,22 @@
       </v-row>
     </v-container>
     <div class="table-container">
-      <Spinner v-if="showSpinner" class="spinner" />
+      <div class="spinner-container">
+        <Spinner v-if="showSpinner" class="spinner" />
+      </div>
       <v-data-table
         v-model:page="page"
         :headers="headers"
         :items="employees"
+        :item-class="tableRowStyle"
         :items-per-page="itemsPerPage"
         hide-default-footer
-        class="elevation-5 table rounded-xl"
+        class="table"
       >
         <template v-slot:bottom>
           <div class="text-center pt-2">
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
-            <v-text-field
+            <!-- <v-text-field
               :model-value="itemsPerPage"
               class="pa-2"
               label="Items per page"
@@ -35,7 +39,7 @@
               max="15"
               hide-details
               @update:model-value="itemsPerPage = parseInt($event, 10)"
-            ></v-text-field>
+            ></v-text-field> -->
           </div>
         </template>
         <!-- <v-dialog v-if="dialogDelete" v-model="dialogDelete" max-width="500px">
@@ -61,10 +65,22 @@
         <template v-slot:item.action="{ item }">
           <v-btn
             @click="deleteEmployee(item.raw)"
-            icon="mdi-delete"
-            class="ma-1"
+            class="text-capitalize"
             elevation="0"
+            fab
+            small
           >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9m0 5h2v9H9V8m4 0h2v9h-2V8Z"
+              />
+            </svg>
           </v-btn>
         </template>
       </v-data-table>
@@ -101,7 +117,7 @@ export default {
         { title: "Action", key: "action", value: "action" },
       ],
       employees: [],
-      itemsPerPage: 4,
+      itemsPerPage: 10,
       pageCount: 0,
       editedIndex: -1,
       defaultItem: {
@@ -122,12 +138,17 @@ export default {
     },
   },
   methods: {
+    tableRowStyle() {
+      return "table-row-style";
+    },
     async fetchEmployeeList() {
       try {
-        const response = await apiCall.get("api/Employee/datatable");
+        const response = await apiCall.get(
+          `api/Employee/datatable?page=${this.page}&per_page=${this.itemsPerPage}`
+        );
         const rawData = response.data.data;
         this.employees = rawData.map((employee) => ({
-          userid: employee.userId,
+          userid: employee.id,
           name: employee.name,
           joiningDate: employee.joinDate,
           designation: employee.designation,
@@ -136,7 +157,6 @@ export default {
         this.showSpinner = false;
       } catch (error) {
         this.showSpinner = false;
-        console.error(error);
       }
     },
     async deleteEmployee(employeeId) {
@@ -182,22 +202,43 @@ export default {
 <style scoped>
 .list-view-container {
   min-height: 100vh;
-  background-color: #faf3dc;
+  /* background-color: #faf3dc; */
 }
 .create-btn {
-  color: rgb(26, 21, 13);
-  background-color: #f99d52;
+  background-color: transparent;
+  border: 2px solid rgb(225, 102, 39);
+  transition: all 1s;
+}
+.create-btn:hover {
+  background-color: rgb(225, 102, 39);
+  color: #fff;
 }
 .table-container {
+  position: relative;
   width: 100%;
 }
-.spinner {
-  top: 150px;
-  left: 800px;
+.spinner-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
+.delete-btn {
+  color: #312525;
+  border: 2px solid rgb(225, 102, 39);
+  transition: all 0.5s;
+}
+.delete-btn:hover {
+  background-color: rgb(161, 48, 4);
+  color: #fff;
+}
+
 .table {
   width: 75%;
   margin: auto;
+}
+.tableRowStyle {
+  background-color: red;
 }
 .table tbody {
   background-color: #917d3c !important;
