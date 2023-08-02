@@ -65,7 +65,7 @@
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
                       label="Joining Date"
-                      v-model="employeeInfo.joiningDate"
+                      v-model="employeeInfo.joinDate"
                       density="compact"
                       variant="outlined"
                       type="datetime-local"
@@ -223,7 +223,7 @@ export default {
         middleName: "",
         lastName: "",
         designation: "",
-        joiningDate: "",
+        joinDate: "",
         email: "",
         phoneNumber: "",
         fatherName: "",
@@ -250,6 +250,12 @@ export default {
     }
   },
   methods: {
+    format(date) {
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    },
     renderImage() {
       return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
     },
