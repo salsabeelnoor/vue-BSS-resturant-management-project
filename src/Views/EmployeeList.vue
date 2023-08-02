@@ -64,7 +64,7 @@
       </v-dialog> -->
         <template v-slot:item.action="{ item }">
           <v-btn
-            @click="deleteEmployee(item.raw)"
+            @click="deleteEmployee(item.raw.id)"
             class="text-capitalize"
             elevation="0"
             fab
@@ -112,9 +112,9 @@ export default {
           sortable: false,
           title: "Employee Name",
         },
-        { title: "Joining Date", key: "joiningDate" },
+        { title: "Joining Date", key: "joinDate" },
         { title: "Designation", key: "designation" },
-        { title: "Action", key: "action", value: "action" },
+        { title: "Action", key: "action" },
       ],
       employees: [],
       itemsPerPage: 10,
@@ -146,31 +146,26 @@ export default {
         const response = await apiCall.get(
           `api/Employee/datatable?page=${this.page}&per_page=${this.itemsPerPage}`
         );
-        const rawData = response.data.data;
-        this.employees = rawData.map((employee) => ({
-          userid: employee.id,
-          name: employee.name,
-          joiningDate: employee.joinDate,
-          designation: employee.designation,
-        }));
-        console.log(this.employees);
+        this.employees = response.data.data;
+        console.log(this.employees)
         this.showSpinner = false;
       } catch (error) {
         this.showSpinner = false;
       }
     },
-    async deleteEmployee(employeeId) {
+    async deleteEmployee(id) {
+      console.log(id)
       // this.editedIndex = this.employees.indexOf(employee);
       // this.editedItem = Object.assign({}, employee);
       // this.dialogDelete = true;
       this.showSpinner = true;
-      console.log(employeeId.userid);
       try {
         const response = await apiCall.delete(
-          `api/Employee/delete/${employeeId.userid}`
+          `api/Employee/delete/${id}`
         );
         console.log(response.message);
         this.showSpinner = false;
+        await this.fetchEmployeeList();
       } catch (e) {
         this.showSpinner = false;
         this.errorMessage = e.message;
@@ -187,10 +182,6 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
-    },
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
     },
   },
   mounted() {
