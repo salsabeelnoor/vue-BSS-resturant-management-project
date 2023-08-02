@@ -2,8 +2,9 @@
   <v-layout>
     <top-nav></top-nav>
     <v-navigation-drawer
-      expand-on-hover
-      rail
+      :rail="rail"
+      permanent
+      @click="rail = false"
       class="dashboard-drawer dashboard-container"
     >
       <v-list>
@@ -15,7 +16,15 @@
           "
           :title="user.fullName"
           :subtitle="user.userName"
-        ></v-list-item>
+        >
+          <template v-slot:append>
+            <v-btn
+                    variant="text"
+                    icon="mdi-chevron-left"
+                    @click.stop="rail = !rail"
+            ></v-btn>
+          </template>
+        </v-list-item>
       </v-list>
 
       <v-divider></v-divider>
@@ -69,6 +78,7 @@ export default {
   },
   data() {
     return {
+      rail: true,
       imageUrl: imageUrl,
       btnText: "Log In",
     };
