@@ -1,16 +1,16 @@
 
-# BSS Restaurant management
+# BSS Resturant management
 
 
 ## Frontend
- A test project for user friendly online restaurant management system with an admin role that allows adding new chef and waiters as well as assigning waiters to specific or multiple tables in the restaurant. The frontend interface enables customers to effortlessly place orders and make table reservations according to their preferences. 
+User Friendly online resturant management system with an admin role that allows adding new chef and waiters as well as assiging waiters to specific or multiple tables in the resturant. The frontend interface enables customers to effortlessly place orders and make table reservations according to their preferences. 
 
 
 ## Features
 
 - User Login
 - Employee management
-- Restaurant Table management
+- Resturant Table management
 - Food Menu
 - Order placement
 - Admin Dashboard
@@ -19,9 +19,9 @@
 
 ## Tech Stack
 
-**Client Side:** HTML, CSS, Vuejs, Vuetify
+**Client:** Vuejs, Vuetify, vue-router, axios, vuex
 
-**Server Side:** C#
+**Server:** C#
 
 
 ## Screenshots
@@ -29,14 +29,15 @@
 
 ![App Screenshot](src/assets/projectImages/login.png)
 
-    2. Add new Table Page
+    2. Add new employee Page
 
-![App Screenshot](src/assets/projectImages/add-newTable.png)
+![App Screenshot](src/assets/projectImages/add-employee.png)
 
     3. Employee List Page
     
 ![App Screenshot](src/assets/projectImages/employee-list.png)
-    4. Employee List Page
+
+    4. Add new Food Page
     
 ![App Screenshot](src/assets/projectImages/add-food.png)
 ## Login Information
