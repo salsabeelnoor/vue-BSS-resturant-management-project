@@ -8,19 +8,20 @@ import AddEmployee from '../../Views/AddEmployee.vue'
 import EmployeeTable from '../../Views/EmployeeTable.vue'
 import Table from '../../Views/Table.vue'
 import AddTable from '../../Views/AddTable.vue'
+import AddFood from '../../Views/AddFood.vue'
 import AuthRequired from '../../utils/AuthRequired'
  
 const routes = [
    {
     path: '/',
     name: 'commonLayout',
-    // beforeEnter: AuthRequired,
+    beforeEnter: AuthRequired,
     component: CommonLayout
    },
    {
     path: '/admin',
     name: 'admin',
-    // beforeEnter: AuthRequired,
+    beforeEnter: AuthRequired,
     component: AdminLayout,
     redirect: '/admin/employee-list',
     children: [
@@ -48,7 +49,12 @@ const routes = [
             path: 'add-table',
             name: 'addTable',
             component: AddTable
-        }
+        },
+        {
+            path: 'add-food',
+            name: 'addFood',
+            component: AddFood
+        },
     ]
    },
    {

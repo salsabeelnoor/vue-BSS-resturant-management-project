@@ -24,7 +24,7 @@
 **Server Side:** C#
 
 
-<!-- ## Screenshots
+## Screenshots
     1. Log In page
 
 ![App Screenshot](src/assets/projectImages/login.png)
@@ -35,7 +35,10 @@
 
     3. Employee List Page
     
-![App Screenshot](src/assets/projectImages/employee-list.png) -->
+![App Screenshot](src/assets/projectImages/employee-list.png)
+    4. Employee List Page
+    
+![App Screenshot](src/assets/projectImages/add-food.png)
 ## Login Information
 **email**: admin@mail.com
 

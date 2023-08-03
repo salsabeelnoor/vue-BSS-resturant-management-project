@@ -6,14 +6,14 @@
       </div>
     </v-container>
     <v-data-table-server
-      v-model:page="page"
+      v-model:items-per-page="itemsPerPage"
       :headers="headers"
-      :items="tableInfo"
+      :items-length="totalItems"
+      :items="tableList"
       :item-class="tableRowStyle"
       :items-per-page="itemsPerPage"
       hide-default-footer
       class="table"
-      :items-length="totalItems"
       @update:options="fetchTableInfo"
     >
       <!-- <template v-slot:item.available="{ item }">
@@ -40,10 +40,10 @@
               <v-select
                 class="mt-3"
                 v-model="selectedEmployees"
-                :items="employeeInfo"
+                :items="employeeList"
                 label="Items"
                 item-title="name"
-                item-value="id"
+                item-value="employeeId"
                 chips
                 multiple
               ></v-select>
@@ -121,6 +121,16 @@
           </svg>
         </v-btn>
       </template>
+      <template v-slot:item.image="{ item }">
+        <v-img width="45" height="45" :src="renderImage(item.raw.image)" />
+      </template>
+      <template v-slot:item.employees="{ item }">
+        <ul>
+          <li v-for="(employee, index) in item.raw.employees">
+            {{ employee.name }}
+          </li>
+        </ul>
+      </template>
     </v-data-table-server>
     <div class="btn-container">
       <v-btn class="create-btn">ADD New Table</v-btn>
@@ -129,41 +139,43 @@
 </template>
 <script>
 import ApiCall from "../api/apiInterface";
+import { imageUrl } from "../constants/config";
 export default {
   name: "Table",
   data() {
     return {
+      imageUrl: imageUrl,
       selectedEmployees: [],
       tableRowStyle: "",
-      page: 1,
-      dialog: false,
       itemsPerPage: 10,
-      tableInfo: [],
+      totalPages: 0,
+      totalItems: 0,
+      sortBy: "",
+      dialog: false,
+      tableList: [],
       selectedTable: null,
-      employeeInfo: [
-        {
-          name: "",
-          id: "",
-        },
-      ],
+      employeeList: [],
       selectedEmployeeId: [],
       formData: [],
       employees: [],
       AssignedEmployee: [],
-      totalItems: 0,
-      totalPages: 0,
       employees: [],
       headers: [
         {
           align: "start",
+          key: "image",
+          sortable: false,
+          title: "Table",
+        },
+        {
           key: "tableNumber",
           sortable: false,
           title: "Table Number",
         },
-        { align: "start", title: "Number Of Seats", key: "numberOfSeats" },
-        { align: "start", title: "Employee Name", key: "employeeAssign" },
-        { align: "start", title: "Availability", key: "available" },
-        { align: "start", title: "Add Employee", key: "action" },
+        { title: "Number Of Seats", key: "numberOfSeats" },
+        { title: "Assigned Employees", key: "employees" },
+        { title: "Availability", key: "available" },
+        { title: "Add Employee", key: "action" },
       ],
     };
   },
@@ -183,6 +195,13 @@ export default {
     },
   },
   methods: {
+    renderImage(image) {
+      if (image == "") {
+        return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
+      } else {
+        return this.imageUrl + "table/" + image;
+      }
+    },
     async fetchTableInfo({ page, itemsPerPage, sortBy }) {
       try {
         this.page = page ??= this.page;
@@ -191,7 +210,7 @@ export default {
         const response = await ApiCall.get(
           `api/Table/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
         );
-        this.tableInfo = response.data.data;
+        this.tableList = response.data.data;
         this.totalPages = response.data.totalPages;
         this.totalItems = response.data.total;
       } catch (error) {
@@ -209,17 +228,19 @@ export default {
     async save() {
       try {
         await ApiCall.post("api/EmployeeTable/create-range", this.formData);
+        await this.fetchEmployeeList({
+          page: this.page,
+          itemsPerPage: this.itemsPerPage,
+          sortBy: this.sortBy,
+        });
       } catch (e) {
         console.log(e);
       }
     },
     async fetchEmployeeList() {
       try {
-        const response = await ApiCall.get(`api/Employee/datatable`);
-        this.employees = response.data.data;
-        this.employeeInfo = this.employees.map((employee) => {
-          return { name: employee.name, id: employee.id };
-        });
+        const response = await ApiCall.get(`api/Employee/get`);
+        this.employeeList = response.data;
       } catch (error) {
         console.log(error);
       }

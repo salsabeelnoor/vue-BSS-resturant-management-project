@@ -13,6 +13,8 @@ import "vue-toastification/dist/index.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import mdiVue from 'mdi-vue/v3'
+import * as mdijs from '@mdi/js'
 
 import store from './store/index'
 import router from './components/router/router'
@@ -25,6 +27,7 @@ createApp(App)
     .component('VueDatePicker', VueDatePicker)
     .use(vuetify)
     .use(router)
+    
     .use(store)
     .use(Toast, {
       transition: "Vue-Toastification__bounce",
