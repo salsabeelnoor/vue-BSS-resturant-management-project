@@ -2,6 +2,7 @@
   <v-layout>
     <top-nav></top-nav>
     <v-navigation-drawer
+      v-model="drawer"
       :rail="rail"
       permanent
       @click="rail = false"
@@ -19,9 +20,9 @@
         >
           <template v-slot:append>
             <v-btn
-                    variant="text"
-                    icon="mdi-chevron-left"
-                    @click.stop="rail = !rail"
+              variant="text"
+              icon="mdi-chevron-left"
+              @click.stop="rail = !rail"
             ></v-btn>
           </template>
         </v-list-item>
@@ -78,6 +79,7 @@ export default {
   },
   data() {
     return {
+      drawer: true,
       rail: true,
       imageUrl: imageUrl,
       btnText: "Log In",
