@@ -4,7 +4,7 @@
       <v-col class="d-flex justify-space-between">
         <h4>Employee List</h4>
         <v-btn
-          class="create-btn rounded-pill"
+          class="create-btn rounded-pill mb-4"
           elevation="1"
           @click="$router.push('/admin/add-employee')"
           >Create New
