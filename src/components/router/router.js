@@ -14,13 +14,13 @@ const routes = [
    {
     path: '/',
     name: 'commonLayout',
-    beforeEnter: AuthRequired,
+    // beforeEnter: AuthRequired,
     component: CommonLayout
    },
    {
     path: '/admin',
     name: 'admin',
-    beforeEnter: AuthRequired,
+    // beforeEnter: AuthRequired,
     component: AdminLayout,
     redirect: '/admin/employee-list',
     children: [

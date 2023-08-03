@@ -1,4 +1,12 @@
 <template>
+  <!-- :prepend-avatar="
+            user.image
+              ? imageUrl + 'user/' + user.image
+              : 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'
+          "
+          :title="user.fullName"
+          :subtitle="user.userName" 
+        -->
   <v-layout>
     <top-nav></top-nav>
     <v-navigation-drawer
@@ -54,12 +62,6 @@
           @click="$router.push('/admin/add-table')"
           title="Add Table"
           value="table"
-        ></v-list-item>
-        <v-list-item
-          @click="$router.push('/login')"
-          prepend-icon="mdi-star"
-          :title="toggleBtnText"
-          value="starred"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>

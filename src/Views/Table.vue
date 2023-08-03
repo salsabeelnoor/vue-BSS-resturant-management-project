@@ -206,7 +206,13 @@ export default {
       this.dialog = false;
       // this.selectedTable = null;
     },
-    save() {},
+    async save() {
+      try {
+        await ApiCall.post("api/EmployeeTable/create-range", this.formData);
+      } catch (e) {
+        console.log(e);
+      }
+    },
     async fetchEmployeeList() {
       try {
         const response = await ApiCall.get(`api/Employee/datatable`);

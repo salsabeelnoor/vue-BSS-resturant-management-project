@@ -279,10 +279,7 @@ export default {
     },
     async addEmployee() {
       try {
-        const response = await apiCall.post(
-          "api/Employee/create",
-          this.employeeInfo
-        );
+        await apiCall.post("api/Employee/create", this.employeeInfo);
       } catch (e) {
         console.log(e);
       }

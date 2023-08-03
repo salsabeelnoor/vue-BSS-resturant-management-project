@@ -1,19 +1,16 @@
 <template>
   <section class="list-view-container">
-    <v-container>
-      <v-row>
-        <v-col>Employee List</v-col>
-
-        <v-col class="d-flex justify-end">
-          <v-btn
-            class="create-btn rounded-pill"
-            elevation="1"
-            @click="$router.push('/admin/add-employee')"
-            >Create New
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-row class="mx-4 mt-4">
+      <v-col class="d-flex justify-space-between">
+        <h4>Employee List</h4>
+        <v-btn
+          class="create-btn rounded-pill"
+          elevation="1"
+          @click="$router.push('/admin/add-employee')"
+          >Create New
+        </v-btn>
+      </v-col>
+    </v-row>
     <div class="table-container">
       <div class="spinner-container">
         <Spinner v-if="showSpinner" class="spinner" />
@@ -23,7 +20,7 @@
         :headers="headers"
         :items-length="totalItems"
         :items="employees"
-        class="elevation-1"
+        class="elevation-1 border"
         item-value="name"
         @update:options="fetchEmployeeList"
       >
@@ -48,6 +45,9 @@
             </svg>
           </v-btn>
         </template>
+        <template v-slot:item.image="{ item }">
+          <v-img width="35" fab :src="renderImage(item.raw.user.image)" />
+        </template>
       </v-data-table-server>
     </div>
     <p class="ma-3 text-red text-center" v-if="errorMessage">
@@ -58,7 +58,7 @@
 <script>
 import apiCall from "../api/apiInterface";
 import Spinner from "../components/utils/Spinner.vue";
-
+import { imageUrl } from "../constants/config";
 export default {
   name: "EmployeeList",
   components: {
@@ -66,16 +66,37 @@ export default {
   },
   data() {
     return {
+      imageUrl: imageUrl,
       showSpinner: false,
       errorMessage: "",
       dialogDelete: false,
       page: 1,
       headers: [
         {
-          align: "center",
-          key: "name",
+          align: "start",
+          key: "image",
           sortable: false,
-          title: "Employee Name",
+          title: "Image",
+        },
+        {
+          key: "user.fullName",
+          sortable: false,
+          title: "Employee",
+        },
+        {
+          key: "user.email",
+          sortable: false,
+          title: "Email",
+        },
+        {
+          key: "user.phoneNumber",
+          sortable: false,
+          title: "Phone",
+        },
+        {
+          key: "user.dob",
+          sortable: false,
+          title: "Date of Birth",
         },
         { title: "Joining Date", key: "joinDate" },
         { title: "Designation", key: "designation" },
@@ -101,6 +122,13 @@ export default {
   },
   computed: {},
   methods: {
+    renderImage(image) {
+      if (image == "") {
+        return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
+      } else {
+        return this.imageUrl + "user/" + image;
+      }
+    },
     tableRowStyle() {
       return "table-row-style";
     },

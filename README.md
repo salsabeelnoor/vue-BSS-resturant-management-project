@@ -24,18 +24,18 @@
 **Server Side:** C#
 
 
-## Screenshots
+<!-- ## Screenshots
     1. Log In page
 
 ![App Screenshot](src/assets/projectImages/login.png)
 
-    2. Add new employee Page
+    2. Add new Table Page
 
 ![App Screenshot](src/assets/projectImages/add-newTable.png)
 
     3. Employee List Page
     
-![App Screenshot](src/assets/projectImages/employee-list.png)
+![App Screenshot](src/assets/projectImages/employee-list.png) -->
 ## Login Information
 **email**: admin@mail.com
 

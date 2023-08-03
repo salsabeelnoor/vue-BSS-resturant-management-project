@@ -8,7 +8,7 @@
         <h2 class="text-center mb-8">Have an account?</h2>
 
         <div class="spinner-container">
-          <Spinner v-if="showSpinner" />
+          <Spinner v-if="showSpinner" class="spinner" />
         </div>
         <v-form @submit.prevent="submit">
           <div class="d-flex text-subtitle-1 text-medium-emphasis mb-3">
@@ -138,7 +138,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fbcc34;
+  background-color: #ccc;
 }
 .login-container {
   display: flex;
@@ -188,10 +188,12 @@ export default {
 
 .spinner-container {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
   width: 100%;
 }
 .svg-icon {
