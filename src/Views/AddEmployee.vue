@@ -214,9 +214,9 @@ export default {
   data() {
     return {
       genders: [
-        {text: "Male", value: 1},
-        {text: "Female", value: 2},
-        {text: "Other", value: 3}
+        { text: "Male", value: 1 },
+        { text: "Female", value: 2 },
+        { text: "Other", value: 3 },
       ],
       employeeInfo: {
         firstName: "",
@@ -236,18 +236,18 @@ export default {
         base64: "",
       },
       selectedGender: {
-        text: 'Male',
-        value: 1
-      }
+        text: "Male",
+        value: 1,
+      },
     };
   },
   watch: {
     selectedGender: {
       deep: true,
       handler(value) {
-        this.employeeInfo.genderId = value
-      }
-    }
+        this.employeeInfo.genderId = value;
+      },
+    },
   },
   methods: {
     format(date) {

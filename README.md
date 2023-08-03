@@ -31,7 +31,7 @@
 
     2. Add new employee Page
 
-![App Screenshot](src/assets/projectImages/add-employee.png)
+![App Screenshot](src/assets/projectImages/add-newTable.png)
 
     3. Employee List Page
     

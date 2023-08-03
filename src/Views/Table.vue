@@ -31,13 +31,22 @@
         <v-dialog v-model="dialog" max-width="500px">
           <v-card>
             <v-card-text>
-              <div class="modal-text d-flex">
+              <div class="modal-text d-flex mt-5">
                 <h3>Table Number: {{ selectedTable.tableNumber }}</h3>
               </div>
-              <div class="modal-text d-flex">
+              <div class="modal-text d-flex mt-3">
                 <h3>Number of Seats: {{ selectedTable.numberOfSeats }}</h3>
               </div>
-              <v-select :items="getEmployeeNames" label="Items"></v-select>
+              <v-select
+                class="mt-3"
+                v-model="selectedEmployees"
+                :items="employeeInfo"
+                label="Items"
+                item-title="name"
+                item-value="id"
+                chips
+                multiple
+              ></v-select>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -52,17 +61,42 @@
         </v-dialog>
       </template>
       <template v-slot:item.available="{ item }">
-        <div v-if="item.isOccupied">Not Available</div>
+        <svg
+          v-if="item.isOccupied"
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+        >
+          <path
+            fill="#45413c"
+            d="M9.76 45.14a14.24 1.86 0 1 0 28.48 0a14.24 1.86 0 1 0-28.48 0Z"
+            opacity=".15"
+          />
+          <path
+            fill="#ff6242"
+            d="m40.06 12.76l-4.82-4.82a1.24 1.24 0 0 0-1.75 0L24 17.43l-9.49-9.49a1.24 1.24 0 0 0-1.75 0l-4.82 4.82a1.24 1.24 0 0 0 0 1.75L17.43 24l-9.49 9.49a1.24 1.24 0 0 0 0 1.75l4.82 4.82a1.24 1.24 0 0 0 1.75 0L24 30.57l9.49 9.49a1.24 1.24 0 0 0 1.75 0l4.82-4.82a1.24 1.24 0 0 0 0-1.75L30.57 24l9.49-9.49a1.24 1.24 0 0 0 0-1.75Z"
+          />
+          <path
+            fill="#ff866e"
+            d="m9 15.6l3.73-3.73a1.23 1.23 0 0 1 1.75 0L24 21.35l9.49-9.48a1.23 1.23 0 0 1 1.75 0L39 15.6l1.09-1.09a1.24 1.24 0 0 0 0-1.75l-4.85-4.82a1.24 1.24 0 0 0-1.75 0L24 17.43l-9.49-9.49a1.24 1.24 0 0 0-1.75 0l-4.82 4.82a1.24 1.24 0 0 0 0 1.75Z"
+          />
+          <path
+            fill="none"
+            stroke="#45413c"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m40.06 12.76l-4.82-4.82a1.24 1.24 0 0 0-1.75 0L24 17.43l-9.49-9.49a1.24 1.24 0 0 0-1.75 0l-4.82 4.82a1.24 1.24 0 0 0 0 1.75L17.43 24l-9.49 9.49a1.24 1.24 0 0 0 0 1.75l4.82 4.82a1.24 1.24 0 0 0 1.75 0L24 30.57l9.49 9.49a1.24 1.24 0 0 0 1.75 0l4.82-4.82a1.24 1.24 0 0 0 0-1.75L30.57 24l9.49-9.49a1.24 1.24 0 0 0 0-1.75Z"
+          />
+        </svg>
         <svg
           v-else
           class="is-available-icon"
           xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
           viewBox="0 0 20 20"
         >
           <path
-            fill=""
+            fill="#008000"
             d="M11.707 6.707a1 1 0 0 0-1.414-1.414L7 8.586L5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2Z"
           />
         </svg>
@@ -99,12 +133,20 @@ export default {
   name: "Table",
   data() {
     return {
+      selectedEmployees: [],
       tableRowStyle: "",
       page: 1,
       dialog: false,
       itemsPerPage: 10,
       tableInfo: [],
       selectedTable: null,
+      employeeInfo: [
+        {
+          name: "",
+          id: "",
+        },
+      ],
+      selectedEmployeeId: [],
       formData: [],
       employees: [],
       AssignedEmployee: [],
@@ -125,9 +167,19 @@ export default {
       ],
     };
   },
-  computed: {
-    getEmployeeNames() {
-      return this.employees.map((employee) => employee.name);
+  watch: {
+    selectedEmployees: {
+      deep: true,
+      handler(value) {
+        this.formData = [];
+        value.forEach((employeeId) => {
+          this.formData.push({
+            employeeId: employeeId,
+            tableId: this.selectedTable.id,
+          });
+        });
+        console.log(this.formData);
+      },
     },
   },
   methods: {
@@ -159,9 +211,9 @@ export default {
       try {
         const response = await ApiCall.get(`api/Employee/datatable`);
         this.employees = response.data.data;
-        console.log(this.employees);
-
-        console.log(this.employees.name);
+        this.employeeInfo = this.employees.map((employee) => {
+          return { name: employee.name, id: employee.id };
+        });
       } catch (error) {
         console.log(error);
       }
@@ -178,7 +230,8 @@ export default {
   background-color: #f0f4f9;
 }
 .is-available-icon {
-  color: green;
+  width: 25px;
+  color: #008000;
 }
 .btn-container {
   width: 90%;
