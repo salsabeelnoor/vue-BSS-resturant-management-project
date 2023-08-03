@@ -29,13 +29,13 @@ User Friendly online resturant management system with an admin role that allows 
 
 ![App Screenshot](src/assets/projectImages/login.png)
 
-    2. Add new employee Page
-
-![App Screenshot](src/assets/projectImages/add-employee.png)
-
-    3. Employee List Page
+    2. Employee List Page
     
 ![App Screenshot](src/assets/projectImages/employee-list.png)
+
+    3. Add new Table Page
+
+![App Screenshot](src/assets/projectImages/add-newTable.png)
 
     4. Add new Food Page
     
