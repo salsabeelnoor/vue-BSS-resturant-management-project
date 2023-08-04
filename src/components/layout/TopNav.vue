@@ -3,7 +3,7 @@
 
   <v-app-bar color="" prominent class="top-nav px-10" elevation="0">
     <v-toolbar-title class="nav-header text-black">
-      <v-btn icon="mdi-format-align-justify"></v-btn
+      <v-btn @click="toggleDashboard" icon="mdi-format-align-justify"></v-btn
     ></v-toolbar-title>
 
     <!-- <v-btn variant="text" icon="mdi-dots-vertical"></v-btn> -->
@@ -13,14 +13,19 @@
   </v-app-bar>
 </template>
     <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "TopNav",
   data: () => ({
     btnText: "Log In",
+    toggleDashBoard: false,
   }),
   methods: {
+    ...mapMutations(["TOGGLE_DASHBOARD"]),
+    toggleDashboard() {
+      this.TOGGLE_DASHBOARD();
+    },
     ...mapActions(["logOut"]),
     renderImage() {
       return new URL("../../assets/logo-images/bLogo_2.png", import.meta.url)

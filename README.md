@@ -36,9 +36,6 @@ User Friendly online resturant management system with an admin role that allows 
 **password** Admin@123
 
 
-
-
-
 ## Live site : https://sunny-praline-a2263b.netlify.app/
 
 

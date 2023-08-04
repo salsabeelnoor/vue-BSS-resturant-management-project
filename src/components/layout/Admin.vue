@@ -1,6 +1,9 @@
 <template>
   <v-layout>
-    <v-navigation-drawer permanent class="dashboard-drawer dashboard-container">
+    <v-navigation-drawer
+      v-model="$store.state.toggleDashboard"
+      class="dashboard-drawer dashboard-container"
+    >
       <v-list class="logo-item">
         <v-list-item class="d-flex justify-center">
           <h2>BSS Eatery</h2>
@@ -71,6 +74,9 @@ export default {
       imageUrl: imageUrl,
       btnText: "Log In",
     };
+  },
+  computed: {
+    ...mapGetters(["isDashboardToggled"]),
   },
   methods: {
     renderImage() {
