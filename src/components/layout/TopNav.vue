@@ -1,14 +1,13 @@
 <template>
   <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
 
-  <v-app-bar color="" prominent class="top-nav px-10" elevation="0">
+  <v-app-bar color="" prominent class="top-nav" elevation="0">
     <v-toolbar-title class="nav-header text-black">
       <v-btn @click="toggleDashboard" icon="mdi-format-align-justify"></v-btn
     ></v-toolbar-title>
-
-    <!-- <v-btn variant="text" icon="mdi-dots-vertical"></v-btn> -->
-    <v-btn class="login-btn" size="large" @click="onNavBtnClick"
-      >{{ toggleBtnText }}
+    <v-btn class="login-btn" size="large" @click="onNavBtnClick">
+      <v-icon icon="mdi-logout" class="d-flex d-md-none"></v-icon>
+      <p class="d-none d-xl-flex">{{ toggleBtnText }}</p>
     </v-btn>
   </v-app-bar>
 </template>
@@ -61,6 +60,7 @@ export default {
 .nav-header {
   font-size: 25px;
 }
+
 .login-btn {
   font-size: 16px;
   text-transform: capitalize;

@@ -304,7 +304,7 @@ export default {
   background-size: cover;
 }
 h2 {
-  white-space: nowrap;
+  white-space: wrap;
   overflow: hidden;
   font-size: 34px;
   animation: fadeInUp 1.5s forwards;
