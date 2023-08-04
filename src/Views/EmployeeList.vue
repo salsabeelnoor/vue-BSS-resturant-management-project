@@ -2,7 +2,7 @@
   <section class="list-view-container">
     <v-container>
       <v-row class="mx-4 mt-2">
-        <v-col class="d-flex justify-space-between header">
+        <v-col class="header">
           <h4>Employee List</h4>
           <v-btn
             class="create-btn"
@@ -190,7 +190,18 @@ export default {
   background-color: #f0f4f9;
 }
 .header {
-  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: clamp(1rem, -0.875rem + 8.333vw, 3.5rem);
+}
+@media (min-width: 992px) {
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 24px;
+  }
 }
 
 .create-btn {
