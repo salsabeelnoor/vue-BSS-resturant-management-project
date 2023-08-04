@@ -1,21 +1,12 @@
 <template>
-  <!-- :prepend-avatar="
-            user.image
-              ? imageUrl + 'user/' + user.image
-              : 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'
-          "
-          :title="user.fullName"
-          :subtitle="user.userName" 
-        -->
   <v-layout>
-    <top-nav></top-nav>
-    <v-navigation-drawer
-      v-model="drawer"
-      :rail="rail"
-      permanent
-      @click="rail = false"
-      class="dashboard-drawer dashboard-container"
-    >
+    <v-navigation-drawer permanent class="dashboard-drawer dashboard-container">
+      <v-list class="logo-item">
+        <v-list-item class="d-flex justify-center">
+          <h2>BSS Eatery</h2>
+        </v-list-item>
+        <v-divider></v-divider>
+      </v-list>
       <v-list>
         <v-list-item
           :prepend-avatar="
@@ -26,13 +17,6 @@
           :title="user.fullName"
           :subtitle="user.userName"
         >
-          <template v-slot:append>
-            <v-btn
-              variant="text"
-              icon="mdi-chevron-left"
-              @click.stop="rail = !rail"
-            ></v-btn>
-          </template>
         </v-list-item>
       </v-list>
 
@@ -63,8 +47,15 @@
           title="Add Table"
           value="table"
         ></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-star "
+          @click="$router.push('/admin/add-food')"
+          title="Add Food"
+          value="table"
+        ></v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <top-nav></top-nav>
     <v-main>
       <router-view />
     </v-main>
@@ -88,6 +79,10 @@ export default {
     };
   },
   methods: {
+    renderImage() {
+      return new URL("../../assets/logo-images/bLogo_2.png", import.meta.url)
+        .href;
+    },
     ...mapActions(["logOut"]),
   },
   computed: {
@@ -104,6 +99,7 @@ export default {
 </script>
 <style scoped>
 .dashboard-container {
-  background-color: #29aae1ab;
+  background-color: #3e547c;
+  color: white;
 }
 </style>

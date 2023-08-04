@@ -3,71 +3,72 @@
     <div class="form-container">
       <v-container>
         <h2 class="text-center pb-10 employee-add-header">Add New Employee</h2>
-
-        <v-card class="mx-auto pa-12 pb-8 form-card" elevation="8" rounded="lg">
+        <v-card class="mx-auto pa-12 pb-8 form-card" elevation="0">
           <v-form @submit.prevent="addEmployee" ref="form">
             <v-row>
-              <v-col cols="12" md="8" sm="12" xs="12">
+              <v-col cols="12" md="9" sm="12" xs="12">
                 <v-row class="form-first-row">
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
-                      class="mb-3"
+                      class="text-field mb-5 text-field"
                       v-model="employeeInfo.firstName"
                       density="compact"
-                      variant="outlined"
                       label="First Name"
                       hide-details="auto"
                     ></v-text-field
                   ></v-col>
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
+                      class="text-field mb-5"
                       label="Middle Name"
                       v-model="employeeInfo.middleName"
                       density="compact"
                       placeholder=""
-                      variant="outlined"
                       hide-details="auto"
                     ></v-text-field
                   ></v-col>
+                </v-row>
+                <v-row>
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
+                      class="text-field mb-5"
                       label="Last Name"
                       v-model="employeeInfo.lastName"
                       density="compact"
                       placeholder=""
-                      variant="outlined"
                       hide-details="auto"
                     ></v-text-field
                   ></v-col>
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
-                      class="mb-3"
+                      class="text-field mb-5"
                       label="Email"
                       type="email"
                       v-model="employeeInfo.email"
                       density="compact"
                       placeholder=""
-                      variant="outlined"
                       hide-details="auto"
                     ></v-text-field>
                   </v-col>
+                </v-row>
+                <v-row>
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
+                      class="text-field mb-4"
                       hide-details="auto"
                       label="Phone Number"
                       v-model="employeeInfo.phoneNumber"
                       density="compact"
-                      variant="outlined"
                       type="number"
                     >
                     </v-text-field>
                   </v-col>
                   <v-col cols="12" md="6" sm="12" xs="12">
                     <v-text-field
+                      class="text-field mb-4"
                       label="Joining Date"
                       v-model="employeeInfo.joinDate"
                       density="compact"
-                      variant="outlined"
                       type="datetime-local"
                       hide-details="auto"
                     >
@@ -75,9 +76,15 @@
                   </v-col>
                 </v-row>
               </v-col>
-              <v-col cols="12" md="4" sm="12" xs="12" class="img-section">
+              <v-col
+                cols="12"
+                md="3"
+                sm="12"
+                xs="12"
+                class="img-section pseudo-class"
+              >
                 <v-img
-                  class="bg-white ma-0"
+                  class="ma-12"
                   @click="onClickImage"
                   :aspect-ratio="1"
                   :src="
@@ -91,10 +98,10 @@
             <v-row>
               <v-col cols="12" md="4" sm="12" xs="12">
                 <v-text-field
+                  class="text-field mb-4"
                   label="Father Name"
                   v-model="employeeInfo.fatherName"
                   density="compact"
-                  variant="outlined"
                   type="text"
                   hide-details="auto"
                 >
@@ -102,22 +109,22 @@
               </v-col>
               <v-col cols="12" md="4" sm="12" xs="12">
                 <v-text-field
+                  class="text-field mb-4"
                   label="Mother Name"
                   hide-details="auto"
                   v-model="employeeInfo.motherName"
                   density="compact"
-                  variant="outlined"
                   type="text"
                 >
                 </v-text-field>
               </v-col>
               <v-col cols="12" md="4" sm="12" xs="12">
                 <v-text-field
+                  class="text-field mb-4"
                   label="Spouse Name"
                   hide-details="auto"
                   v-model="employeeInfo.spouseName"
                   density="compact"
-                  variant="outlined"
                   type="text"
                 >
                 </v-text-field>
@@ -126,11 +133,11 @@
             <v-row>
               <v-col cols="12" md="6" sm="12" xs="12">
                 <v-text-field
+                  class="text-field mb-4"
                   label="Date of Birth"
                   v-model="employeeInfo.dob"
                   hide-details="auto"
                   density="compact"
-                  variant="outlined"
                   placeholder="Date of Birth"
                   type="datetime-local"
                 >
@@ -138,12 +145,12 @@
               </v-col>
               <v-col cols="12" md="6" sm="12" xs="12">
                 <v-text-field
+                  class="text-field mb-4"
                   hide-details="auto"
                   label="Employee Designation"
                   v-model="employeeInfo.designation"
                   density="compact"
                   placeholder=""
-                  variant="outlined"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -153,9 +160,8 @@
                   v-model="selectedGender"
                   hide-details="auto"
                   label="Gender Id"
-                  class="company-size-dropdown"
+                  class="text-field mb-4 company-size-dropdown"
                   density="compact"
-                  variant="outlined"
                   item-title="text"
                   item-value="value"
                   :items="genders"
@@ -171,11 +177,11 @@
               </v-col>
               <v-col cols="12" md="6" sm="12" xs="12">
                 <v-text-field
+                  class="text-field mb-4"
                   hide-details="auto"
                   label="NID"
                   v-model="employeeInfo.nid"
                   density="compact"
-                  variant="outlined"
                   type="number"
                 >
                 </v-text-field>
@@ -189,16 +195,15 @@
                   @change="handleImage"
                   label="Select file"
                   density="compact"
-                  variant="outlined"
                   prepend-icon=""
                 >
                 </v-file-input>
               </v-col>
             </v-row>
             <v-container>
-              <v-btn class="submit-btn text-white" type="submit"
+              <!-- <v-btn class="submit-btn text-white" type="submit"
                 >Add Employee</v-btn
-              >
+              > -->
             </v-container>
           </v-form>
         </v-card>
@@ -294,10 +299,10 @@ export default {
 }
 .login-section {
   min-height: 90vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0eee7;
+  background-image: url("../assets/logo-images/cart_bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 h2 {
   white-space: nowrap;
@@ -315,12 +320,18 @@ h2 {
     transform: none;
   }
 }
-
+.text-field {
+  background-color: #ccc;
+}
 .form-card {
-  background-color: #e9e0d2;
+  /* background-color: #e9e0d2; */
+  background-color: transparent;
+}
+.text-field {
+  background-color: white;
 }
 .img-section {
-  /* border: 2px solid red; */
+  background-color: #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -329,6 +340,8 @@ h2 {
 }
 .img-section img {
   display: block;
+}
+.pseudo-class {
 }
 .submit-btn {
   width: 100%;

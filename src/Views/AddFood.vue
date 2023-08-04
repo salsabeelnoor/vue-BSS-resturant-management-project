@@ -1,6 +1,6 @@
 <template>
   <section class="add-food-container">
-    <h2 class="mt-5 text-center">Foods</h2>
+    <h2 class="pt-5 text-center">Foods</h2>
     <v-form
       @submit.prevent="addFoodToDb"
       ref="form"
@@ -61,6 +61,7 @@
                 type="number"
                 label="Discount"
                 required
+                @update:modelValue="selectedDiscount"
               ></v-text-field>
             </v-col>
             <v-col
@@ -78,6 +79,7 @@
                 type="number"
                 label="Discount Price"
                 required
+                @update:modelValue="selectedDiscountPrice"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
@@ -144,8 +146,29 @@ export default {
       },
     };
   },
+  watch: {
+    "foodInfo.discountType"() {
+      this.foodInfo.discount = 0;
+      this.foodInfo.discountPrice = 0;
+    },
+  },
 
   methods: {
+    selectedDiscount(value) {
+      if (this.foodInfo.discountType === 1) {
+        this.foodInfo.discountPrice = this.price - value;
+        console.log(this.discountPrice);
+      } else if (this.foodInfo.discountType === 2) {
+        this.foodInfo.discountPrice = parseFloat(
+          this.price - (value * price) / 100
+        );
+      } else {
+        this.foodInfo.discountPrice = this.price;
+      }
+    },
+    selectedDiscountPrice(value) {
+      console.log(value);
+    },
     renderImage() {
       return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
     },

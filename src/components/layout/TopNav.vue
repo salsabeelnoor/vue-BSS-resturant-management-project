@@ -1,33 +1,14 @@
 <template>
   <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
 
-  <v-app-bar color="" prominent class="top-nav px-10">
-    <v-toolbar-title class="nav-header text-white"
-      >BSS Restaurant System</v-toolbar-title
-    >
+  <v-app-bar color="" prominent class="top-nav px-10" elevation="0">
+    <v-toolbar-title class="nav-header text-black"> </v-toolbar-title>
 
     <!-- <v-btn variant="text" icon="mdi-dots-vertical"></v-btn> -->
-    <v-btn class="login-btn rounded-pill" @click="onNavBtnClick"
+    <a class="login-btn rounded-pill px-5 py-3" @click="onNavBtnClick"
       >{{ toggleBtnText }}
-    </v-btn>
+    </a>
   </v-app-bar>
-  <!-- <v-main>
-    <router-view></router-view>
-  </v-main> -->
-  <!-- <v-app-bar prominent class="top-nav">
-    <v-container class="d-flex">
-      <v-app-bar-nav-icon
-        variant="text"
-        class="nav-bar-icon"
-      ></v-app-bar-nav-icon>
-
-      <v-toolbar-title class="text-white nav-title">
-        BSS Restaurant
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn class="login-btn" @click="$router.push('/login')">Log in </v-btn>
-    </v-container>
-  </v-app-bar> -->
 </template>
     <script>
 import { mapActions, mapGetters } from "vuex";
@@ -39,6 +20,10 @@ export default {
   }),
   methods: {
     ...mapActions(["logOut"]),
+    renderImage() {
+      return new URL("../../assets/logo-images/bLogo_2.png", import.meta.url)
+        .href;
+    },
     onNavBtnClick() {
       if (this.btnText === "Log Out") {
         this.logOut();
@@ -62,22 +47,31 @@ export default {
 .top-nav {
   width: 80%;
   margin: 0 auto;
-  background-color: #54595f;
+  color: black;
+  border-bottom: 2px solid #e3dfdf;
+  display: flex;
+  justify-items: flex-end;
+  /* background-color: #54595f; */
 }
 .top-nav-container {
   border: 2px solid red;
 }
+.logo-item {
+  width: 20px;
+  border: 2px solid red;
+}
 .nav-header {
   font-size: 25px;
-  /* font-weight: 600; */
 }
 .login-btn {
+  font-size: 14px;
   color: #fff;
-  background-color: rgb(225, 102, 39);
-  transition: all 1s;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #ca6b14;
+  transition: all 0.8s;
 }
 .login-btn:hover {
-  background-color: transparent;
-  border: 2px solid rgb(225, 102, 39);
+  opacity: 0.8;
 }
 </style>

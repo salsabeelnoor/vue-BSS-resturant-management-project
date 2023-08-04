@@ -1,58 +1,60 @@
 <template>
   <section class="list-view-container">
-    <v-row class="mx-4 mt-4">
-      <v-col class="d-flex justify-space-between">
-        <h4>Employee List</h4>
-        <v-btn
-          class="create-btn rounded-pill mb-4"
-          elevation="1"
-          @click="$router.push('/admin/add-employee')"
-          >Create New
-        </v-btn>
-      </v-col>
-    </v-row>
-    <div class="table-container">
-      <div class="spinner-container">
-        <Spinner v-if="showSpinner" class="spinner" />
-      </div>
-      <v-data-table-server
-        v-model:items-per-page="itemsPerPage"
-        :headers="headers"
-        :items-length="totalItems"
-        :items="employees"
-        class="elevation-1 border"
-        item-value="name"
-        @update:options="fetchEmployeeList"
-      >
-        <template v-slot:item.action="{ item }">
-          <v-btn
-            @click="deleteEmployee(item.raw.id)"
-            class="text-capitalize"
+    <v-container>
+      <v-row class="mx-4 mt-2">
+        <v-col class="d-flex justify-space-between header">
+          <h4>Employee List</h4>
+          <a
+            class="create-btn rounded-pill px-5 py-3"
             elevation="0"
-            fab
-            small
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+            @click="$router.push('/admin/add-employee')"
+            >Create New
+          </a>
+        </v-col>
+      </v-row>
+      <div class="table-container">
+        <div class="spinner-container">
+          <Spinner v-if="showSpinner" class="spinner" />
+        </div>
+        <v-data-table-server
+          v-model:items-per-page="itemsPerPage"
+          :headers="headers"
+          :items-length="totalItems"
+          :items="employees"
+          class="elevation-1 border"
+          item-value="name"
+          @update:options="fetchEmployeeList"
+        >
+          <template v-slot:item.action="{ item }">
+            <v-btn
+              @click="deleteEmployee(item.raw.id)"
+              class="text-capitalize"
+              elevation="0"
+              fab
+              small
             >
-              <path
-                fill="currentColor"
-                d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9m0 5h2v9H9V8m4 0h2v9h-2V8Z"
-              />
-            </svg>
-          </v-btn>
-        </template>
-        <template v-slot:item.image="{ item }">
-          <v-img width="35" fab :src="renderImage(item.raw.user.image)" />
-        </template>
-      </v-data-table-server>
-    </div>
-    <p class="ma-3 text-red text-center" v-if="errorMessage">
-      {{ this.errorMessage }}
-    </p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9m0 5h2v9H9V8m4 0h2v9h-2V8Z"
+                />
+              </svg>
+            </v-btn>
+          </template>
+          <template v-slot:item.image="{ item }">
+            <v-img width="35" fab :src="renderImage(item.raw.user.image)" />
+          </template>
+        </v-data-table-server>
+      </div>
+      <p class="ma-3 text-red text-center" v-if="errorMessage">
+        {{ this.errorMessage }}
+      </p>
+    </v-container>
   </section>
 </template>
 <script>
@@ -185,18 +187,23 @@ export default {
 <style scoped>
 .list-view-container {
   min-height: 100vh;
-  /* background-color: #faf3dc; */
+  background-color: #f0f4f9;
+}
+.header {
+  font-size: 24px;
 }
 
 .create-btn {
-  background-color: transparent;
-  border: 2px solid rgb(225, 102, 39);
+  margin-bottom: 15px;
+  color: #444;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  border: 2px solid #ca6b14;
   transition: all 1s;
 }
-
 .create-btn:hover {
-  background-color: rgb(225, 102, 39);
-  color: #fff;
+  background-image: linear-gradient(rgba(233, 233, 233, 0.4) 0 0);
 }
 
 .table-container {
