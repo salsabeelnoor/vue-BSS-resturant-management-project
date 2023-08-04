@@ -212,9 +212,6 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 .form-container {
   /* border: 2px solid red; */

@@ -4,12 +4,12 @@
       <v-row class="mx-4 mt-2">
         <v-col class="d-flex justify-space-between header">
           <h4>Employee List</h4>
-          <a
-            class="create-btn rounded-pill px-5 py-3"
+          <v-btn
+            class="create-btn"
             elevation="0"
             @click="$router.push('/admin/add-employee')"
-            >Create New
-          </a>
+            >Add Employee
+          </v-btn>
         </v-col>
       </v-row>
       <div class="table-container">
@@ -21,7 +21,7 @@
           :headers="headers"
           :items-length="totalItems"
           :items="employees"
-          class="elevation-1 border"
+          class="border"
           item-value="name"
           @update:options="fetchEmployeeList"
         >
@@ -199,7 +199,8 @@ export default {
   text-transform: uppercase;
   font-size: 14px;
   cursor: pointer;
-  border: 2px solid #ca6b14;
+  border: 2px solid #326383;
+  background-color: transparent;
   transition: all 1s;
 }
 .create-btn:hover {

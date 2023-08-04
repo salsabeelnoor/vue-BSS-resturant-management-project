@@ -37,12 +37,6 @@
         ></v-list-item>
         <v-list-item
           prepend-icon="mdi-table-large"
-          @click="$router.push('/admin/table')"
-          title="Table"
-          value="table"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-star "
           @click="$router.push('/admin/add-table')"
           title="Add Table"
           value="table"

@@ -2,12 +2,14 @@
   <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
 
   <v-app-bar color="" prominent class="top-nav px-10" elevation="0">
-    <v-toolbar-title class="nav-header text-black"> </v-toolbar-title>
+    <v-toolbar-title class="nav-header text-black">
+      <v-btn icon="mdi-format-align-justify"></v-btn
+    ></v-toolbar-title>
 
     <!-- <v-btn variant="text" icon="mdi-dots-vertical"></v-btn> -->
-    <a class="login-btn rounded-pill px-5 py-3" @click="onNavBtnClick"
+    <v-btn class="login-btn" size="large" @click="onNavBtnClick"
       >{{ toggleBtnText }}
-    </a>
+    </v-btn>
   </v-app-bar>
 </template>
     <script>
@@ -49,27 +51,20 @@ export default {
   margin: 0 auto;
   color: black;
   border-bottom: 2px solid #e3dfdf;
-  display: flex;
-  justify-items: flex-end;
-  /* background-color: #54595f; */
 }
-.top-nav-container {
-  border: 2px solid red;
-}
-.logo-item {
-  width: 20px;
-  border: 2px solid red;
-}
+
 .nav-header {
   font-size: 25px;
 }
 .login-btn {
-  font-size: 14px;
-  color: #fff;
-  text-transform: uppercase;
+  font-size: 16px;
+  text-transform: capitalize;
   cursor: pointer;
-  background-color: #ca6b14;
-  transition: all 0.8s;
+  background-color: #326383;
+  color: white;
+
+  /* color: #222;
+  border: 2.5px solid #326383; */
 }
 .login-btn:hover {
   opacity: 0.8;

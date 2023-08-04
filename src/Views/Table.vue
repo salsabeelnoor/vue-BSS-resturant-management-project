@@ -125,7 +125,7 @@
         </template>
         <template v-slot:item.employees="{ item }">
           <ul>
-            <li v-for="(employee, index) in item.raw.employees">
+            <li v-for="(employee, index) in item.raw.employees" :key="index">
               {{ employee.name }}
             </li>
           </ul>

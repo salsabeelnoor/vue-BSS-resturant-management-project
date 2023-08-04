@@ -114,7 +114,6 @@ export default {
       this.showPseudoContent = false;
     },
     async addTableToDb() {
-      console.log(this.tableInfo);
       try {
         const response = await ApiCall.post("api/Table/create", this.tableInfo);
       } catch (e) {

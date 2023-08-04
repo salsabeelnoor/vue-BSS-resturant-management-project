@@ -2,13 +2,14 @@
   <section class="login-section">
     <div class="form-container">
       <v-container>
-        <h2 class="text-center pb-10 employee-add-header">Add New Employee</h2>
         <v-card class="mx-auto pa-12 pb-8 form-card" elevation="0">
+          <h2 class="text-start pb-10 employee-add-header">Add New Employee</h2>
+
           <v-form @submit.prevent="addEmployee" ref="form">
             <v-row>
               <v-col cols="12" md="9" sm="12" xs="12">
-                <v-row class="form-first-row">
-                  <v-col cols="12" md="6" sm="12" xs="12">
+                <v-row>
+                  <v-col cols="12" md="4" sm="12" xs="12">
                     <v-text-field
                       class="text-field mb-5 text-field"
                       v-model="employeeInfo.firstName"
@@ -17,7 +18,7 @@
                       hide-details="auto"
                     ></v-text-field
                   ></v-col>
-                  <v-col cols="12" md="6" sm="12" xs="12">
+                  <v-col cols="12" md="4" sm="12" xs="12">
                     <v-text-field
                       class="text-field mb-5"
                       label="Middle Name"
@@ -27,9 +28,7 @@
                       hide-details="auto"
                     ></v-text-field
                   ></v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" md="6" sm="12" xs="12">
+                  <v-col cols="12" md="4" sm="12" xs="12">
                     <v-text-field
                       class="text-field mb-5"
                       label="Last Name"
@@ -39,7 +38,7 @@
                       hide-details="auto"
                     ></v-text-field
                   ></v-col>
-                  <v-col cols="12" md="6" sm="12" xs="12">
+                  <v-col cols="12" md="4" sm="12" xs="12">
                     <v-text-field
                       class="text-field mb-5"
                       label="Email"
@@ -50,9 +49,7 @@
                       hide-details="auto"
                     ></v-text-field>
                   </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" md="6" sm="12" xs="12">
+                  <v-col cols="12" md="4" sm="12" xs="12">
                     <v-text-field
                       class="text-field mb-4"
                       hide-details="auto"
@@ -63,7 +60,7 @@
                     >
                     </v-text-field>
                   </v-col>
-                  <v-col cols="12" md="6" sm="12" xs="12">
+                  <v-col cols="12" md="4" sm="12" xs="12">
                     <v-text-field
                       class="text-field mb-4"
                       label="Joining Date"
@@ -74,6 +71,39 @@
                     >
                     </v-text-field>
                   </v-col>
+                  <v-col cols="12" md="4" sm="12" xs="12">
+                    <v-text-field
+                      class="text-field mb-4"
+                      label="Father Name"
+                      v-model="employeeInfo.fatherName"
+                      density="compact"
+                      type="text"
+                      hide-details="auto"
+                    >
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" sm="12" xs="12">
+                    <v-text-field
+                      class="text-field mb-4"
+                      label="Mother Name"
+                      hide-details="auto"
+                      v-model="employeeInfo.motherName"
+                      density="compact"
+                      type="text"
+                    >
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" sm="12" xs="12">
+                    <v-text-field
+                      class="text-field mb-4"
+                      label="Spouse Name"
+                      hide-details="auto"
+                      v-model="employeeInfo.spouseName"
+                      density="compact"
+                      type="text"
+                    >
+                    </v-text-field>
+                  </v-col>
                 </v-row>
               </v-col>
               <v-col
@@ -81,10 +111,17 @@
                 md="3"
                 sm="12"
                 xs="12"
-                class="img-section pseudo-class"
+                class="img-section"
+                :style="{
+                  'background-color': backgroundToggle ? 'transparent' : '#ccc',
+                }"
               >
                 <v-img
-                  class="ma-12"
+                  :class="[
+                    {
+                      pseudoClass: showPseudoContent,
+                    },
+                  ]"
                   @click="onClickImage"
                   :aspect-ratio="1"
                   :src="
@@ -95,43 +132,9 @@
                 ></v-img>
               </v-col>
             </v-row>
+            <v-row> </v-row>
             <v-row>
-              <v-col cols="12" md="4" sm="12" xs="12">
-                <v-text-field
-                  class="text-field mb-4"
-                  label="Father Name"
-                  v-model="employeeInfo.fatherName"
-                  density="compact"
-                  type="text"
-                  hide-details="auto"
-                >
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" sm="12" xs="12">
-                <v-text-field
-                  class="text-field mb-4"
-                  label="Mother Name"
-                  hide-details="auto"
-                  v-model="employeeInfo.motherName"
-                  density="compact"
-                  type="text"
-                >
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" sm="12" xs="12">
-                <v-text-field
-                  class="text-field mb-4"
-                  label="Spouse Name"
-                  hide-details="auto"
-                  v-model="employeeInfo.spouseName"
-                  density="compact"
-                  type="text"
-                >
-                </v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="6" sm="12" xs="12">
+              <v-col cols="12" md="3" sm="12" xs="12">
                 <v-text-field
                   class="text-field mb-4"
                   label="Date of Birth"
@@ -143,7 +146,7 @@
                 >
                 </v-text-field>
               </v-col>
-              <v-col cols="12" md="6" sm="12" xs="12">
+              <v-col cols="12" md="3" sm="12" xs="12">
                 <v-text-field
                   class="text-field mb-4"
                   hide-details="auto"
@@ -153,9 +156,7 @@
                   placeholder=""
                 ></v-text-field>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="6" sm="12" xs="12">
+              <v-col cols="12" md="3" sm="12" xs="12">
                 <v-select
                   v-model="selectedGender"
                   hide-details="auto"
@@ -175,7 +176,7 @@
                   </template>
                 </v-select>
               </v-col>
-              <v-col cols="12" md="6" sm="12" xs="12">
+              <v-col cols="12" md="3" sm="12" xs="12">
                 <v-text-field
                   class="text-field mb-4"
                   hide-details="auto"
@@ -200,11 +201,7 @@
                 </v-file-input>
               </v-col>
             </v-row>
-            <v-container>
-              <!-- <v-btn class="submit-btn text-white" type="submit"
-                >Add Employee</v-btn
-              > -->
-            </v-container>
+            <v-btn class="submit-btn" elevation="0" size="large">Submit</v-btn>
           </v-form>
         </v-card>
       </v-container>
@@ -218,6 +215,8 @@ export default {
   name: "AddEmployee",
   data() {
     return {
+      backgroundToggle: false,
+      showPseudoContent: true,
       genders: [
         { text: "Male", value: 1 },
         { text: "Female", value: 2 },
@@ -276,11 +275,11 @@ export default {
     createBase64Image(fileObject) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        console.log("base 64 working", e.target.result);
         this.employeeInfo.base64 = e.target.result;
       };
-      console.log(this.employeeInfo.base64);
       reader.readAsDataURL(fileObject);
+      this.showPseudoContent = false;
+      this.backgroundToggle = true;
     },
     async addEmployee() {
       try {
@@ -324,27 +323,35 @@ h2 {
   background-color: #ccc;
 }
 .form-card {
-  /* background-color: #e9e0d2; */
   background-color: transparent;
 }
 .text-field {
   background-color: white;
 }
 .img-section {
-  background-color: #ccc;
+  /* background-color: #ccc; */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 250px;
-  width: 150px;
+  width: 100px;
 }
-.img-section img {
-  display: block;
-}
-.pseudo-class {
+
+.pseudoClass::before {
+  content: "Insert an  image";
+  font-size: 14px;
+  color: #7e7e7e;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .submit-btn {
-  width: 100%;
-  background-color: #c7712b;
+  /* border: 2px solid #326383; */
+  font-size: 16px;
+  text-transform: capitalize;
+  background-color: #326383;
+  color: #fff;
+  /* background-color: #326383; */
 }
 </style>
