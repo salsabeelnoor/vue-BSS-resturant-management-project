@@ -187,7 +187,7 @@ export default {
 <style scoped>
 .list-view-container {
   min-height: 100vh;
-  background-color: #f0f4f9;
+  background-color: #f5f6f8;
 }
 .header {
   display: flex;

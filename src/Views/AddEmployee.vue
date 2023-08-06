@@ -1,211 +1,209 @@
 <template>
   <section class="login-section">
-    <div class="form-container">
-      <v-container>
-        <v-card class="mx-auto pa-12 pb-8 form-card" elevation="0">
-          <h2 class="text-start pb-10 employee-add-header">Add New Employee</h2>
+    <v-container>
+      <v-card class="mx-auto pa-12 pb-8 form-card" elevation="0">
+        <h2 class="text-start pb-10 employee-add-header">Add New Employee</h2>
 
-          <v-form @submit.prevent="addEmployee" ref="form">
-            <v-row>
-              <v-col cols="12" md="9" sm="12" xs="12">
-                <v-row>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-5 text-field"
-                      v-model="employeeInfo.firstName"
-                      density="compact"
-                      label="First Name"
-                      hide-details="auto"
-                    ></v-text-field
-                  ></v-col>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-5"
-                      label="Middle Name"
-                      v-model="employeeInfo.middleName"
-                      density="compact"
-                      placeholder=""
-                      hide-details="auto"
-                    ></v-text-field
-                  ></v-col>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-5"
-                      label="Last Name"
-                      v-model="employeeInfo.lastName"
-                      density="compact"
-                      placeholder=""
-                      hide-details="auto"
-                    ></v-text-field
-                  ></v-col>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-5"
-                      label="Email"
-                      type="email"
-                      v-model="employeeInfo.email"
-                      density="compact"
-                      placeholder=""
-                      hide-details="auto"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-4"
-                      hide-details="auto"
-                      label="Phone Number"
-                      v-model="employeeInfo.phoneNumber"
-                      density="compact"
-                      type="number"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-4"
-                      label="Joining Date"
-                      v-model="employeeInfo.joinDate"
-                      density="compact"
-                      type="datetime-local"
-                      hide-details="auto"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-4"
-                      label="Father Name"
-                      v-model="employeeInfo.fatherName"
-                      density="compact"
-                      type="text"
-                      hide-details="auto"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-4"
-                      label="Mother Name"
-                      hide-details="auto"
-                      v-model="employeeInfo.motherName"
-                      density="compact"
-                      type="text"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" sm="12" xs="12">
-                    <v-text-field
-                      class="text-field mb-4"
-                      label="Spouse Name"
-                      hide-details="auto"
-                      v-model="employeeInfo.spouseName"
-                      density="compact"
-                      type="text"
-                    >
-                    </v-text-field>
-                  </v-col>
-                </v-row>
-              </v-col>
-              <v-col
-                cols="12"
-                md="3"
-                sm="12"
-                xs="12"
-                class="img-section"
-                :style="{
-                  'background-color': backgroundToggle ? 'transparent' : '#ccc',
-                }"
+        <v-form @submit.prevent="addEmployee" ref="form">
+          <v-row>
+            <v-col cols="12" md="9" sm="12" xs="12">
+              <v-row>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-5 text-field"
+                    v-model="employeeInfo.firstName"
+                    density="compact"
+                    label="First Name"
+                    hide-details="auto"
+                  ></v-text-field
+                ></v-col>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-5"
+                    label="Middle Name"
+                    v-model="employeeInfo.middleName"
+                    density="compact"
+                    placeholder=""
+                    hide-details="auto"
+                  ></v-text-field
+                ></v-col>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-5"
+                    label="Last Name"
+                    v-model="employeeInfo.lastName"
+                    density="compact"
+                    placeholder=""
+                    hide-details="auto"
+                  ></v-text-field
+                ></v-col>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-5"
+                    label="Email"
+                    type="email"
+                    v-model="employeeInfo.email"
+                    density="compact"
+                    placeholder=""
+                    hide-details="auto"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-4"
+                    hide-details="auto"
+                    label="Phone Number"
+                    v-model="employeeInfo.phoneNumber"
+                    density="compact"
+                    type="number"
+                  >
+                  </v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-4"
+                    label="Joining Date"
+                    v-model="employeeInfo.joinDate"
+                    density="compact"
+                    type="datetime-local"
+                    hide-details="auto"
+                  >
+                  </v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-4"
+                    label="Father Name"
+                    v-model="employeeInfo.fatherName"
+                    density="compact"
+                    type="text"
+                    hide-details="auto"
+                  >
+                  </v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-4"
+                    label="Mother Name"
+                    hide-details="auto"
+                    v-model="employeeInfo.motherName"
+                    density="compact"
+                    type="text"
+                  >
+                  </v-text-field>
+                </v-col>
+                <v-col cols="12" md="4" sm="12" xs="12">
+                  <v-text-field
+                    class="text-field mb-4"
+                    label="Spouse Name"
+                    hide-details="auto"
+                    v-model="employeeInfo.spouseName"
+                    density="compact"
+                    type="text"
+                  >
+                  </v-text-field>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col
+              cols="12"
+              md="3"
+              sm="12"
+              xs="12"
+              class="img-section"
+              :style="{
+                'background-color': backgroundToggle ? 'transparent' : '#ccc',
+              }"
+            >
+              <v-img
+                :class="[
+                  {
+                    pseudoClass: showPseudoContent,
+                  },
+                ]"
+                @click="onClickImage"
+                :aspect-ratio="1"
+                :src="
+                  employeeInfo.base64 != null
+                    ? employeeInfo.base64
+                    : renderImage()
+                "
+              ></v-img>
+            </v-col>
+          </v-row>
+          <v-row> </v-row>
+          <v-row>
+            <v-col cols="12" md="3" sm="12" xs="12">
+              <v-text-field
+                class="text-field mb-4"
+                label="Date of Birth"
+                v-model="employeeInfo.dob"
+                hide-details="auto"
+                density="compact"
+                placeholder="Date of Birth"
+                type="datetime-local"
               >
-                <v-img
-                  :class="[
-                    {
-                      pseudoClass: showPseudoContent,
-                    },
-                  ]"
-                  @click="onClickImage"
-                  :aspect-ratio="1"
-                  :src="
-                    employeeInfo.base64 != null
-                      ? employeeInfo.base64
-                      : renderImage()
-                  "
-                ></v-img>
-              </v-col>
-            </v-row>
-            <v-row> </v-row>
-            <v-row>
-              <v-col cols="12" md="3" sm="12" xs="12">
-                <v-text-field
-                  class="text-field mb-4"
-                  label="Date of Birth"
-                  v-model="employeeInfo.dob"
-                  hide-details="auto"
-                  density="compact"
-                  placeholder="Date of Birth"
-                  type="datetime-local"
-                >
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" md="3" sm="12" xs="12">
-                <v-text-field
-                  class="text-field mb-4"
-                  hide-details="auto"
-                  label="Employee Designation"
-                  v-model="employeeInfo.designation"
-                  density="compact"
-                  placeholder=""
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="3" sm="12" xs="12">
-                <v-select
-                  v-model="selectedGender"
-                  hide-details="auto"
-                  label="Gender Id"
-                  class="text-field mb-4 company-size-dropdown"
-                  density="compact"
-                  item-title="text"
-                  item-value="value"
-                  :items="genders"
-                >
-                  <template v-slot:item="{ item, props }">
-                    <v-list-item v-bind="props">
-                      <template v-slot:title>
-                        {{ item.raw.text }}
-                      </template>
-                    </v-list-item>
-                  </template>
-                </v-select>
-              </v-col>
-              <v-col cols="12" md="3" sm="12" xs="12">
-                <v-text-field
-                  class="text-field mb-4"
-                  hide-details="auto"
-                  label="NID"
-                  v-model="employeeInfo.nid"
-                  density="compact"
-                  type="number"
-                >
-                </v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-file-input
-                  id="image"
-                  class="d-none"
-                  @change="handleImage"
-                  label="Select file"
-                  density="compact"
-                  prepend-icon=""
-                >
-                </v-file-input>
-              </v-col>
-            </v-row>
-            <v-btn class="submit-btn" elevation="0" size="large">Submit</v-btn>
-          </v-form>
-        </v-card>
-      </v-container>
-    </div>
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" md="3" sm="12" xs="12">
+              <v-text-field
+                class="text-field mb-4"
+                hide-details="auto"
+                label="Employee Designation"
+                v-model="employeeInfo.designation"
+                density="compact"
+                placeholder=""
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="3" sm="12" xs="12">
+              <v-select
+                v-model="selectedGender"
+                hide-details="auto"
+                label="Gender Id"
+                class="text-field mb-4 company-size-dropdown"
+                density="compact"
+                item-title="text"
+                item-value="value"
+                :items="genders"
+              >
+                <template v-slot:item="{ item, props }">
+                  <v-list-item v-bind="props">
+                    <template v-slot:title>
+                      {{ item.raw.text }}
+                    </template>
+                  </v-list-item>
+                </template>
+              </v-select>
+            </v-col>
+            <v-col cols="12" md="3" sm="12" xs="12">
+              <v-text-field
+                class="text-field mb-4"
+                hide-details="auto"
+                label="NID"
+                v-model="employeeInfo.nid"
+                density="compact"
+                type="number"
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-file-input
+                id="image"
+                class="d-none"
+                @change="handleImage"
+                label="Select file"
+                density="compact"
+                prepend-icon=""
+              >
+              </v-file-input>
+            </v-col>
+          </v-row>
+          <v-btn class="submit-btn" elevation="0" size="large">Submit</v-btn>
+        </v-form>
+      </v-card>
+    </v-container>
   </section>
 </template>
 <script>
@@ -306,7 +304,7 @@ export default {
 h2 {
   white-space: wrap;
   overflow: hidden;
-  font-size: 34px;
+  font-size: clamp(1.2rem, -0.875rem + 8.333vw, 2rem);
   animation: fadeInUp 1.5s forwards;
 }
 @keyframes fadeInUp {
@@ -318,9 +316,6 @@ h2 {
     opacity: 1;
     transform: none;
   }
-}
-.text-field {
-  background-color: #ccc;
 }
 .form-card {
   background-color: transparent;

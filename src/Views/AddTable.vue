@@ -1,79 +1,60 @@
 <template>
   <div class="add-table-container">
-    <v-container class="">
-      <h2 class="text-center mb-10">Add A New Table</h2>
-      <div class="form-container">
-        <v-form class="ma-10" ref="form">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    class="mb-8"
-                    v-model="tableInfo.tableNumber"
-                    :rules="nameRules"
-                    :counter="10"
-                    label="Table Number"
-                    required
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="tableInfo.numberOfSeats"
-                    :rules="nameRules"
-                    :counter="10"
-                    label="Number of Seats"
-                    type="number"
-                    required
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row class="submit-btn-container">
-                <v-btn
-                  @click="addTableToDb"
-                  class="add-table-btn rounded-pill"
-                  elevation="0"
-                >
-                  Submit
-                </v-btn>
-              </v-row>
-            </v-col>
-
-            <v-col cols="12" md="6" class="img-section">
-              <v-img
-                :class="[
-                  'mx-10',
-                  'input-img',
-                  { pseudoClass: showPseudoContent },
-                ]"
-                @click="onClickImage"
-                :aspect-ratio="1"
-                :src="
-                  tableInfo.base64 != null ? tableInfo.base64 : renderImage()
-                "
-              ></v-img>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-file-input
-                id="image"
-                class="d-none"
-                @change="handleImage"
-                label="Select file"
-                density="compact"
-                variant="outlined"
-                prepend-icon=""
-              >
-              </v-file-input>
-            </v-col>
-          </v-row>
-        </v-form>
-      </div>
-    </v-container>
+    <div id="container">
+      <h1>&bull; Add New Table &bull;</h1>
+      <div class="underline mt-2"></div>
+      <v-form ref="form" class="mt-4">
+        <div class="img-box-container">
+          <div class="text-box-container">
+            <v-text-field
+              class="my-4 text-box"
+              v-model="tableInfo.tableNumber"
+              :rules="nameRules"
+              :counter="10"
+              label="Table Number"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="tableInfo.numberOfSeats"
+              class="text-box"
+              :rules="nameRules"
+              :counter="10"
+              label="Number of Seats"
+              type="number"
+              required
+            ></v-text-field>
+          </div>
+          <v-img
+            :class="isbase64Available ? 'bg-transparent' : 'input-img'"
+            @click="onClickImage"
+            :aspect-ratio="1"
+            :src="tableInfo.base64 != null ? tableInfo.base64 : renderImage()"
+          ></v-img>
+        </div>
+        <v-row>
+          <v-col>
+            <v-file-input
+              id="image"
+              class="d-none"
+              @change="handleImage"
+              label="Select file"
+              density="compact"
+              prepend-icon=""
+            >
+            </v-file-input>
+          </v-col>
+        </v-row>
+        <div class="submit-btn-container">
+          <v-btn @click="addTableToDb" class="add-table-btn" elevation="0">
+            Submit
+          </v-btn>
+        </div>
+      </v-form>
+      <!-- // End form -->
+    </div>
   </div>
+
+  <!-- // End #container -->
 </template>
 <script>
 import ApiCall from "../api/apiInterface";
@@ -82,6 +63,7 @@ export default {
   data() {
     return {
       showPseudoContent: true,
+      isbase64Available: false,
       tableInfo: {
         tableNumber: "",
         numberOfSeats: 0,
@@ -112,19 +94,24 @@ export default {
       console.log(this.tableInfo.base64);
       reader.readAsDataURL(fileObject);
       this.showPseudoContent = false;
+      this.isbase64Available = true;
     },
     async addTableToDb() {
-      try {
-        const response = await ApiCall.post("api/Table/create", this.tableInfo);
-      } catch (e) {
-        console.log(e);
-      }
+      // try {
+      //   const response = await ApiCall.post("api/Table/create", this.tableInfo);
+      // } catch (e) {
+      //   console.log(e);
+      // }
       this.$refs.form.reset();
+      this.tableInfo.base64 = "";
+      this.isbase64Available = false;
     },
   },
 };
 </script>
 <style scoped>
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
 * {
   box-sizing: border-box;
 }
@@ -134,26 +121,62 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  padding-block: 60px;
+}
+#container {
+  border: solid 3px #474544;
+  max-width: 768px;
+  padding: 10px;
+  margin: auto;
+  position: relative;
+}
+h1 {
+  font-family: "Montserrat", Arial, sans-serif;
+  color: #474544;
+  font-size: clamp(0.96rem, -0.875rem + 8.333vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 7px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.underline {
+  border-bottom: solid 2px #474544;
+  margin: -0.512em auto;
+  width: clamp(53px, 68px, 80px);
+}
+
+form {
+  padding: 20px;
+  margin: 40px 0;
+}
+.img-box-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  height: auto;
 }
-.form-container {
-  border-top: 2.5px solid rgb(218, 72, 5);
-  border-bottom: 2.5px solid rgb(218, 72, 5);
+@media screen and (min-width: 768px) {
+  .img-box-container {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 200px;
+  }
+  .text-box-container {
+    width: 50%;
+  }
 }
-.img-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.text-box {
+  background-color: white;
 }
+
 .input-img {
   background-color: #ccc;
   border-radius: 2px;
-  height: 450px;
-  width: 150px;
+  flex-grow: 0;
+  height: 180px;
+  width: 250px;
 }
-.pseudoClass::before {
+.input-img::before {
   content: "Insert a image";
   color: #7e7e7e;
   position: absolute;
@@ -161,19 +184,34 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.bg-transparent {
+  border-radius: 2px;
+  flex-grow: 0;
+  height: 180px;
+  width: 250px;
+  background-color: transparent;
+}
 .submit-btn-container {
-  margin-top: 10px;
+  /* border: 2px solid red; */
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 .add-table-btn {
-  background-color: rgb(225, 102, 39);
-  transition: color 0.5s;
-  margin-top: 10px;
-  width: 15%;
-  padding: 10px;
+  border: 2.5px solid #326383;
+  /* transition: color 0.5s; */
+  border-radius: 0px;
+  margin-top: 20px;
+  font-family: "Montserrat", Arial, sans-serif;
+  color: black;
 }
 .add-table-btn:hover {
   color: #fff;
+  background-color: #326383;
+}
+@media screen and (max-width: 768px) {
+  #container {
+    margin: 10px auto;
+    width: 95%;
+  }
 }
 </style>

@@ -30,9 +30,6 @@ User Friendly online resturant management system with an admin role that allows 
 
 ![App Screenshot](src/assets/projectImages/add-employee.png)
 
-     
-
-
 ## Login Information
 **email**: admin@mail.com
 

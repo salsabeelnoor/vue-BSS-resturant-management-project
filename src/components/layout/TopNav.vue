@@ -5,9 +5,9 @@
     <v-toolbar-title class="nav-header text-black">
       <v-btn @click="toggleDashboard" icon="mdi-format-align-justify"></v-btn
     ></v-toolbar-title>
-    <v-btn class="login-btn" size="large" @click="onNavBtnClick">
+    <v-btn class="login-btn" @click="onNavBtnClick">
       <v-icon icon="mdi-logout" class="d-flex d-md-none"></v-icon>
-      <p class="d-none d-xl-flex">{{ toggleBtnText }}</p>
+      <p class="d-none d-md-flex">{{ toggleBtnText }}</p>
     </v-btn>
   </v-app-bar>
 </template>
@@ -54,6 +54,7 @@ export default {
   width: 80%;
   margin: 0 auto;
   color: black;
+  background-color: #fdfdfa;
   border-bottom: 2px solid #e3dfdf;
 }
 
@@ -65,7 +66,7 @@ export default {
   font-size: 16px;
   text-transform: capitalize;
   cursor: pointer;
-  background-color: #326383;
+  background-color: #627088;
   color: white;
 
   /* color: #222;
