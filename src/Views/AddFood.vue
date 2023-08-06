@@ -89,7 +89,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" md="3" sm="12" xs="12">
+        <v-col cols="12" md="3" sm="12" xs="12" class="img-container">
           <v-img
             :class="isbase64Available ? 'bg-transparent' : 'input-img'"
             :aspect-ratio="1"
@@ -230,6 +230,16 @@ h1 {
   margin: -0.512em auto;
   width: clamp(53px, 68px, 80px);
 }
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+@media screen and (min-width: 540px) and (max-width: 912px) {
+  .img-container {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
 .input-img {
   background-color: #ccc;
   border-radius: 2px;
@@ -239,7 +249,7 @@ h1 {
 }
 .input-img::before {
   content: "Insert a image";
-  font-size: clamp(0.6rem, -0.875rem + 8.333vw, 0.95rem);
+  font-size: clamp(7px, 10px, 14px);
   color: #7e7e7e;
   position: absolute;
   left: 50%;
@@ -253,7 +263,7 @@ h1 {
   height: 200px;
   width: 200px;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .input-img {
     height: 350px;
     width: 350px;
