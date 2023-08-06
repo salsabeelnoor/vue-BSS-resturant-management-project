@@ -126,7 +126,7 @@ export default {
   padding-block: 60px;
 }
 #container {
-  border: solid 3px #474544;
+  border: solid 3px #8e0139;
   max-width: 768px;
   padding: 10px;
   margin: auto;
@@ -140,7 +140,7 @@ export default {
 }
 h1 {
   font-family: "Montserrat", Arial, sans-serif;
-  color: #474544;
+  color: #440000;
   font-size: clamp(0.73rem, -0.875rem + 8.333vw, 2rem);
   font-weight: 700;
   letter-spacing: 7px;
@@ -218,8 +218,10 @@ form {
 .add-table-btn {
   margin-top: 20px;
   font-size: 16px;
+  letter-spacing: 0;
   text-transform: capitalize;
-  background-color: #326383;
-  color: #fff;
+  background-color: transparent;
+  background-color: #cc2366;
+  color: white;
 }
 </style>

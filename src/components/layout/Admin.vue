@@ -34,15 +34,9 @@
         ></v-list-item>
         <v-list-item
           prepend-icon="mdi-clipboard-account"
-          @click="$router.push('/admin/employee-table')"
-          title="Employee Table"
-          value="employeeTable"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-table-large"
-          @click="$router.push('/admin/add-table')"
-          title="Add Table"
-          value="table"
+          @click="$router.push('/admin/table')"
+          title="Table"
+          value="Table"
         ></v-list-item>
         <v-list-item
           prepend-icon="mdi-star "
@@ -99,7 +93,15 @@ export default {
 </script>
 <style scoped>
 .dashboard-container {
-  background-color: #3e547c;
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 65%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  /* background-color: #3e547c; */
   color: white;
 }
 </style>

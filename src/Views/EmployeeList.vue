@@ -187,35 +187,48 @@ export default {
 <style scoped>
 .list-view-container {
   min-height: 100vh;
-  background-color: #f5f6f8;
 }
 .header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: clamp(1rem, -0.875rem + 8.333vw, 3.5rem);
+  font-size: clamp(1rem, 1.25rem, 2rem);
 }
-@media (min-width: 992px) {
+h4 {
+  letter-spacing: 2px;
+}
+.create-btn {
+  margin-bottom: 15px;
+  letter-spacing: 0;
+  border-radius: 0;
+  color: #222;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid #cc2366;
+  background-color: transparent;
+}
+@media (max-width: 767px) {
+  .create-btn {
+    width: 150px;
+    margin: 15px auto;
+  }
+  .header {
+    text-align: center;
+  }
+}
+.create-btn:hover {
+  background-color: #cc2366;
+  color: white;
+}
+@media (min-width: 768px) {
   .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-size: 24px;
   }
-}
-
-.create-btn {
-  margin-bottom: 15px;
-  color: #444;
-  text-transform: uppercase;
-  font-size: 14px;
-  cursor: pointer;
-  border: 2px solid #326383;
-  background-color: transparent;
-  transition: all 1s;
-}
-.create-btn:hover {
-  background-image: linear-gradient(rgba(233, 233, 233, 0.4) 0 0);
 }
 
 .table-container {

@@ -14,6 +14,7 @@
             >
               <v-text-field
                 hide-details="auto"
+                class="text-field"
                 v-model="foodInfo.name"
                 :rules="nameRules"
                 label="Food Item Name"
@@ -22,6 +23,7 @@
             </v-col>
             <v-col cols="12" md="4" sm="12" xs="12">
               <v-text-field
+                class="text-field"
                 hide-details="auto"
                 v-model="foodInfo.price"
                 :rules="nameRules"
@@ -33,6 +35,7 @@
             </v-col>
             <v-col cols="12" md="4" sm="12" xs="12">
               <v-select
+                class="text-field"
                 hide-details="auto"
                 v-model="foodInfo.discountType"
                 :items="discountTypes"
@@ -51,6 +54,7 @@
               xs="12"
             >
               <v-text-field
+                class="text-field"
                 hide-details="auto"
                 v-model="foodInfo.discount"
                 :rules="nameRules"
@@ -70,7 +74,7 @@
             >
               <v-text-field
                 hide-details="auto"
-                class="mb-8"
+                class="mb-8 text-field"
                 v-model="foodInfo.discountPrice"
                 :rules="nameRules"
                 type="number"
@@ -81,6 +85,7 @@
             </v-col>
             <v-col cols="12" md="12" sm="12" xs="12">
               <v-textarea
+                class="text-field"
                 v-model="foodInfo.description"
                 :rules="nameRules"
                 label="Food Description"
@@ -230,6 +235,9 @@ h1 {
   margin: -0.512em auto;
   width: clamp(53px, 68px, 80px);
 }
+.text-field {
+  background-color: white;
+}
 .img-container {
   display: flex;
   justify-content: center;
@@ -249,7 +257,7 @@ h1 {
 }
 .input-img::before {
   content: "Insert a image";
-  font-size: clamp(7px, 10px, 14px);
+  font-size: clamp(10px, 12px, 16px);
   color: #7e7e7e;
   position: absolute;
   left: 50%;
@@ -279,8 +287,9 @@ h1 {
 }
 .btn-container button {
   text-transform: capitalize;
-  background-color: #326383;
-  color: #fff;
+  background-color: #cc2366;
+  color: white;
+  letter-spacing: 0;
   width: 100px;
 }
 @media screen and (min-width: 768px) {

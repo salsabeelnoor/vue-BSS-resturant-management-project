@@ -1,9 +1,17 @@
 <template>
   <section class="table-page-container">
     <v-container>
-      <div class="header-container d-flex justify-space-between pt-5">
-        <h2>Table Information</h2>
-      </div>
+      <v-row class="mx-4 mt-2">
+        <v-col class="header">
+          <h4>Table List</h4>
+          <v-btn
+            class="create-btn"
+            elevation="0"
+            @click="$router.push('/admin/add-table')"
+            >Add Table
+          </v-btn>
+        </v-col>
+      </v-row>
       <v-data-table-server
         v-model:items-per-page="itemsPerPage"
         :headers="headers"
@@ -12,7 +20,7 @@
         :item-class="tableRowStyle"
         :items-per-page="itemsPerPage"
         hide-default-footer
-        class="table"
+        class="table border"
         @update:options="fetchTableInfo"
       >
         <!-- <template v-slot:item.available="{ item }">
@@ -131,9 +139,6 @@
           </ul>
         </template>
       </v-data-table-server>
-      <div class="btn-container">
-        <v-btn class="create-btn">ADD New Table</v-btn>
-      </div>
     </v-container>
   </section>
 </template>
@@ -250,7 +255,48 @@ export default {
 <style scoped>
 .table-page-container {
   min-height: 100vh;
-  background-color: #f0f4f9;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: clamp(1rem, 1.25rem, 2rem);
+}
+h4 {
+  letter-spacing: 2px;
+}
+.create-btn {
+  margin-bottom: 15px;
+  letter-spacing: 0;
+  border-radius: 0;
+  color: #222;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid #cc2366;
+  background-color: transparent;
+}
+@media (max-width: 767px) {
+  .create-btn {
+    width: 150px;
+    margin: 15px auto;
+  }
+  .header {
+    text-align: center;
+  }
+}
+.create-btn:hover {
+  background-color: #cc2366;
+  color: white;
+}
+@media (min-width: 768px) {
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 24px;
+  }
 }
 .is-available-icon {
   width: 25px;
@@ -262,8 +308,8 @@ export default {
   justify-content: flex-end;
   margin: 20px auto auto auto;
 }
-.create-btn {
+/* .create-btn {
   color: rgb(26, 21, 13);
   background-color: #f99d52;
-}
+} */
 </style>

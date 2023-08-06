@@ -54,23 +54,22 @@ export default {
   width: 80%;
   margin: 0 auto;
   color: black;
-  background-color: #fdfdfa;
+  background: #e6683c;
+  /* background-color: #fdfdfa; */
   border-bottom: 2px solid #e3dfdf;
 }
-
 .nav-header {
   font-size: 25px;
 }
-
 .login-btn {
+  border-radius: 0px;
   font-size: 16px;
+  letter-spacing: 0;
   text-transform: capitalize;
   cursor: pointer;
-  background-color: #627088;
-  color: white;
-
-  /* color: #222;
-  border: 2.5px solid #326383; */
+  background-color: #fff;
+  /* border: 2px solid #cc2366; */
+  color: black;
 }
 .login-btn:hover {
   opacity: 0.8;

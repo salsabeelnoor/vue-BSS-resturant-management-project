@@ -10,7 +10,7 @@
               <v-row>
                 <v-col cols="12" md="4" sm="12" xs="12">
                   <v-text-field
-                    class="text-field mb-5 text-field"
+                    class="text-field mb-5"
                     v-model="employeeInfo.firstName"
                     density="compact"
                     label="First Name"
@@ -364,10 +364,12 @@ h1 {
 }
 .submit-btn {
   text-transform: capitalize;
-  background-color: #326383;
-  color: #fff;
+  background-color: #cc2366;
+  color: white;
+  letter-spacing: 0;
   width: 100px;
 }
+
 @media screen and (min-width: 768px) {
   .submit-btn-container {
     justify-content: flex-start;

@@ -16,7 +16,8 @@ const routes = [
     path: '/',
     name: 'commonLayout',
     beforeEnter: AuthRequired,
-    component: CommonLayout
+    component: CommonLayout,
+    redirect: '/admin/employee-list',
    },
    {
     path: '/admin',
