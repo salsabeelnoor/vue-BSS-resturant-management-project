@@ -2,8 +2,8 @@
   <section class="login-section">
     <v-container>
       <v-card class="mx-auto pa-12 pb-8 form-card" elevation="0">
-        <h2 class="text-start pb-10 employee-add-header">Add New Employee</h2>
-
+        <h1>&bull; Add New Employee &bull;</h1>
+        <div class="underline mt-2 mb-10"></div>
         <v-form @submit.prevent="addEmployee" ref="form">
           <v-row>
             <v-col cols="12" md="9" sm="12" xs="12">
@@ -112,7 +112,7 @@
               xs="12"
               class="img-section"
               :style="{
-                'background-color': backgroundToggle ? 'transparent' : '#ccc',
+                'background-color': isbase64Available ? 'transparent' : '#ccc',
               }"
             >
               <v-img
@@ -200,7 +200,15 @@
               </v-file-input>
             </v-col>
           </v-row>
-          <v-btn class="submit-btn" elevation="0" size="large">Submit</v-btn>
+          <div class="submit-btn-container">
+            <v-btn
+              @click="submitForm"
+              class="submit-btn"
+              elevation="0"
+              size="large"
+              >Submit</v-btn
+            >
+          </div>
         </v-form>
       </v-card>
     </v-container>
@@ -213,7 +221,7 @@ export default {
   name: "AddEmployee",
   data() {
     return {
-      backgroundToggle: false,
+      isbase64Available: false,
       showPseudoContent: true,
       genders: [
         { text: "Male", value: 1 },
@@ -277,15 +285,20 @@ export default {
       };
       reader.readAsDataURL(fileObject);
       this.showPseudoContent = false;
-      this.backgroundToggle = true;
+      this.isbase64Available = true;
     },
     async addEmployee() {
-      try {
-        await apiCall.post("api/Employee/create", this.employeeInfo);
-      } catch (e) {
-        console.log(e);
-      }
+      // try {
+      //   await apiCall.post("api/Employee/create", this.employeeInfo);
+      // } catch (e) {
+      //   console.log(e);
+      // }
       this.$refs.form.reset();
+    },
+    submitForm() {
+      this.employeeInfo.base64 = "";
+      this.isbase64Available = false;
+      this.showPseudoContent = true;
     },
   },
 };
@@ -301,22 +314,26 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
-h2 {
+h1 {
   white-space: wrap;
+  color: #474544;
   overflow: hidden;
-  font-size: clamp(1.2rem, -0.875rem + 8.333vw, 2rem);
-  animation: fadeInUp 1.5s forwards;
+  font-size: clamp(0.73rem, -0.875rem + 8.333vw, 2rem);
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
 }
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translate(0, 50px);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
+@media screen and (min-width: 768px) {
+  h1 {
+    letter-spacing: 5px;
   }
 }
+.underline {
+  border-bottom: solid 2px #474544;
+  margin: -0.512em auto;
+  width: clamp(53px, 68px, 80px);
+}
+
 .form-card {
   background-color: transparent;
 }
@@ -334,19 +351,29 @@ h2 {
 
 .pseudoClass::before {
   content: "Insert an  image";
-  font-size: 14px;
+  font-size: clamp(0.6rem, -0.875rem + 8.333vw, 0.95rem);
   color: #7e7e7e;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.submit-btn-container {
+  display: flex;
+  justify-content: center;
+}
 .submit-btn {
-  /* border: 2px solid #326383; */
-  font-size: 16px;
   text-transform: capitalize;
   background-color: #326383;
   color: #fff;
-  /* background-color: #326383; */
+  width: 100px;
+}
+@media screen and (min-width: 768px) {
+  .submit-btn-container {
+    justify-content: flex-start;
+  }
+  .submit-btn {
+    width: auto;
+  }
 }
 </style>

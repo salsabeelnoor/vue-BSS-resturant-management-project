@@ -3,7 +3,7 @@
     <div id="container">
       <h1>&bull; Add New Table &bull;</h1>
       <div class="underline mt-2"></div>
-      <v-form ref="form" class="mt-4">
+      <v-form @submit.prevent="addTableToDb" ref="form" class="mt-4">
         <div class="img-box-container">
           <div class="text-box-container">
             <v-text-field
@@ -45,7 +45,7 @@
           </v-col>
         </v-row>
         <div class="submit-btn-container">
-          <v-btn @click="addTableToDb" class="add-table-btn" elevation="0">
+          <v-btn @click="submitForm" class="add-table-btn" elevation="0">
             Submit
           </v-btn>
         </div>
@@ -97,12 +97,14 @@ export default {
       this.isbase64Available = true;
     },
     async addTableToDb() {
-      // try {
-      //   const response = await ApiCall.post("api/Table/create", this.tableInfo);
-      // } catch (e) {
-      //   console.log(e);
-      // }
+      try {
+        const response = await ApiCall.post("api/Table/create", this.tableInfo);
+      } catch (e) {
+        console.log(e);
+      }
       this.$refs.form.reset();
+    },
+    submitForm() {
       this.tableInfo.base64 = "";
       this.isbase64Available = false;
     },
@@ -130,10 +132,16 @@ export default {
   margin: auto;
   position: relative;
 }
+@media screen and (max-width: 768px) {
+  #container {
+    margin: 10px auto;
+    width: 95%;
+  }
+}
 h1 {
   font-family: "Montserrat", Arial, sans-serif;
   color: #474544;
-  font-size: clamp(0.96rem, -0.875rem + 8.333vw, 2rem);
+  font-size: clamp(0.73rem, -0.875rem + 8.333vw, 2rem);
   font-weight: 700;
   letter-spacing: 7px;
   text-align: center;
@@ -180,6 +188,7 @@ form {
   content: "Insert a image";
   color: #7e7e7e;
   position: absolute;
+  font-size: clamp(0.6rem, -0.875rem + 8.333vw, 0.95rem);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -192,26 +201,25 @@ form {
   background-color: transparent;
 }
 .submit-btn-container {
-  /* border: 2px solid red; */
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .add-table-btn {
-  border: 2.5px solid #326383;
-  /* transition: color 0.5s; */
-  border-radius: 0px;
-  margin-top: 20px;
-  font-family: "Montserrat", Arial, sans-serif;
-  color: black;
+  width: 100px;
 }
-.add-table-btn:hover {
-  color: #fff;
-  background-color: #326383;
-}
-@media screen and (max-width: 768px) {
-  #container {
-    margin: 10px auto;
-    width: 95%;
+@media screen and (min-width: 768px) {
+  .submit-btn-container {
+    justify-content: flex-start;
   }
+  .add-table-btn {
+    width: auto;
+  }
+}
+.add-table-btn {
+  margin-top: 20px;
+  font-size: 16px;
+  text-transform: capitalize;
+  background-color: #326383;
+  color: #fff;
 }
 </style>

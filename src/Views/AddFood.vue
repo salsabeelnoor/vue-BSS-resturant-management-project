@@ -1,11 +1,8 @@
 <template>
   <section class="add-food-container">
-    <h2 class="pt-5 text-center">Foods</h2>
-    <v-form
-      @submit.prevent="addFoodToDb"
-      ref="form"
-      class="form-container ma-10"
-    >
+    <h1 class="pt-5 text-center">&bull; Add New Food &bull;</h1>
+    <div class="underline mt-2 mb-10"></div>
+    <v-form @submit.prevent="addFoodToDb" ref="form" class="ma-10">
       <v-row>
         <v-col cols="12" md="9" sm="12" xs="12">
           <v-row>
@@ -94,16 +91,13 @@
         </v-col>
         <v-col cols="12" md="3" sm="12" xs="12">
           <v-img
-            class="img-section input-img pseudoClass"
+            :class="isbase64Available ? 'bg-transparent' : 'input-img'"
             :aspect-ratio="1"
             @click="onClickImage"
             :src="foodInfo.base64 != null ? foodInfo.base64 : renderImage()"
           >
           </v-img>
         </v-col>
-      </v-row>
-      <v-row class="btn-container mt-10">
-        <v-btn type="submit" size="large">Submit</v-btn>
       </v-row>
       <v-row>
         <v-col>
@@ -118,6 +112,9 @@
           </v-file-input>
         </v-col>
       </v-row>
+      <div class="btn-container">
+        <v-btn @click="submitForm" type="submit" size="large">Submit</v-btn>
+      </div>
     </v-form>
   </section>
 </template>
@@ -128,6 +125,7 @@ export default {
   name: "AddFood",
   data() {
     return {
+      isbase64Available: false,
       showPseudoContent: true,
       discountTypes: [
         { text: "None", value: 0 },
@@ -188,16 +186,20 @@ export default {
       };
       console.log(this.foodInfo.base64);
       reader.readAsDataURL(fileObject);
+      this.isbase64Available = true;
     },
     async addFoodToDb() {
       console.log(this.foodInfo);
-      // try{
-      //   await ApiCall.post('api/food/create', this.foodInfo)
-      // }
-      // catch(e){
-      //   console.log(e)
-      // }
+      try {
+        await ApiCall.post("api/food/create", this.foodInfo);
+      } catch (e) {
+        console.log(e);
+      }
       this.$refs.form.reset();
+    },
+    submitForm() {
+      this.foodInfo.base64 = "";
+      this.isbase64Available = false;
     },
   },
 };
@@ -213,33 +215,70 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.form-container {
-  /* border: 2px solid red; */
+h1 {
+  white-space: wrap;
+  color: #474544;
+  overflow: hidden;
+  font-size: clamp(0.73rem, -0.875rem + 8.333vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-align: center;
+  text-transform: uppercase;
 }
-
+.underline {
+  border-bottom: solid 2px #474544;
+  margin: -0.512em auto;
+  width: clamp(53px, 68px, 80px);
+}
 .input-img {
   background-color: #ccc;
   border-radius: 2px;
+  flex-grow: 0;
+  height: 200px;
+  width: 200px;
 }
-.pseudoClass::before {
+.input-img::before {
   content: "Insert a image";
+  font-size: clamp(0.6rem, -0.875rem + 8.333vw, 0.95rem);
   color: #7e7e7e;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.bg-transparent {
+  border-radius: 2px;
+  flex-grow: 0;
+  background-color: transparent;
+  height: 200px;
+  width: 200px;
+}
+@media screen and (min-width: 768px) {
+  .input-img {
+    height: 350px;
+    width: 350px;
+  }
+  .bg-transparent {
+    height: 350px;
+    width: 350px;
+  }
+}
 .btn-container {
   display: flex;
   justify-content: center;
-  /* border: 2px solid red; */
 }
 .btn-container button {
-  background-color: rgb(225, 102, 39);
-  transition: color 0.5s;
-  width: 15%;
-}
-.btn-container button:hover {
+  text-transform: capitalize;
+  background-color: #326383;
   color: #fff;
+  width: 100px;
+}
+@media screen and (min-width: 768px) {
+  .btn-container {
+    justify-content: flex-start;
+  }
+  .btn-container button {
+    width: auto;
+  }
 }
 </style>
