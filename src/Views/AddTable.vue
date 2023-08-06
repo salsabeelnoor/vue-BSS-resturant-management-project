@@ -127,6 +127,7 @@ export default {
 }
 #container {
   border: solid 3px #8e0139;
+  background-color: #ffffffaa;
   max-width: 768px;
   padding: 10px;
   margin: auto;

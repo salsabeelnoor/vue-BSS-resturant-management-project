@@ -26,9 +26,16 @@ User Friendly online resturant management system with an admin role that allows 
 
 ## Screenshots
 
-     Add new Employee Page
+     All responsive forms
 
 ![App Screenshot](src/assets/projectImages/add-employee.png)
+![App Screenshot](src/assets/projectImages/add-employee_responsive.png)
+![App Screenshot](src/assets/projectImages/add-food.png)
+![App Screenshot](src/assets/projectImages/add-food_responsive.png)
+![App Screenshot](src/assets/projectImages/add-newTable.png)
+![App Screenshot](src/assets/projectImages/add-newTable_responsive.png)
+![App Screenshot](src/assets/projectImages/login.png)
+![App Screenshot](src/assets/projectImages/login_responsive.png)
 
 ## Login Information
 **email**: admin@mail.com
