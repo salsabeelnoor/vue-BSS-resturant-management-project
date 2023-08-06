@@ -1,14 +1,15 @@
 <template>
-  <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
-
   <v-app-bar color="" prominent class="top-nav" elevation="0">
     <v-toolbar-title class="nav-header text-black">
       <v-btn
         @click="toggleDashboard"
         icon="mdi-format-align-justify "
-        class="text-white"
-      ></v-btn
-    ></v-toolbar-title>
+        size="large"
+        class="text-white icon"
+      >
+        <v-icon>mdi-menu</v-icon>
+      </v-btn></v-toolbar-title
+    >
     <v-btn class="login-btn" @click="onNavBtnClick">
       <v-icon icon="mdi-logout" class="d-flex d-md-none"></v-icon>
       <p class="d-none d-md-flex">{{ toggleBtnText }}</p>
@@ -59,17 +60,10 @@ export default {
   margin: 0 auto;
   color: black;
   background-color: #e6683c;
-  /* background-image: linear-gradient(
-      to bottom,
-      rgba(106, 29, 3, 0.747) 0%,
-      rgba(75, 74, 74, 0.73) 50%
-    ),
-    url("../../assets/bg-image/bg_2.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
-  /* background-color: #fdfdfa; */
   border-bottom: 2px solid #e3dfdf;
+}
+.icon {
+  font-weight: 900;
 }
 .nav-header {
   font-size: 25px;
