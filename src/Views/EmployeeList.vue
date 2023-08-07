@@ -80,10 +80,12 @@
               <p class="d-block emailTruncate">{{ item.raw.user.email }}</p>
             </template>
             <template v-slot:item.phoneNumber="{ item }">
-              <p class="d-block emailTruncate">{{ item.raw.user.email }}</p>
+              <p class="d-block emailTruncate">
+                {{ item.raw.user.phoneNumber }}
+              </p>
             </template>
             <template v-slot:item.dob="{ item }">
-              <p class="d-block emailTruncate">{{ item.raw.user.email }}</p>
+              <p class="d-block emailTruncate">{{ item.raw.user.dob }}</p>
             </template>
           </v-data-table-server>
         </div>
@@ -305,7 +307,6 @@ h4 {
   grid-template-columns: 1fr 0.4fr;
   cursor: pointer;
 }
-
 .tooltip-text {
   visibility: hidden;
   position: absolute;
