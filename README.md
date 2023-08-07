@@ -37,6 +37,12 @@ User Friendly online resturant management system with an admin role that allows 
 ![App Screenshot](src/assets/projectImages/login.png)
 ![App Screenshot](src/assets/projectImages/login_responsive.png)
 
+     Table with text truncated
+![App Screenshot](src/assets/projectImages/employee-list.png)
+![App Screenshot](src/assets/projectImages/employee-list_responsive.png)
+![App Screenshot](src/assets/projectImages/employee-list_responsive_2.png)
+![App Screenshot](src/assets/projectImages/employee-list_responsive_3.png)
+
 ## Login Information
 **email**: admin@mail.com
 

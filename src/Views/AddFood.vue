@@ -118,7 +118,9 @@
         </v-col>
       </v-row>
       <div class="btn-container">
-        <v-btn @click="submitForm" type="submit" size="large">Submit</v-btn>
+        <v-btn @click="submitForm" type="submit" size="large" elevation="0"
+          >Submit</v-btn
+        >
       </div>
     </v-form>
   </section>
@@ -287,8 +289,9 @@ h1 {
 }
 .btn-container button {
   text-transform: capitalize;
-  background-color: #cc2366;
+  background-color: #e6683c;
   color: white;
+  border-radius: 0;
   letter-spacing: 0;
   width: 100px;
 }

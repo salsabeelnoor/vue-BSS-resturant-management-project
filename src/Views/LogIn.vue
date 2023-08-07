@@ -148,14 +148,15 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
+  /* background: linear-gradient(
     45deg,
     #f09433 0%,
     #e6683c 25%,
     #dc2743 65%,
     #cc2366 75%,
     #bc1888 100%
-  );
+  ); */
+  background-color: #e6683c;
 }
 .login-container {
   width: 100% !important;
@@ -237,9 +238,10 @@ h2 {
   justify-content: center;
 }
 .submit-btn {
+  border-radius: 0px;
   width: 70%;
   font-weight: 600;
-  background-color: #cc2366;
-  color: white;
+  background-color: #e6683c;
+  color: #000;
 }
 </style>

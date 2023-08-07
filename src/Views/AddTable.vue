@@ -126,7 +126,7 @@ export default {
   padding-block: 60px;
 }
 #container {
-  border: solid 3px #8e0139;
+  border: solid 3px #000;
   background-color: #ffffffaa;
   max-width: 768px;
   padding: 10px;
@@ -220,9 +220,10 @@ form {
   margin-top: 20px;
   font-size: 16px;
   letter-spacing: 0;
+  border-radius: 0;
   text-transform: capitalize;
   background-color: transparent;
-  background-color: #cc2366;
+  background-color: #e6683c;
   color: white;
 }
 </style>

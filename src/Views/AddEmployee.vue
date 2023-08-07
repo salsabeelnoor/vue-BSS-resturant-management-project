@@ -201,11 +201,7 @@
             </v-col>
           </v-row>
           <div class="submit-btn-container">
-            <v-btn
-              @click="submitForm"
-              class="submit-btn"
-              elevation="0"
-              size="large"
+            <v-btn type="submit" class="submit-btn" elevation="0" size="large"
               >Submit</v-btn
             >
           </div>
@@ -288,22 +284,32 @@ export default {
       this.isbase64Available = true;
     },
     async addEmployee() {
-      // try {
-      //   await apiCall.post("api/Employee/create", this.employeeInfo);
-      // } catch (e) {
-      //   console.log(e);
-      // }
+      try {
+        await apiCall.post("api/Employee/create", this.employeeInfo);
+      } catch (e) {
+        console.log(e);
+      }
       this.$refs.form.reset();
-    },
-    submitForm() {
-      this.employeeInfo.base64 = "";
       this.isbase64Available = false;
+      this.employeeInfo.base64 = "";
       this.showPseudoContent = true;
     },
+    // submitForm() {
+    //   this.employeeInfo.base64 = "";
+    //   this.isbase64Available = false;
+    //   this.showPseudoContent = true;
+    // },
   },
 };
 </script>
+<style>
+.v-img__img--contain {
+  object-fit: cover;
+}
+</style>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -338,6 +344,7 @@ h1 {
   background-color: transparent;
 }
 .text-field {
+  font-family: "Noto Sans", sans-serif;
   background-color: white;
 }
 .img-section {
@@ -364,7 +371,8 @@ h1 {
 }
 .submit-btn {
   text-transform: capitalize;
-  background-color: #cc2366;
+  background-color: #e6683c;
+  border-radius: 0;
   color: white;
   letter-spacing: 0;
   width: 100px;

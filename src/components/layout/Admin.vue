@@ -1,32 +1,35 @@
 <template>
   <v-layout>
+    <!-- :prepend-avatar="
+            user.image
+              ? imageUrl + 'user/' + user.image
+              : 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'
+          " -->
     <v-navigation-drawer
       v-model="$store.state.toggleDashboard"
       class="dashboard-drawer dashboard-container"
     >
       <v-list class="logo-item">
         <v-list-item class="d-flex justify-center">
-          <h2>BSS Eatery</h2>
+          <h2 class="header">BSS Eatery</h2>
         </v-list-item>
-        <v-divider></v-divider>
+        <v-divider class="divider"></v-divider>
       </v-list>
-      <v-list>
+      <v-list class="profile-parent">
         <v-list-item
-          :prepend-avatar="
-            user.image
-              ? imageUrl + 'user/' + user.image
-              : 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'
-          "
+          class="profile-section"
+          prepend-avatar="https://images.unsplash.com/photo-1593483316242-efb5420596ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b3JhbmdlJTIwY2F0fGVufDB8fDB8fHww&w=1000&q=80"
           :title="user.fullName"
           :subtitle="user.userName"
         >
         </v-list-item>
       </v-list>
 
-      <v-divider></v-divider>
+      <v-divider class="divider"></v-divider>
 
       <v-list density="compact" nav>
         <v-list-item
+          class="list-children"
           prepend-icon="mdi-account-multiple"
           @click="$router.push('/admin')"
           title="Employee List"
@@ -93,15 +96,57 @@ export default {
 </script>
 <style scoped>
 .dashboard-container {
-  background: linear-gradient(
+  /* background: linear-gradient(
     45deg,
     #f09433 0%,
     #e6683c 25%,
     #dc2743 65%,
     #cc2366 75%,
     #bc1888 100%
-  );
-  /* background-color: #3e547c; */
-  color: white;
+  ); */
+  background-color: #fff;
+  color: black;
+  border-right: 1px solid #6b6767;
+}
+.header {
+  letter-spacing: 2px;
+}
+hr {
+  color: black;
+  /* border: 1px solid black; */
+}
+.profile-parent {
+  display: flex;
+  justify-content: center;
+}
+.profile-section {
+  display: flex;
+}
+
+.v-list-item--nav .v-list-item-title {
+  border: 2px solid green;
+  font-size: 16px !important;
+  color: black;
+}
+</style>
+<style>
+.v-list-item--nav .v-list-item-title {
+  border-radius: 0px;
+  color: #e6683c !important;
+  font-size: 14px !important;
+  opacity: 1;
+  font-weight: 550;
+}
+.v-list-item__prepend > .v-icon {
+  color: #e6683c !important;
+}
+.v-list-item--variant-text .v-list-item__overlay {
+  background: rgb(250, 88, 0);
+  border-radius: 0;
+}
+hr[data-v-794909c8] {
+  color: black;
+  border: 0.5px solid #c73602;
+  opacity: 0.2;
 }
 </style>

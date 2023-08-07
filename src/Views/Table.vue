@@ -274,7 +274,7 @@ h4 {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  border: 2px solid #cc2366;
+  border: 3px solid #e6683c;
   background-color: transparent;
 }
 @media (max-width: 767px) {
@@ -287,7 +287,7 @@ h4 {
   }
 }
 .create-btn:hover {
-  background-color: #cc2366;
+  background-color: #e6683c;
   color: white;
 }
 @media (min-width: 768px) {

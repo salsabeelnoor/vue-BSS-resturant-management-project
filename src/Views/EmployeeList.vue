@@ -1,32 +1,31 @@
 <template>
   <section class="list-view-container">
-    <v-container>
-      <v-row class="mx-4 mt-2">
-        <v-col class="header">
-          <h4>Employee List</h4>
-          <v-btn
-            class="create-btn"
-            elevation="0"
-            @click="$router.push('/admin/add-employee')"
-            >Add Employee
-          </v-btn>
-        </v-col>
-      </v-row>
-      <div class="table-container">
-        <div class="spinner-container">
-          <Spinner v-if="showSpinner" class="spinner" />
-        </div>
-        <div class="d-flex justify-center">
-          <v-data-table-server
-            v-model:items-per-page="itemsPerPage"
-            :headers="headers"
-            :items-length="totalItems"
-            :items="employees"
-            class="border myTable"
-            item-value="name"
-            @update:options="fetchEmployeeList"
-          >
-            <!-- <template v-slot:header="{ props: { headers } }">
+    <v-row class="mx-4 mt-2">
+      <v-col class="header">
+        <h4>Employee List</h4>
+        <v-btn
+          class="create-btn"
+          elevation="0"
+          @click="$router.push('/admin/add-employee')"
+          >Add Employee
+        </v-btn>
+      </v-col>
+    </v-row>
+    <div class="table-container">
+      <div class="spinner-container">
+        <Spinner v-if="showSpinner" class="spinner" />
+      </div>
+      <div class="d-flex justify-center">
+        <v-data-table-server
+          v-model:items-per-page="itemsPerPage"
+          :headers="headers"
+          :items-length="totalItems"
+          :items="employees"
+          class="border myTable"
+          item-value="name"
+          @update:options="fetchEmployeeList"
+        >
+          <!-- <template v-slot:header="{ props: { headers } }">
             <thead>
               <tr>
                 <th v-for="(h, i) in headers" :key="i" :class="h.class">
@@ -35,65 +34,78 @@
               </tr>
             </thead>
           </template> -->
-            <template v-slot:item.action="{ item }">
-              <div class="d-flex">
-                <v-btn
-                  class="ma-0 text-capitalize btn-hover d-block"
-                  elevation="0"
-                  rounded-circle
-                  icon="mdi-circle-edit-outline"
-                >
-                  <span class="tooltip-text top">Edit</span>
-                  <v-icon color="green">mdi-circle-edit-outline</v-icon>
-                </v-btn>
-                <v-btn
-                  @click="deleteEmployee(item.raw.id)"
-                  class="ma-0 text-capitalize btn-hover d-block"
-                  elevation="0"
-                  rounded-circle
-                  icon="mdi-delete-outline"
-                >
-                  <span class="tooltip-text top">Delete</span>
-                  <v-icon color="red">mdi-delete-outline</v-icon>
-                </v-btn>
-              </div>
-            </template>
-            <template v-slot:item.image="{ item }">
-              <v-img width="35" fab :src="renderImage(item.raw.user.image)" />
-            </template>
-            <template v-slot:item.fullName="{ item }">
-              <div class="name-container">
-                <p class="d-block nameTruncate btn-hover">
-                  {{ item.raw.user.fullName }}
-                </p>
-                <span class="tooltip-text top">
-                  {{ item.raw.user.fullName }}
-                </span>
-                <v-icon
-                  @click="toggleColor"
-                  :color="isOrange ? 'orange' : '#b5adac'"
-                  >mdi-star</v-icon
-                >
-              </div>
-            </template>
-            <template v-slot:item.email="{ item }">
-              <p class="d-block emailTruncate">{{ item.raw.user.email }}</p>
-            </template>
-            <template v-slot:item.phoneNumber="{ item }">
-              <p class="d-block emailTruncate">
-                {{ item.raw.user.phoneNumber }}
+          <template v-slot:item.action="{ item }">
+            <div class="d-flex">
+              <v-btn
+                class="ma-0 text-capitalize btn-hover d-block"
+                elevation="0"
+                rounded-circle
+                icon="mdi-circle-edit-outline"
+              >
+                <span class="tooltip-text top">Edit</span>
+                <v-icon color="green">mdi-circle-edit-outline</v-icon>
+              </v-btn>
+              <v-btn
+                @click="deleteEmployee(item.raw.id)"
+                class="ma-0 text-capitalize btn-hover d-block"
+                elevation="0"
+                rounded-circle
+                icon="mdi-delete-outline"
+              >
+                <span class="tooltip-text top">Delete</span>
+                <v-icon color="#e6683c">mdi-delete-outline</v-icon>
+              </v-btn>
+            </div>
+          </template>
+          <template v-slot:item.image="{ item }">
+            <v-img
+              width="40"
+              height="40"
+              class="rounded-circle"
+              fab
+              :src="renderImage(item.raw.user.image)"
+            />
+          </template>
+          <template v-slot:item.fullName="{ item }">
+            <div class="name-container">
+              <p class="d-block nameTruncate btn-hover">
+                {{ item.raw.user.fullName }}
               </p>
-            </template>
-            <template v-slot:item.dob="{ item }">
-              <p class="d-block emailTruncate">{{ item.raw.user.dob }}</p>
-            </template>
-          </v-data-table-server>
-        </div>
+              <span class="tooltip-text top">
+                {{ item.raw.user.fullName }}
+              </span>
+              <v-icon
+                @click="toggleColor"
+                :color="isOrange ? 'orange' : '#b5adac'"
+                >mdi-star</v-icon
+              >
+            </div>
+          </template>
+          <template v-slot:item.email="{ item }">
+            <div class="parent-truncate">
+              <p class="d-block truncate">{{ item.raw.user.email }}</p>
+            </div>
+          </template>
+          <template v-slot:item.phoneNumber="{ item }">
+            <p class="d-block truncate">
+              {{ item.raw.user.phoneNumber }}
+            </p>
+          </template>
+          <template v-slot:item.dob="{ item }">
+            <p class="d-block truncate">{{ item.raw.user.dob }}</p>
+          </template>
+          <template v-slot:item.joinDate="{ item }">
+            <p class="d-block truncate">{{ item.raw.joinDate }}</p>
+          </template>
+          <template v-slot:item.designation="{ item }">
+            <p class="d-block truncate">{{ item.raw.designation }}</p>
+          </template>
+        </v-data-table-server>
       </div>
-      <p class="ma-3 text-red text-center" v-if="errorMessage">
-        {{ this.errorMessage }}
-      </p>
-    </v-container>
+    </div>
+    <p class="ma-3 text-red text-center" v-if="errorMessage">
+      {{ this.errorMessage }}
+    </p>
   </section>
 </template>
 <script>
@@ -248,16 +260,19 @@ export default {
 };
 </script>
 <style>
-th,
-td {
-  min-width: 20px !important;
-}
-table {
-  background: red !important;
-}
+/* table {
+  width: 100%;
+  table-layout: fixed;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+} */
 </style>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 .list-view-container {
+  margin: 30px;
   min-height: 100vh;
 }
 .header {
@@ -278,7 +293,7 @@ h4 {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  border: 2px solid #cc2366;
+  border: 3px solid #e6683c;
   background-color: transparent;
 }
 @media (max-width: 767px) {
@@ -291,7 +306,7 @@ h4 {
   }
 }
 .create-btn:hover {
-  background-color: #cc2366;
+  background-color: #e6683c;
   color: white;
 }
 @media (min-width: 768px) {
@@ -314,7 +329,7 @@ h4 {
   width: 80px;
   color: white;
   font-size: 12px;
-  background-color: #192733bc;
+  background-color: #0e171fcd;
   border-radius: 10px;
   padding: 5px;
 }
@@ -348,39 +363,17 @@ h4 {
   width: 100%;
 }
 
-/* table {
-  color: red;
-} */
 .spinner-container {
   position: absolute;
   display: flex;
   justify-content: center;
   width: 100%;
 }
-
-.delete-btn {
-  color: #312525;
-  border: 2px solid rgb(225, 102, 39);
-  transition: all 0.5s;
-}
-
-.delete-btn:hover {
-  background-color: rgb(161, 48, 4);
-  color: #fff;
-}
-
-.table {
-  width: 75%;
-  margin: auto;
-}
-.v-data-table .v-data-table__wrapper {
-  overflow-x: hidden !important;
-}
 .myTable {
   max-width: 100%;
   overflow-x: hidden !important;
   white-space: nowrap !important;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Noto Sans", sans-serif;
   font-size: 17px;
 }
 .nameTruncate {
@@ -390,25 +383,23 @@ h4 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.emailTruncate {
-  max-width: 80%;
+.parent-truncate {
+  min-width: 0px;
+  display: flex;
+  flex: 1;
+}
+.truncate {
+  min-width: 0px;
+  max-width: 90%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.myTable > thead > tr > th {
-  color: red !important;
-}
-
-.my-header-style {
-  color: red !important;
-}
-
-.tableRowStyle {
-  background-color: red;
-}
-
-.table tbody {
-  background-color: #917d3c !important;
+</style>
+<style>
+.v-data-table-header__content {
+  color: #000 !important;
+  font-weight: bold;
+  opacity: 1;
 }
 </style>
