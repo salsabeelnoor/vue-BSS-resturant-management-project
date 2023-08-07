@@ -16,40 +16,77 @@
         <div class="spinner-container">
           <Spinner v-if="showSpinner" class="spinner" />
         </div>
-        <v-data-table-server
-          v-model:items-per-page="itemsPerPage"
-          :headers="headers"
-          :items-length="totalItems"
-          :items="employees"
-          class="border"
-          item-value="name"
-          @update:options="fetchEmployeeList"
-        >
-          <template v-slot:item.action="{ item }">
-            <v-btn
-              @click="deleteEmployee(item.raw.id)"
-              class="text-capitalize"
-              elevation="0"
-              fab
-              small
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9m0 5h2v9H9V8m4 0h2v9h-2V8Z"
-                />
-              </svg>
-            </v-btn>
-          </template>
-          <template v-slot:item.image="{ item }">
-            <v-img width="35" fab :src="renderImage(item.raw.user.image)" />
-          </template>
-        </v-data-table-server>
+        <div class="d-flex justify-center">
+          <v-data-table-server
+            v-model:items-per-page="itemsPerPage"
+            :headers="headers"
+            :items-length="totalItems"
+            :items="employees"
+            class="border myTable"
+            item-value="name"
+            @update:options="fetchEmployeeList"
+          >
+            <!-- <template v-slot:header="{ props: { headers } }">
+            <thead>
+              <tr>
+                <th v-for="(h, i) in headers" :key="i" :class="h.class">
+                  <span>{{ h.title }}</span>
+                </th>
+              </tr>
+            </thead>
+          </template> -->
+            <template v-slot:item.action="{ item }">
+              <div class="d-flex">
+                <v-btn
+                  class="ma-0 text-capitalize btn-hover d-block"
+                  elevation="0"
+                  rounded-circle
+                  icon="mdi-circle-edit-outline"
+                >
+                  <span class="tooltip-text top">Edit</span>
+                  <v-icon color="green">mdi-circle-edit-outline</v-icon>
+                </v-btn>
+                <v-btn
+                  @click="deleteEmployee(item.raw.id)"
+                  class="ma-0 text-capitalize btn-hover d-block"
+                  elevation="0"
+                  rounded-circle
+                  icon="mdi-delete-outline"
+                >
+                  <span class="tooltip-text top">Delete</span>
+                  <v-icon color="red">mdi-delete-outline</v-icon>
+                </v-btn>
+              </div>
+            </template>
+            <template v-slot:item.image="{ item }">
+              <v-img width="35" fab :src="renderImage(item.raw.user.image)" />
+            </template>
+            <template v-slot:item.fullName="{ item }">
+              <div class="name-container">
+                <p class="d-block nameTruncate btn-hover">
+                  {{ item.raw.user.fullName }}
+                </p>
+                <span class="tooltip-text top">
+                  {{ item.raw.user.fullName }}
+                </span>
+                <v-icon
+                  @click="toggleColor"
+                  :color="isOrange ? 'orange' : '#b5adac'"
+                  >mdi-star</v-icon
+                >
+              </div>
+            </template>
+            <template v-slot:item.email="{ item }">
+              <p class="d-block emailTruncate">{{ item.raw.user.email }}</p>
+            </template>
+            <template v-slot:item.phoneNumber="{ item }">
+              <p class="d-block emailTruncate">{{ item.raw.user.email }}</p>
+            </template>
+            <template v-slot:item.dob="{ item }">
+              <p class="d-block emailTruncate">{{ item.raw.user.email }}</p>
+            </template>
+          </v-data-table-server>
+        </div>
       </div>
       <p class="ma-3 text-red text-center" v-if="errorMessage">
         {{ this.errorMessage }}
@@ -68,6 +105,7 @@ export default {
   },
   data() {
     return {
+      isOrange: true,
       imageUrl: imageUrl,
       showSpinner: false,
       errorMessage: "",
@@ -79,30 +117,40 @@ export default {
           key: "image",
           sortable: false,
           title: "Image",
+          class: "my-header-style",
         },
         {
-          key: "user.fullName",
+          key: "fullName",
           sortable: false,
-          title: "Employee",
+          title: "Name",
+          class: "my-header-style",
         },
         {
-          key: "user.email",
+          key: "email",
           sortable: false,
           title: "Email",
+          class: "my-header-style",
         },
         {
-          key: "user.phoneNumber",
+          key: "phoneNumber",
           sortable: false,
           title: "Phone",
+          class: "my-header-style",
         },
         {
-          key: "user.dob",
+          key: "dob",
           sortable: false,
           title: "Date of Birth",
+          class: "my-header-style",
         },
-        { title: "Joining Date", key: "joinDate" },
-        { title: "Designation", key: "designation" },
-        { title: "Action", key: "action" },
+        { title: "Joining Date", key: "joinDate", class: "my-header-style" },
+        { title: "Designation", key: "designation", class: "my-header-style" },
+        {
+          align: "center",
+          title: "Action",
+          key: "action",
+          class: "my-header-style",
+        },
       ],
       employees: [],
       itemsPerPage: 10,
@@ -124,6 +172,14 @@ export default {
   },
   computed: {},
   methods: {
+    styleElements() {
+      const tRows = document.getElementsByTagName("tr");
+      for (const tRow of tRows) {
+        tRow.style.color = "blue";
+        tRow.style.fontSize = "20px";
+        // Apply any other styles you want here
+      }
+    },
     renderImage(image) {
       if (image == "") {
         return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
@@ -143,6 +199,7 @@ export default {
           `api/Employee/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
         );
         this.employees = response.data.data;
+        console.log(this.employees);
         this.totalPages = response.data.totalPages;
         this.totalItems = response.data.total;
         this.showSpinner = false;
@@ -178,12 +235,25 @@ export default {
         this.editedIndex = -1;
       });
     },
+    toggleColor() {
+      this.isOrange = !this.isOrange;
+    },
   },
   mounted() {
+    // styleElements();
     this.showSpinner = true;
   },
 };
 </script>
+<style>
+th,
+td {
+  min-width: 20px !important;
+}
+table {
+  background: red !important;
+}
+</style>
 <style scoped>
 .list-view-container {
   min-height: 100vh;
@@ -230,12 +300,56 @@ h4 {
     font-size: 24px;
   }
 }
+.name-container {
+  display: grid;
+  grid-template-columns: 1fr 0.4fr;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  width: 80px;
+  color: white;
+  font-size: 12px;
+  background-color: #192733bc;
+  border-radius: 10px;
+  padding: 5px;
+}
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  margin-left: 25px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.btn-hover:hover .tooltip-text {
+  visibility: visible;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
+}
+
+.top {
+  top: -40px;
+  left: -50%;
+}
+
+.top::after {
+  top: 100%;
+  left: 15%;
+}
 
 .table-container {
   position: relative;
   width: 100%;
 }
 
+/* table {
+  color: red;
+} */
 .spinner-container {
   position: absolute;
   display: flex;
@@ -257,6 +371,36 @@ h4 {
 .table {
   width: 75%;
   margin: auto;
+}
+.v-data-table .v-data-table__wrapper {
+  overflow-x: hidden !important;
+}
+.myTable {
+  max-width: 100%;
+  overflow-x: hidden !important;
+  white-space: nowrap !important;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 17px;
+}
+.nameTruncate {
+  min-width: 0px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.emailTruncate {
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.myTable > thead > tr > th {
+  color: red !important;
+}
+
+.my-header-style {
+  color: red !important;
 }
 
 .tableRowStyle {
