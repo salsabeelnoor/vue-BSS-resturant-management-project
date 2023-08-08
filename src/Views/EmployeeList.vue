@@ -25,15 +25,6 @@
           item-value="name"
           @update:options="fetchEmployeeList"
         >
-          <!-- <template v-slot:header="{ props: { headers } }">
-            <thead>
-              <tr>
-                <th v-for="(h, i) in headers" :key="i" :class="h.class">
-                  <span>{{ h.title }}</span>
-                </th>
-              </tr>
-            </thead>
-          </template> -->
           <template v-slot:item.action="{ item }">
             <div class="d-flex">
               <v-btn
@@ -399,6 +390,7 @@ h4 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 14px;
 }
 .parent-truncate {
   display: grid;
