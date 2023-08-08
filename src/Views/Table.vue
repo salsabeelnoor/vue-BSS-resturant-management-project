@@ -38,11 +38,24 @@
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
               <v-card-text>
-                <div class="modal-text d-flex mt-5">
-                  <h3>Table Number: {{ selectedTable.tableNumber }}</h3>
-                </div>
-                <div class="modal-text d-flex mt-3">
-                  <h3>Number of Seats: {{ selectedTable.numberOfSeats }}</h3>
+                <div class="dialog-content-box">
+                  <div class="dialog-img-box">
+                    <v-img :src="renderImage(selectedTable.image)" />
+                  </div>
+                  <div class="dialog-text-box">
+                    <div class="modal-text d-flex mt-5">
+                      <p>
+                        Table Number:
+                        <span> {{ selectedTable.tableNumber }} </span>
+                      </p>
+                    </div>
+                    <div class="modal-text d-flex mt-3">
+                      <p>
+                        Number of Seats:
+                        <span>{{ selectedTable.numberOfSeats }}</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <v-select
                   class="mt-3"
@@ -77,11 +90,20 @@
             {{ item.raw.numberOfSeats }}
           </div>
         </template>
-        <template v-slot:item.available="{ item }">
-          <v-icon color="red" class="icon-margin-set" v-if="item.isOccupied">
+        <template v-slot:item.available="{ item, i }">
+          <v-icon
+            color="red"
+            class="icon-margin-set"
+            v-if="
+              item.index == 4 ||
+              item.index == 2 ||
+              item.index == 7 ||
+              item.isOccupied
+            "
+          >
             mdi-close-circle
           </v-icon>
-          <v-icon class="icon-margin-set" else>mdi-check-circle</v-icon>
+          <v-icon class="icon-margin-set" v-else>mdi-check-circle</v-icon>
         </template>
         <template v-slot:item.addEmployee="{ item }">
           <v-btn
@@ -202,11 +224,11 @@ export default {
   },
   methods: {
     renderImage(image) {
-      if (image == "") {
-        return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
-      } else {
-        return this.imageUrl + "table/" + image;
-      }
+      // if (image == "") {
+      //   return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
+      // } else {
+      return this.imageUrl + "table/" + image;
+      // }
     },
     async fetchTableInfo({ page, itemsPerPage, sortBy }) {
       try {
@@ -225,6 +247,7 @@ export default {
     },
     async selectTable(item) {
       this.selectedTable = item;
+
       try {
         const response = await ApiCall.get(
           `api/employee/non-assigned-employees/${item.id}`
@@ -238,7 +261,11 @@ export default {
     },
     async save() {
       try {
-        await ApiCall.post("api/EmployeeTable/create-range", this.formData);
+        const res = await ApiCall.post(
+          "api/EmployeeTable/create-range",
+          this.formData
+        );
+        console.log(res);
         await this.fetchEmployeeList({
           page: this.page,
           itemsPerPage: this.itemsPerPage,
@@ -247,6 +274,7 @@ export default {
       } catch (e) {
         console.log(e);
       }
+      this.dialog = false;
     },
   },
   mounted() {},
@@ -365,18 +393,28 @@ h4 {
   top: 100%;
   left: 15%;
 }
-.is-available-icon {
-  width: 25px;
-  color: #008000;
-}
-.btn-container {
-  width: 90%;
+.dialog-content-box {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0px !important; */
   display: flex;
-  justify-content: flex-end;
-  margin: 20px auto auto auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-/* .create-btn {
-  color: rgb(26, 21, 13);
-  background-color: #f99d52;
-} */
+.dialog-img-box {
+  width: 80%;
+}
+.dialog-img-box img {
+  width: 100%;
+}
+@media screen and (min-width: 991px) {
+  .dialog-content-box {
+    flex-direction: row;
+    gap: 20px;
+  }
+  .dialog-img-box {
+    width: 50%;
+  }
+}
 </style>

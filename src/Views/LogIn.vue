@@ -27,7 +27,7 @@
               <p class="d-block form-label">User Email</p>
             </div>
             <v-text-field
-              class="mb-1"
+              class="mb-1 tex-field text-medium-emphasis"
               :rules="[rules.required, rules.email]"
               v-model="userInfo.userName"
               density="compact"
@@ -51,7 +51,7 @@
               <p class="d-block form-label">Password</p>
             </div>
             <v-text-field
-              class="mb-3"
+              class="mb-3 tex-field text-medium-emphasis"
               v-model="userInfo.password"
               :append-inner-icon="
                 passwordIconVisible ? 'mdi-eye-off' : 'mdi-eye'
@@ -137,6 +137,7 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 * {
   font-size: clamp(12px, -0.875rem + 2.333vw, 16px);
 }
@@ -148,14 +149,6 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: linear-gradient(
-    45deg,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 65%,
-    #cc2366 75%,
-    #bc1888 100%
-  ); */
   background-color: #e6683c;
 }
 .login-container {
@@ -174,8 +167,7 @@ h2 {
   justify-content: center;
   width: 95%;
   border-radius: 0;
-  /* margin-top: -10px; */
-  height: 390px;
+  height: clamp(390px, -3.875rem + 32.333vw, 525px);
 }
 
 @media screen and (min-width: 991px) {
@@ -193,7 +185,7 @@ h2 {
     width: 500px;
     border-radius: 0;
     margin-top: -10px;
-    height: 525px;
+    /* height: 525px; */
   }
 }
 
@@ -243,5 +235,15 @@ h2 {
   font-weight: 600;
   background-color: #e6683c;
   color: #000;
+}
+</style>
+<style>
+input {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+}
+.v-messages__message {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 12px;
 }
 </style>
