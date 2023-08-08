@@ -68,7 +68,7 @@
           </template>
           <template v-slot:item.fullName="{ item }">
             <div class="name-container">
-              <p class="d-block nameTruncate btn-hover">
+              <p class="d-block child-truncate btn-hover">
                 {{ item.raw.user.fullName }}
               </p>
               <span class="tooltip-text top">
@@ -83,22 +83,39 @@
           </template>
           <template v-slot:item.email="{ item }">
             <div class="parent-truncate">
-              <p class="d-block truncate">{{ item.raw.user.email }}</p>
+              <div class="child-truncate">
+                {{ item.raw.user.email }}
+              </div>
+              <!-- <p class="d-block truncate">{{ item.raw.user.email }}</p> -->
             </div>
           </template>
           <template v-slot:item.phoneNumber="{ item }">
-            <p class="d-block truncate">
-              {{ item.raw.user.phoneNumber }}
-            </p>
+            <div class="parent-truncate">
+              <div class="child-truncate">
+                {{ item.raw.user.phoneNumber }}
+              </div>
+            </div>
           </template>
           <template v-slot:item.dob="{ item }">
-            <p class="d-block truncate">{{ item.raw.user.dob }}</p>
+            <div class="parent-truncate">
+              <div class="child-truncate">
+                {{ item.raw.user.dob }}
+              </div>
+            </div>
           </template>
           <template v-slot:item.joinDate="{ item }">
-            <p class="d-block truncate">{{ item.raw.joinDate }}</p>
+            <div class="parent-truncate">
+              <div class="child-truncate">
+                {{ item.raw.joinDate }}
+              </div>
+            </div>
           </template>
           <template v-slot:item.designation="{ item }">
-            <p class="d-block truncate">{{ item.raw.designation }}</p>
+            <div class="parent-truncate">
+              <div class="child-truncate">
+                {{ item.raw.designation }}
+              </div>
+            </div>
           </template>
         </v-data-table-server>
       </div>
@@ -376,7 +393,7 @@ h4 {
   font-family: "Noto Sans", sans-serif;
   font-size: 17px;
 }
-.nameTruncate {
+.child-truncate {
   min-width: 0px;
   max-width: 100%;
   white-space: nowrap;
@@ -384,16 +401,8 @@ h4 {
   text-overflow: ellipsis;
 }
 .parent-truncate {
-  min-width: 0px;
-  display: flex;
-  flex: 1;
-}
-.truncate {
-  min-width: 0px;
-  max-width: 90%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 </style>
 <style>

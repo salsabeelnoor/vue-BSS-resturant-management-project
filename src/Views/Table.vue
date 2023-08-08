@@ -122,7 +122,7 @@
               viewBox="0 0 32 32"
             >
               <path
-                fill="#005c83"
+                fill="#e6683c"
                 d="M14 4c-3.854 0-7 3.146-7 7c0 2.41 1.23 4.552 3.094 5.813C6.527 18.343 4 21.88 4 26h2c0-4.43 3.57-8 8-8c1.376 0 2.654.358 3.78.97A7.993 7.993 0 0 0 16 24c0 4.406 3.594 8 8 8c4.406 0 8-3.594 8-8c0-4.406-3.594-8-8-8a7.98 7.98 0 0 0-4.688 1.53c-.442-.277-.92-.51-1.406-.718A7.018 7.018 0 0 0 21 11c0-3.854-3.146-7-7-7zm0 2c2.773 0 5 2.227 5 5s-2.227 5-5 5s-5-2.227-5-5s2.227-5 5-5zm10 12c3.326 0 6 2.674 6 6s-2.674 6-6 6s-6-2.674-6-6s2.674-6 6-6zm-1 2v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2z"
               />
             </svg>
@@ -132,11 +132,16 @@
           <v-img width="45" height="45" :src="renderImage(item.raw.image)" />
         </template>
         <template v-slot:item.employees="{ item }">
-          <ul>
+          <div v-for="(employee, index) in item.raw.employees" :key="index">
+            <div class="chip">
+              <p>{{ employee.name }}</p>
+            </div>
+          </div>
+          <!-- <ul>
             <li v-for="(employee, index) in item.raw.employees" :key="index">
               {{ employee.name }}
             </li>
-          </ul>
+          </ul> -->
         </template>
       </v-data-table-server>
     </v-container>
@@ -234,7 +239,6 @@ export default {
     },
     close() {
       this.dialog = false;
-      // this.selectedTable = null;
     },
     async save() {
       try {
@@ -253,6 +257,8 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+
 .table-page-container {
   min-height: 100vh;
 }
@@ -264,6 +270,15 @@ export default {
 }
 h4 {
   letter-spacing: 2px;
+}
+.chip {
+  display: inline-block;
+  padding: 0 25px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 50px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
 }
 .create-btn {
   margin-bottom: 15px;
