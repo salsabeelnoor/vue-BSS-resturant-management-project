@@ -267,15 +267,17 @@ export default {
   },
 };
 </script>
-<style>
-/* table {
-  width: 100%;
-  table-layout: fixed;
 
-  border-collapse: collapse;
-  border-spacing: 0;
-  border: 0;
-} */
+<style>
+.v-data-table-footer__items-per-page {
+  font-size: 12px;
+}
+.v-select .v-select__selection:first-child {
+  font-size: 12px;
+}
+.v-data-table-footer__info {
+  font-size: 12px;
+}
 </style>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
@@ -349,28 +351,23 @@ h4 {
   border-style: solid;
   border-color: #555 transparent transparent transparent;
 }
-
 .btn-hover:hover .tooltip-text {
   visibility: visible;
   font-family: "Times New Roman", Times, serif;
   font-size: 12px;
 }
-
 .top {
   top: -40px;
   left: -50%;
 }
-
 .top::after {
   top: 100%;
   left: 15%;
 }
-
 .table-container {
   position: relative;
   width: 100%;
 }
-
 .spinner-container {
   position: absolute;
   display: flex;

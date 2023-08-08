@@ -132,13 +132,13 @@ hr {
 <style>
 .v-list-item--nav .v-list-item-title {
   border-radius: 0px;
-  color: #e6683c !important;
+  color: #59504c !important;
   font-size: 14px !important;
   opacity: 1;
   font-weight: 550;
 }
 .v-list-item__prepend > .v-icon {
-  color: #e6683c !important;
+  color: #59504c !important;
 }
 .v-list-item--variant-text .v-list-item__overlay {
   background: rgb(250, 88, 0);

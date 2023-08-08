@@ -67,81 +67,76 @@
             </v-card>
           </v-dialog>
         </template>
-        <template v-slot:item.available="{ item }">
-          <svg
-            v-if="item.isOccupied"
-            xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
-            viewBox="0 0 48 48"
-          >
-            <path
-              fill="#45413c"
-              d="M9.76 45.14a14.24 1.86 0 1 0 28.48 0a14.24 1.86 0 1 0-28.48 0Z"
-              opacity=".15"
-            />
-            <path
-              fill="#ff6242"
-              d="m40.06 12.76l-4.82-4.82a1.24 1.24 0 0 0-1.75 0L24 17.43l-9.49-9.49a1.24 1.24 0 0 0-1.75 0l-4.82 4.82a1.24 1.24 0 0 0 0 1.75L17.43 24l-9.49 9.49a1.24 1.24 0 0 0 0 1.75l4.82 4.82a1.24 1.24 0 0 0 1.75 0L24 30.57l9.49 9.49a1.24 1.24 0 0 0 1.75 0l4.82-4.82a1.24 1.24 0 0 0 0-1.75L30.57 24l9.49-9.49a1.24 1.24 0 0 0 0-1.75Z"
-            />
-            <path
-              fill="#ff866e"
-              d="m9 15.6l3.73-3.73a1.23 1.23 0 0 1 1.75 0L24 21.35l9.49-9.48a1.23 1.23 0 0 1 1.75 0L39 15.6l1.09-1.09a1.24 1.24 0 0 0 0-1.75l-4.85-4.82a1.24 1.24 0 0 0-1.75 0L24 17.43l-9.49-9.49a1.24 1.24 0 0 0-1.75 0l-4.82 4.82a1.24 1.24 0 0 0 0 1.75Z"
-            />
-            <path
-              fill="none"
-              stroke="#45413c"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m40.06 12.76l-4.82-4.82a1.24 1.24 0 0 0-1.75 0L24 17.43l-9.49-9.49a1.24 1.24 0 0 0-1.75 0l-4.82 4.82a1.24 1.24 0 0 0 0 1.75L17.43 24l-9.49 9.49a1.24 1.24 0 0 0 0 1.75l4.82 4.82a1.24 1.24 0 0 0 1.75 0L24 30.57l9.49 9.49a1.24 1.24 0 0 0 1.75 0l4.82-4.82a1.24 1.24 0 0 0 0-1.75L30.57 24l9.49-9.49a1.24 1.24 0 0 0 0-1.75Z"
-            />
-          </svg>
-          <svg
-            v-else
-            class="is-available-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill="#008000"
-              d="M11.707 6.707a1 1 0 0 0-1.414-1.414L7 8.586L5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6a6 6 0 1 0 0 12A6 6 0 0 0 8 2Z"
-            />
-          </svg>
+        <template v-slot:item.tableNumber="{ item }">
+          <div class="table-inner-text">
+            {{ item.raw.tableNumber }}
+          </div>
         </template>
-        <template v-slot:item.action="{ item }">
+        <template v-slot:item.numberOfSeats="{ item }">
+          <div class="table-inner-text">
+            {{ item.raw.numberOfSeats }}
+          </div>
+        </template>
+        <template v-slot:item.available="{ item }">
+          <v-icon color="red" class="icon-margin-set" v-if="item.isOccupied">
+            mdi-close-circle
+          </v-icon>
+          <v-icon class="icon-margin-set" else>mdi-check-circle</v-icon>
+        </template>
+        <template v-slot:item.addEmployee="{ item }">
           <v-btn
-            class="text-capitalize action-btn"
+            class="icon-margin-set"
             elevation="0"
+            rounded-circle
             @click="selectTable(item.raw)"
+            icon="mdi-account-multiple-plus"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              class=""
-              viewBox="0 0 32 32"
+            <v-icon size="large" color="#025464"
+              >mdi-account-multiple-plus</v-icon
             >
-              <path
-                fill="#e6683c"
-                d="M14 4c-3.854 0-7 3.146-7 7c0 2.41 1.23 4.552 3.094 5.813C6.527 18.343 4 21.88 4 26h2c0-4.43 3.57-8 8-8c1.376 0 2.654.358 3.78.97A7.993 7.993 0 0 0 16 24c0 4.406 3.594 8 8 8c4.406 0 8-3.594 8-8c0-4.406-3.594-8-8-8a7.98 7.98 0 0 0-4.688 1.53c-.442-.277-.92-.51-1.406-.718A7.018 7.018 0 0 0 21 11c0-3.854-3.146-7-7-7zm0 2c2.773 0 5 2.227 5 5s-2.227 5-5 5s-5-2.227-5-5s2.227-5 5-5zm10 12c3.326 0 6 2.674 6 6s-2.674 6-6 6s-6-2.674-6-6s2.674-6 6-6zm-1 2v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2z"
-              />
-            </svg>
           </v-btn>
         </template>
         <template v-slot:item.image="{ item }">
-          <v-img width="45" height="45" :src="renderImage(item.raw.image)" />
+          <v-img width="40" height="40" :src="renderImage(item.raw.image)" />
         </template>
         <template v-slot:item.employees="{ item }">
-          <div v-for="(employee, index) in item.raw.employees" :key="index">
-            <div class="chip">
-              <p>{{ employee.name }}</p>
+          <div class="mt-1">
+            <div v-if="item.raw.employees.length">
+              <div v-for="(employee, index) in item.raw.employees" :key="index">
+                <div class="chip">
+                  <p>
+                    {{ employee.name }}
+                    <v-icon class="remove-name-icon" size="small" color="red"
+                      >mdi-close-circle-outline</v-icon
+                    >
+                  </p>
+                </div>
+              </div>
             </div>
+            <div v-else class="not-assigned-text">N/A</div>
           </div>
-          <!-- <ul>
-            <li v-for="(employee, index) in item.raw.employees" :key="index">
-              {{ employee.name }}
-            </li>
-          </ul> -->
+        </template>
+        <template v-slot:item.action="{ item }">
+          <div class="d-flex">
+            <v-btn
+              class="ma-0 btn-hover d-block"
+              elevation="0"
+              rounded-circle
+              icon="mdi-circle-edit-outline"
+            >
+              <span class="tooltip-text top">Edit</span>
+              <v-icon color="green">mdi-circle-edit-outline</v-icon>
+            </v-btn>
+            <v-btn
+              class="ma-0 btn-hover d-block"
+              elevation="0"
+              rounded-circle
+              icon="mdi-delete-outline"
+            >
+              <span class="tooltip-text top">Delete</span>
+              <v-icon color="#e6683c">mdi-delete-outline</v-icon>
+            </v-btn>
+          </div>
         </template>
       </v-data-table-server>
     </v-container>
@@ -169,7 +164,6 @@ export default {
       formData: [],
       employees: [],
       AssignedEmployee: [],
-      employees: [],
       headers: [
         {
           align: "start",
@@ -178,14 +172,16 @@ export default {
           title: "Table",
         },
         {
+          align: "center",
           key: "tableNumber",
           sortable: false,
           title: "Table Number",
         },
-        { title: "Number Of Seats", key: "numberOfSeats" },
+        { align: "center", title: "Number Of Seats", key: "numberOfSeats" },
         { title: "Assigned Employees", key: "employees" },
         { title: "Availability", key: "available" },
-        { title: "Add Employee", key: "action" },
+        { title: "Add Employee", key: "addEmployee" },
+        { align: "center", title: "Action", key: "action" },
       ],
     };
   },
@@ -271,14 +267,38 @@ export default {
 h4 {
   letter-spacing: 2px;
 }
+.table {
+  max-width: 100%;
+  overflow-x: hidden !important;
+  white-space: nowrap !important;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+}
+.table-inner-text {
+  font-size: 16px;
+}
+.not-assigned-text {
+  opacity: 0.8;
+  margin-left: 10px;
+}
 .chip {
   display: inline-block;
-  padding: 0 25px;
-  height: 50px;
-  font-size: 16px;
-  line-height: 50px;
+  padding: 0 15px;
+  margin-bottom: 5px;
+  height: 25px;
+  font-size: 14px;
+  line-height: 25px;
   border-radius: 25px;
-  background-color: #f1f1f1;
+  background-color: #dedbdb;
+}
+.icon-margin-set {
+  display: inline-block;
+  margin-left: 20px;
+  color: green;
+}
+.remove-name-icon {
+  cursor: pointer;
+  border-radius: 50% !important;
 }
 .create-btn {
   margin-bottom: 15px;
@@ -312,6 +332,38 @@ h4 {
     justify-content: space-between;
     font-size: 24px;
   }
+}
+.tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  width: 80px;
+  color: white;
+  font-size: 12px;
+  background-color: #0e171fcd;
+  border-radius: 10px;
+  padding: 5px;
+}
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  margin-left: 25px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+.btn-hover:hover .tooltip-text {
+  visibility: visible;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12px;
+}
+.top {
+  top: -40px;
+  left: -50%;
+}
+.top::after {
+  top: 100%;
+  left: 15%;
 }
 .is-available-icon {
   width: 25px;

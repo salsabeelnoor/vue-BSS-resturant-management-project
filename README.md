@@ -30,6 +30,7 @@ User Friendly online resturant management system with an admin role that allows 
 
 ![App Screenshot](src/assets/projectImages/add-employee.png)
 ![App Screenshot](src/assets/projectImages/add-employee_responsive.png)
+![App Screenshot](src/assets/projectImages/add-employee_responsive_2.png)
 ![App Screenshot](src/assets/projectImages/add-food.png)
 ![App Screenshot](src/assets/projectImages/add-food_responsive.png)
 ![App Screenshot](src/assets/projectImages/add-newTable.png)
@@ -37,11 +38,16 @@ User Friendly online resturant management system with an admin role that allows 
 ![App Screenshot](src/assets/projectImages/login.png)
 ![App Screenshot](src/assets/projectImages/login_responsive.png)
 
-     Table with text truncated
+     Employee List Page: Table with text truncated
 ![App Screenshot](src/assets/projectImages/employee-list.png)
 ![App Screenshot](src/assets/projectImages/employee-list_responsive.png)
-![App Screenshot](src/assets/projectImages/employee-list_responsive_2.png)
 ![App Screenshot](src/assets/projectImages/employee-list_responsive_3.png)
+
+     Table List Page
+![App Screenshot](src/assets/projectImages/Table_list.png)
+![App Screenshot](src/assets/projectImages/Table_list_responsive.png)
+![App Screenshot](src/assets/projectImages/Table_list_responsive_2.png)
+
 
 ## Login Information
 **email**: admin@mail.com
