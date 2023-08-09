@@ -10,6 +10,7 @@ import Table from '../../Views/Table.vue'
 import AddTable from '../../Views/AddTable.vue'
 import AddFood from '../../Views/AddFood.vue'
 import FoodList from '../../Views/FoodList.vue'
+import OrderList from '../../Views/OrderList.vue'
 import AuthRequired from '../../utils/AuthRequired'
  
 const routes = [
@@ -61,6 +62,11 @@ const routes = [
             path: 'food-list',
             name: 'foodList',
             component: FoodList
+        },
+        {
+            path: 'order-list',
+            name: 'orderList',
+            component: OrderList
         },
     ]
    },

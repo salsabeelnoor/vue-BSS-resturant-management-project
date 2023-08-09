@@ -49,6 +49,13 @@
           title="Food List"
           value="foodList"
         ></v-list-item>
+        <v-list-item
+          class="font"
+          prepend-icon="mdi-clipboard-outline"
+          @click="$router.push('/admin/order-list')"
+          title="Order Food"
+          value="orderFood"
+        ></v-list-item>
       </v-list>
     </v-navigation-drawer>
     <top-nav></top-nav>
