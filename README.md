@@ -51,6 +51,7 @@ User Friendly online resturant management system with an admin role that allows 
 ![App Screenshot](src/assets/projectImages/Table_list_responsive.png)
 ![App Screenshot](src/assets/projectImages/Table_list_responsive_2.png)
 ![App Screenshot](src/assets/projectImages/Table_list_modal_responsive.png)
+![App Screenshot](src/assets/projectImages/food_list.png)
 
 
 ## Login Information
@@ -59,7 +60,7 @@ User Friendly online resturant management system with an admin role that allows 
 **password** Admin@123
 
 
-## Live site : https://sunny-praline-a2263b.netlify.app/
+## Live site : https://sunny-praline-a2263b.netlify.app
 
 
 
