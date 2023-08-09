@@ -170,7 +170,25 @@ h2 {
   height: clamp(390px, -3.875rem + 32.333vw, 525px);
 }
 
-@media screen and (min-width: 991px) {
+@media screen and (min-width: 1200px) {
+  .login-container {
+    flex-direction: row;
+  }
+  .img-container {
+    width: 60%;
+    margin: auto 30px;
+  }
+  .form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    border-radius: 0;
+    margin-top: -10px;
+    /* height: 525px; */
+  }
+}
+@media screen and (min-width: 1600px) {
   .login-container {
     flex-direction: row;
   }

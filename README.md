@@ -39,14 +39,18 @@ User Friendly online resturant management system with an admin role that allows 
 ![App Screenshot](src/assets/projectImages/login_responsive.png)
 
      Employee List Page: Table with text truncated
+
 ![App Screenshot](src/assets/projectImages/employee-list.png)
 ![App Screenshot](src/assets/projectImages/employee-list_responsive.png)
 ![App Screenshot](src/assets/projectImages/employee-list_responsive_3.png)
 
      Table List Page
+     
 ![App Screenshot](src/assets/projectImages/Table_list.png)
+![App Screenshot](src/assets/projectImages/Table_list_modal.png)
 ![App Screenshot](src/assets/projectImages/Table_list_responsive.png)
 ![App Screenshot](src/assets/projectImages/Table_list_responsive_2.png)
+![App Screenshot](src/assets/projectImages/Table_list_modal_responsive.png)
 
 
 ## Login Information

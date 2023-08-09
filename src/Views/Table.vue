@@ -44,21 +44,25 @@
                   </div>
                   <div class="dialog-text-box">
                     <div class="modal-text d-flex mt-5">
-                      <p>
-                        Table Number:
-                        <span> {{ selectedTable.tableNumber }} </span>
+                      <p class="dialog-text-box-inner">
+                        <span class="dialog-text-box-inner-bold"
+                          >Table Number:</span
+                        >
+                        {{ selectedTable.tableNumber }}
                       </p>
                     </div>
                     <div class="modal-text d-flex mt-3">
-                      <p>
-                        Number of Seats:
-                        <span>{{ selectedTable.numberOfSeats }}</span>
+                      <p class="dialog-text-box-inner">
+                        <span class="dialog-text-box-inner-bold"
+                          >Number of Seats:</span
+                        >
+                        {{ selectedTable.numberOfSeats }}
                       </p>
                     </div>
                   </div>
                 </div>
                 <v-select
-                  class="mt-3"
+                  class="mt-3 dialog-text-box-inner"
                   v-model="selectedEmployees"
                   :items="employeeList"
                   label="Items"
@@ -70,10 +74,20 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue-darken-1" variant="text" @click="close">
+                <v-btn
+                  class="dialog-text-box-inner"
+                  color="blue-darken-1"
+                  variant="text"
+                  @click="close"
+                >
                   Cancel
                 </v-btn>
-                <v-btn color="blue-darken-1" variant="text" @click="save">
+                <v-btn
+                  class="dialog-text-box-inner"
+                  color="blue-darken-1"
+                  variant="text"
+                  @click="save"
+                >
                   Save
                 </v-btn>
               </v-card-actions>
@@ -90,7 +104,7 @@
             {{ item.raw.numberOfSeats }}
           </div>
         </template>
-        <template v-slot:item.available="{ item, i }">
+        <template v-slot:item.available="{ item }">
           <v-icon
             color="red"
             class="icon-margin-set"
@@ -407,6 +421,12 @@ h4 {
 }
 .dialog-img-box img {
   width: 100%;
+}
+.dialog-text-box-inner {
+  font-family: "Noto Sans", sans-serif;
+}
+.dialog-text-box-inner-bold {
+  font-weight: 600;
 }
 @media screen and (min-width: 991px) {
   .dialog-content-box {

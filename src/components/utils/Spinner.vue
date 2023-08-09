@@ -28,7 +28,7 @@
   top: 20px;
   left: 20px;
   border-radius: 50%;
-  box-shadow: 0 4px 0 0 #e15b64;
+  box-shadow: 0 4px 0 0 gray;
   transform-origin: 80px 82px;
 }
 
