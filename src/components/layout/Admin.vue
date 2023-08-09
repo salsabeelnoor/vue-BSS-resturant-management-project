@@ -11,13 +11,13 @@
     >
       <v-list class="logo-item">
         <v-list-item class="d-flex justify-center">
-          <h2 class="header">BSS Eatery</h2>
+          <h2 class="header font">BSS Eatery</h2>
         </v-list-item>
         <v-divider class="divider"></v-divider>
       </v-list>
       <v-list class="profile-parent">
         <v-list-item
-          class="profile-section"
+          class="profile-section font"
           prepend-avatar="https://images.unsplash.com/photo-1593483316242-efb5420596ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8b3JhbmdlJTIwY2F0fGVufDB8fDB8fHww&w=1000&q=80"
           :title="user.fullName"
           :subtitle="user.userName"
@@ -29,23 +29,25 @@
 
       <v-list density="compact" nav>
         <v-list-item
-          class="list-children"
+          class="list-children font"
           prepend-icon="mdi-account-multiple"
           @click="$router.push('/admin')"
           title="Employee List"
           value="employeeList"
         ></v-list-item>
         <v-list-item
+          class="font"
           prepend-icon="mdi-clipboard-account"
           @click="$router.push('/admin/table')"
-          title="Table"
-          value="Table"
+          title="Table List"
+          value="tableList"
         ></v-list-item>
         <v-list-item
-          prepend-icon="mdi-star "
-          @click="$router.push('/admin/add-food')"
-          title="Add Food"
-          value="table"
+          class="font"
+          prepend-icon="mdi-food "
+          @click="$router.push('/admin/food-list')"
+          title="Food List"
+          value="foodList"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -96,14 +98,6 @@ export default {
 </script>
 <style scoped>
 .dashboard-container {
-  /* background: linear-gradient(
-    45deg,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 65%,
-    #cc2366 75%,
-    #bc1888 100%
-  ); */
   background-color: #fff;
   color: black;
   border-right: 1px solid #6b6767;
@@ -113,7 +107,9 @@ export default {
 }
 hr {
   color: black;
-  /* border: 1px solid black; */
+}
+.font {
+  font-family: "Noto Sans", sans-serif;
 }
 .profile-parent {
   display: flex;

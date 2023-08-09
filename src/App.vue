@@ -13,8 +13,8 @@ export default {
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 body {
-  font-family: "Montserrat", Arial, sans-serif;
-
+  /* font-family: "Montserrat", Arial, sans-serif; */
+  font-family: "Noto Sans", sans-serif;
   min-height: 100vh;
   /* background-color: #f0eee7; */
 }

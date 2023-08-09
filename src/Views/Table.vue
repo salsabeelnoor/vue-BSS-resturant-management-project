@@ -304,6 +304,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-family: "Noto Sans", sans-serif;
+
   font-size: clamp(1rem, 1.25rem, 2rem);
 }
 h4 {

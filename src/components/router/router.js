@@ -9,6 +9,7 @@ import EmployeeTable from '../../Views/EmployeeTable.vue'
 import Table from '../../Views/Table.vue'
 import AddTable from '../../Views/AddTable.vue'
 import AddFood from '../../Views/AddFood.vue'
+import FoodList from '../../Views/FoodList.vue'
 import AuthRequired from '../../utils/AuthRequired'
  
 const routes = [
@@ -55,6 +56,11 @@ const routes = [
             path: 'add-food',
             name: 'addFood',
             component: AddFood
+        },
+        {
+            path: 'food-list',
+            name: 'foodList',
+            component: FoodList
         },
     ]
    },

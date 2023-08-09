@@ -96,8 +96,7 @@
         </v-col>
         <v-col cols="12" md="3" sm="12" xs="12" class="img-container">
           <v-img
-            :class="isbase64Available ? 'bg-transparent' : 'input-img'"
-            :aspect-ratio="1"
+            :class="isbase64Available ? 'bg-transparent ' : 'input-img'"
             @click="onClickImage"
             :src="foodInfo.base64 != null ? foodInfo.base64 : renderImage()"
           >
@@ -243,6 +242,9 @@ h1 {
 .img-container {
   display: flex;
   justify-content: center;
+}
+.img-container img {
+  width: 100%;
 }
 @media screen and (min-width: 540px) and (max-width: 912px) {
   .img-container {
