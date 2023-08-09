@@ -4,7 +4,7 @@
       <h1>&bull; Add New Table &bull;</h1>
       <div class="underline mt-2"></div>
       <v-form @submit.prevent="addTableToDb" ref="form" class="mt-4">
-        <div class="img-box-container">
+        <div class="form-box-container">
           <div class="text-box-container">
             <v-text-field
               class="my-4 text-box"
@@ -24,12 +24,14 @@
               required
             ></v-text-field>
           </div>
-          <v-img
-            :class="isbase64Available ? 'bg-transparent' : 'input-img'"
-            @click="onClickImage"
-            :aspect-ratio="1"
-            :src="tableInfo.base64 != null ? tableInfo.base64 : renderImage()"
-          ></v-img>
+          <div class="img-box-container">
+            <v-img
+              :class="isbase64Available ? 'bg-transparent' : 'input-img'"
+              @click="onClickImage"
+              :aspect-ratio="1"
+              :src="tableInfo.base64 != null ? tableInfo.base64 : renderImage()"
+            ></v-img>
+          </div>
         </div>
         <v-row>
           <v-col>
@@ -159,13 +161,20 @@ form {
   padding: 20px;
   margin: 40px 0;
 }
-.img-box-container {
+.form-box-container {
   display: flex;
   flex-direction: column;
   height: auto;
 }
+.img-box-container {
+  display: flex;
+  justify-content: center;
+}
+/* .img-box-container img {
+  display: block;
+} */
 @media screen and (min-width: 768px) {
-  .img-box-container {
+  .form-box-container {
     flex-direction: row;
     justify-content: space-between;
     height: 200px;
