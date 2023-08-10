@@ -269,8 +269,8 @@ export default {
       document.getElementById("image").click();
     },
     handleImage(e) {
-      const selectedImage = e.target.files[0];
-      this.employeeInfo.image = selectedImage.name;
+      const selectedImage = e.target.files[0]; //console log it
+      this.employeeInfo.image = selectedImage.name; ///console log
       // this.employeeInfo.image = URL.createObjectURL(selectedImage);
       this.createBase64Image(selectedImage);
     },
@@ -279,9 +279,9 @@ export default {
       reader.onload = (e) => {
         this.employeeInfo.base64 = e.target.result;
       };
-      reader.readAsDataURL(fileObject);
-      this.showPseudoContent = false;
-      this.isbase64Available = true;
+      reader.readAsDataURL(fileObject); // here ends
+      this.showPseudoContent = false; //
+      this.isbase64Available = true; //
     },
     async addEmployee() {
       try {
@@ -321,6 +321,7 @@ export default {
   background-size: cover;
 }
 h1 {
+  font-family: "Montserrat", Arial, sans-serif;
   white-space: wrap;
   color: #474544;
   overflow: hidden;

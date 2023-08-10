@@ -142,6 +142,7 @@ export default {
   }
 }
 h1 {
+  font-family: "Montserrat", Arial, sans-serif;
   color: #474544;
   font-size: clamp(0.73rem, -0.875rem + 8.333vw, 2rem);
   font-weight: 700;

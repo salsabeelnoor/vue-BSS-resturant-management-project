@@ -222,6 +222,7 @@ export default {
   background-size: cover;
 }
 h1 {
+  font-family: "Montserrat", Arial, sans-serif;
   white-space: wrap;
   color: #474544;
   overflow: hidden;
