@@ -2,6 +2,9 @@
   <section class="add-food-container">
     <h1 class="pt-5 text-center">&bull; Add New Food &bull;</h1>
     <div class="underline mt-2 mb-10"></div>
+    <div class="spinner-container">
+      <Spinner v-if="showSpinner" class="spinner" />
+    </div>
     <v-form @submit.prevent="addFoodToDb" ref="form" class="ma-10">
       <v-row>
         <v-col cols="12" md="9" sm="12" xs="12">
@@ -117,20 +120,22 @@
         </v-col>
       </v-row>
       <div class="btn-container">
-        <v-btn @click="submitForm" type="submit" size="large" elevation="0"
-          >Submit</v-btn
-        >
+        <v-btn type="submit" size="large" elevation="0">Submit</v-btn>
       </div>
     </v-form>
   </section>
 </template>
 <script>
 import ApiCall from "../api/apiInterface";
-
+import Spinner from "../components/utils/Spinner.vue";
 export default {
   name: "AddFood",
+  components: {
+    Spinner,
+  },
   data() {
     return {
+      showSpinner: false,
       isbase64Available: false,
       showPseudoContent: true,
       discountTypes: [
@@ -141,10 +146,10 @@ export default {
       foodInfo: {
         name: "",
         description: "",
-        price: 0,
+        price: parseInt(0),
         discountType: 0,
-        discount: 0,
-        discountPrice: 0,
+        discount: parseInt(0),
+        discountPrice: parseInt(0),
         image: "",
         base64: "",
       },
@@ -160,15 +165,15 @@ export default {
   methods: {
     selectedDiscount(value) {
       if (this.foodInfo.discountType === 1) {
-        this.foodInfo.discountPrice = this.price - value;
+        this.foodInfo.discountPrice = this.foodInfo.price - value;
         console.log(this.discountPrice);
       } else if (this.foodInfo.discountType === 2) {
-        this.foodInfo.discountPrice = parseFloat(
-          this.price - (value * price) / 100
-        );
-      } else {
-        this.foodInfo.discountPrice = this.price;
+        this.foodInfo.discountPrice =
+          this.foodInfo.price - (this.foodInfo.price * value) / 100;
       }
+      // else {
+      //   this.foodInfo.discountPrice = this.foodInfo.price;
+      // }
     },
     selectedDiscountPrice(value) {
       console.log(value);
@@ -195,17 +200,18 @@ export default {
       this.isbase64Available = true;
     },
     async addFoodToDb() {
-      console.log(this.foodInfo);
+      this.showSpinner = true;
       try {
         await ApiCall.post("api/food/create", this.foodInfo);
+        this.showSpinner = false;
       } catch (e) {
+        this.showSpinner = false;
+
         console.log(e);
       }
-      this.$refs.form.reset();
-    },
-    submitForm() {
       this.foodInfo.base64 = "";
       this.isbase64Available = false;
+      this.$refs.form.reset();
     },
   },
 };
@@ -236,6 +242,16 @@ h1 {
   border-bottom: solid 2px #474544;
   margin: -0.512em auto;
   width: clamp(53px, 68px, 80px);
+}
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 .text-field {
   background-color: white;

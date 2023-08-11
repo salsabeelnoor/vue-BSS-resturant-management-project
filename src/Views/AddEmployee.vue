@@ -4,6 +4,9 @@
       <v-card class="mx-auto pa-12 pb-8 form-card" elevation="0">
         <h1>&bull; Add New Employee &bull;</h1>
         <div class="underline mt-2 mb-10"></div>
+        <div class="spinner-container">
+          <Spinner v-if="showSpinner" class="spinner" />
+        </div>
         <v-form @submit.prevent="addEmployee" ref="form">
           <v-row>
             <v-col cols="12" md="9" sm="12" xs="12">
@@ -131,7 +134,6 @@
               ></v-img>
             </v-col>
           </v-row>
-          <v-row> </v-row>
           <v-row>
             <v-col cols="12" md="3" sm="12" xs="12">
               <v-text-field
@@ -212,11 +214,15 @@
 </template>
 <script>
 import apiCall from "../api/apiInterface";
-
+import Spinner from "../components/utils/Spinner.vue";
 export default {
   name: "AddEmployee",
+  components: {
+    Spinner,
+  },
   data() {
     return {
+      showSpinner: false,
       isbase64Available: false,
       showPseudoContent: true,
       genders: [
@@ -284,21 +290,19 @@ export default {
       this.isbase64Available = true; //
     },
     async addEmployee() {
+      this.showSpinner = true;
       try {
         await apiCall.post("api/Employee/create", this.employeeInfo);
+        this.showSpinner = false;
       } catch (e) {
+        this.showSpinner = false;
         console.log(e);
       }
-      this.$refs.form.reset();
       this.isbase64Available = false;
       this.employeeInfo.base64 = "";
       this.showPseudoContent = true;
+      this.$refs.form.reset();
     },
-    // submitForm() {
-    //   this.employeeInfo.base64 = "";
-    //   this.isbase64Available = false;
-    //   this.showPseudoContent = true;
-    // },
   },
 };
 </script>
@@ -340,7 +344,16 @@ h1 {
   margin: -0.512em auto;
   width: clamp(53px, 68px, 80px);
 }
-
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 .form-card {
   background-color: transparent;
 }
@@ -355,6 +368,10 @@ h1 {
   align-items: center;
   height: 250px;
   width: 100px;
+}
+.img-section img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .pseudoClass::before {

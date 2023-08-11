@@ -304,16 +304,16 @@ export default {
   font-size: 15px;
 }
 .cart-section {
-  border: 2px solid teal;
   height: fit-content;
 }
 .cart {
   width: 80%;
   margin: 20px auto;
-  border: 1px solid #cfcfcf;
+  border: 1px solid #bbbaba;
 }
 .cart-header {
+  width: 100%;
   padding: 15px 25px;
-  border: 2px solid red;
+  background-color: #e4e1e1;
 }
 </style>

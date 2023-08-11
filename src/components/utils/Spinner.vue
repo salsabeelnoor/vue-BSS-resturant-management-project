@@ -1,12 +1,12 @@
 <template>
-  <div class="loadingio-spinner-eclipse-fumux3hqk19">
-    <div class="ldio-bn6j0vmanrk">
+  <div class="loading-spinner-container">
+    <div class="spinner-animation">
       <div></div>
     </div>
   </div>
 </template>
 <style>
-@keyframes ldio-bn6j0vmanrk {
+@keyframes spinner-animation {
   0% {
     transform: rotate(0deg);
   }
@@ -20,19 +20,19 @@
   }
 }
 
-.ldio-bn6j0vmanrk div {
+.spinner-animation div {
   position: absolute;
-  animation: ldio-bn6j0vmanrk 1s linear infinite;
+  animation: spinner-animation 1s linear infinite;
   width: 160px;
   height: 160px;
   top: 20px;
   left: 20px;
   border-radius: 50%;
-  box-shadow: 0 4px 0 0 gray;
+  box-shadow: 0 4px 0 0 #f14c39;
   transform-origin: 80px 82px;
 }
 
-.loadingio-spinner-eclipse-fumux3hqk19 {
+.loading-spinner-container {
   position: absolute;
   width: 200px;
   height: 200px;
@@ -41,7 +41,7 @@
   background: transparent;
 }
 
-.ldio-bn6j0vmanrk {
+.spinner-animation {
   width: 100%;
   height: 100%;
   position: relative;
@@ -51,7 +51,7 @@
   /* see note above */
 }
 
-.ldio-bn6j0vmanrk div {
+.spinner-animation div {
   box-sizing: content-box;
 }
 

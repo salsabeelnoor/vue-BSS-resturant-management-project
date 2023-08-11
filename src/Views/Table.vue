@@ -12,180 +12,183 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-data-table-server
-        v-model:items-per-page="itemsPerPage"
-        :headers="headers"
-        :items-length="totalItems"
-        :items="tableList"
-        :item-class="tableRowStyle"
-        :items-per-page="itemsPerPage"
-        hide-default-footer
-        class="table border"
-        @update:options="fetchTableInfo"
-      >
-        <!-- <template v-slot:item.available="{ item }">
-        <v-select :items="employees" label="Employee Name">
-          <template v-slot:item="{ item, props }">
-            <v-list-item v-bind="props">
-              <template v-slot:title>
-                {{ item.raw }}
-              </template>
-            </v-list-item>
+      <div class="table-container">
+        <div class="spinner-container">
+          <Spinner v-if="showSpinner" class="spinner" />
+        </div>
+        <v-data-table-server
+          v-model:items-per-page="itemsPerPage"
+          :headers="headers"
+          :items-length="totalItems"
+          :items="tableList"
+          :item-class="tableRowStyle"
+          :items-per-page="itemsPerPage"
+          hide-default-footer
+          class="table border"
+          @update:options="fetchTableInfo"
+        >
+          <template v-slot:top>
+            <v-dialog v-model="dialog" max-width="500px">
+              <v-card>
+                <v-card-text>
+                  <div class="dialog-content-box">
+                    <div class="dialog-img-box">
+                      <v-img :src="renderImage(selectedTable.image)" />
+                    </div>
+                    <div class="dialog-text-box">
+                      <div class="modal-text d-flex mt-5">
+                        <p class="dialog-text-box-inner">
+                          <span class="dialog-text-box-inner-bold"
+                            >Table Number:</span
+                          >
+                          {{ selectedTable.tableNumber }}
+                        </p>
+                      </div>
+                      <div class="modal-text d-flex mt-3">
+                        <p class="dialog-text-box-inner">
+                          <span class="dialog-text-box-inner-bold"
+                            >Number of Seats:</span
+                          >
+                          {{ selectedTable.numberOfSeats }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <v-select
+                    class="mt-3 dialog-text-box-inner"
+                    v-model="selectedEmployees"
+                    :items="employeeList"
+                    label="Items"
+                    item-title="name"
+                    item-value="employeeId"
+                    chips
+                    multiple
+                  ></v-select>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    class="dialog-text-box-inner"
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="close"
+                  >
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    class="dialog-text-box-inner"
+                    color="blue-darken-1"
+                    variant="text"
+                    @click="save"
+                  >
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </template>
-        </v-select>
-      </template> -->
-        <template v-slot:top>
-          <v-dialog v-model="dialog" max-width="500px">
-            <v-card>
-              <v-card-text>
-                <div class="dialog-content-box">
-                  <div class="dialog-img-box">
-                    <v-img :src="renderImage(selectedTable.image)" />
-                  </div>
-                  <div class="dialog-text-box">
-                    <div class="modal-text d-flex mt-5">
-                      <p class="dialog-text-box-inner">
-                        <span class="dialog-text-box-inner-bold"
-                          >Table Number:</span
-                        >
-                        {{ selectedTable.tableNumber }}
-                      </p>
-                    </div>
-                    <div class="modal-text d-flex mt-3">
-                      <p class="dialog-text-box-inner">
-                        <span class="dialog-text-box-inner-bold"
-                          >Number of Seats:</span
-                        >
-                        {{ selectedTable.numberOfSeats }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <v-select
-                  class="mt-3 dialog-text-box-inner"
-                  v-model="selectedEmployees"
-                  :items="employeeList"
-                  label="Items"
-                  item-title="name"
-                  item-value="employeeId"
-                  chips
-                  multiple
-                ></v-select>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  class="dialog-text-box-inner"
-                  color="blue-darken-1"
-                  variant="text"
-                  @click="close"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                  class="dialog-text-box-inner"
-                  color="blue-darken-1"
-                  variant="text"
-                  @click="save"
-                >
-                  Save
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </template>
-        <template v-slot:item.tableNumber="{ item }">
-          <div class="table-inner-text">
-            {{ item.raw.tableNumber }}
-          </div>
-        </template>
-        <template v-slot:item.numberOfSeats="{ item }">
-          <div class="table-inner-text">
-            {{ item.raw.numberOfSeats }}
-          </div>
-        </template>
-        <template v-slot:item.available="{ item }">
-          <v-icon
-            color="red"
-            class="icon-margin-set"
-            v-if="
-              item.index == 4 ||
-              item.index == 2 ||
-              item.index == 7 ||
-              item.isOccupied
-            "
-          >
-            mdi-close-circle
-          </v-icon>
-          <v-icon class="icon-margin-set" v-else>mdi-check-circle</v-icon>
-        </template>
-        <template v-slot:item.addEmployee="{ item }">
-          <v-btn
-            class="icon-margin-set"
-            elevation="0"
-            rounded-circle
-            @click="selectTable(item.raw)"
-            icon="mdi-account-multiple-plus"
-          >
-            <v-icon size="large" color="#025464"
-              >mdi-account-multiple-plus</v-icon
+          <template v-slot:item.tableNumber="{ item }">
+            <div class="table-inner-text">
+              {{ item.raw.tableNumber }}
+            </div>
+          </template>
+          <template v-slot:item.numberOfSeats="{ item }">
+            <div class="table-inner-text">
+              {{ item.raw.numberOfSeats }}
+            </div>
+          </template>
+          <template v-slot:item.available="{ item }">
+            <v-icon
+              color="red"
+              class="icon-margin-set"
+              v-if="
+                item.index == 4 ||
+                item.index == 2 ||
+                item.index == 7 ||
+                item.isOccupied
+              "
             >
-          </v-btn>
-        </template>
-        <template v-slot:item.image="{ item }">
-          <v-img width="40" height="40" :src="renderImage(item.raw.image)" />
-        </template>
-        <template v-slot:item.employees="{ item }">
-          <div class="mt-1">
-            <div v-if="item.raw.employees.length">
-              <div v-for="(employee, index) in item.raw.employees" :key="index">
-                <div class="chip">
-                  <p>
-                    {{ employee.name }}
-                    <v-icon class="remove-name-icon" size="small" color="red"
-                      >mdi-close-circle-outline</v-icon
-                    >
-                  </p>
+              mdi-close-circle
+            </v-icon>
+            <v-icon class="icon-margin-set" v-else>mdi-check-circle</v-icon>
+          </template>
+          <template v-slot:item.addEmployee="{ item }">
+            <v-btn
+              class="icon-margin-set"
+              elevation="0"
+              rounded-circle
+              @click="selectTable(item.raw)"
+              icon="mdi-account-multiple-plus"
+            >
+              <v-icon size="large" color="#025464"
+                >mdi-account-multiple-plus</v-icon
+              >
+            </v-btn>
+          </template>
+          <template v-slot:item.image="{ item }">
+            <v-img width="40" height="40" :src="renderImage(item.raw.image)" />
+          </template>
+          <template v-slot:item.employees="{ item }">
+            <div class="mt-1">
+              <div v-if="item.raw.employees.length">
+                <div
+                  v-for="(employee, index) in item.raw.employees"
+                  :key="index"
+                >
+                  <div class="chip">
+                    <p>
+                      {{ employee.name }}
+                      <v-icon class="remove-name-icon" size="small" color="red"
+                        >mdi-close-circle-outline</v-icon
+                      >
+                    </p>
+                  </div>
                 </div>
               </div>
+              <div v-else class="not-assigned-text">N/A</div>
             </div>
-            <div v-else class="not-assigned-text">N/A</div>
-          </div>
-        </template>
-        <template v-slot:item.action="{ item }">
-          <div class="d-flex">
-            <v-btn
-              class="ma-0 btn-hover d-block"
-              elevation="0"
-              rounded-circle
-              icon="mdi-circle-edit-outline"
-            >
-              <span class="tooltip-text top">Edit</span>
-              <v-icon color="green">mdi-circle-edit-outline</v-icon>
-            </v-btn>
-            <v-btn
-              class="ma-0 btn-hover d-block"
-              elevation="0"
-              rounded-circle
-              icon="mdi-delete-outline"
-            >
-              <span class="tooltip-text top">Delete</span>
-              <v-icon color="#e6683c">mdi-delete-outline</v-icon>
-            </v-btn>
-          </div>
-        </template>
-      </v-data-table-server>
+          </template>
+          <template v-slot:item.action="{ item }">
+            <div class="d-flex">
+              <v-btn
+                class="ma-0 btn-hover d-block"
+                elevation="0"
+                rounded-circle
+                icon="mdi-circle-edit-outline"
+              >
+                <span class="tooltip-text top">Edit</span>
+                <v-icon color="green">mdi-circle-edit-outline</v-icon>
+              </v-btn>
+              <v-btn
+                class="ma-0 btn-hover d-block"
+                elevation="0"
+                @click="deleteTable(item.raw.id)"
+                rounded-circle
+                icon="mdi-delete-outline"
+              >
+                <span class="tooltip-text top">Delete</span>
+                <v-icon color="#e6683c">mdi-delete-outline</v-icon>
+              </v-btn>
+            </div>
+          </template>
+        </v-data-table-server>
+      </div>
     </v-container>
   </section>
 </template>
 <script>
 import ApiCall from "../api/apiInterface";
+import Spinner from "../components/utils/Spinner.vue";
 import { imageUrl } from "../constants/config";
 export default {
   name: "Table",
+  components: {
+    Spinner,
+  },
   data() {
     return {
       imageUrl: imageUrl,
+      showSpinner: false,
       selectedEmployees: [],
       tableRowStyle: "",
       itemsPerPage: 10,
@@ -255,8 +258,10 @@ export default {
         this.tableList = response.data.data;
         this.totalPages = response.data.totalPages;
         this.totalItems = response.data.total;
+        this.showSpinner = false;
       } catch (error) {
         console.log(error);
+        this.showSpinner = false;
       }
     },
     async selectTable(item) {
@@ -290,8 +295,28 @@ export default {
       }
       this.dialog = false;
     },
+    async deleteTable(id) {
+      console.log(id);
+      this.showSpinner = true;
+      try {
+        await ApiCall.delete(`api/Table/delete/${id}`);
+        this.showSpinner = false;
+        await this.fetchTableInfo({
+          page: this.page,
+          itemsPerPage: this.itemsPerPage,
+          sortBy: this.sortBy,
+        });
+      } catch (e) {
+        this.showSpinner = false;
+        this.errorMessage = e.message;
+        console.log(e.message);
+      }
+    },
   },
-  mounted() {},
+  mounted() {
+    this.showSpinner = true;
+    console.log(this.showSpinner);
+  },
 };
 </script>
 <style scoped>
@@ -317,6 +342,16 @@ h4 {
   white-space: nowrap !important;
   font-family: "Noto Sans", sans-serif;
   font-size: 16px;
+}
+.table-container {
+  position: relative;
+  width: 100%;
+}
+.spinner-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 .table-inner-text {
   font-size: 16px;

@@ -37,6 +37,7 @@
                 <v-icon color="green">mdi-circle-edit-outline</v-icon>
               </v-btn>
               <v-btn
+                @click="deleteFood(item.raw.id)"
                 class="ma-0 btn-hover d-block"
                 elevation="0"
                 rounded-circle
@@ -94,6 +95,7 @@ export default {
         { title: "Discount Price", key: "discountPrice" },
         { align: "center", title: "Action", key: "action", width: "120px" },
       ],
+      showSpinner: false,
       foodList: [],
       itemsPerPage: 10,
       totalPages: 0,
@@ -125,6 +127,25 @@ export default {
         this.showSpinner = false;
       }
     },
+    async deleteFood(id) {
+      this.showSpinner = true;
+      try {
+        await apiCall.delete(`api/Food/delete/${id}`);
+        this.showSpinner = false;
+        await this.fetchFoodList({
+          page: this.page,
+          itemsPerPage: this.itemsPerPage,
+          sortBy: this.sortBy,
+        });
+      } catch (e) {
+        this.showSpinner = false;
+        this.errorMessage = e.message;
+        console.log(e.message);
+      }
+    },
+  },
+  mounted() {
+    this.showSpinner = true;
   },
 };
 </script>
@@ -176,6 +197,16 @@ h4 {
     justify-content: space-between;
     font-size: 24px;
   }
+}
+.table-container {
+  position: relative;
+  width: 100%;
+}
+.spinner-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 .tooltip-text {
   visibility: hidden;

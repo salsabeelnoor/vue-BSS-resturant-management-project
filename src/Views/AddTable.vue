@@ -3,6 +3,9 @@
     <div id="container">
       <h1>&bull; Add New Table &bull;</h1>
       <div class="underline mt-2"></div>
+      <div class="spinner-container">
+        <Spinner v-if="showSpinner" class="spinner" />
+      </div>
       <v-form @submit.prevent="addTableToDb" ref="form" class="mt-4">
         <div class="form-box-container">
           <div class="text-box-container">
@@ -47,7 +50,7 @@
           </v-col>
         </v-row>
         <div class="submit-btn-container">
-          <v-btn @click="submitForm" class="add-table-btn" elevation="0">
+          <v-btn type="submit" class="add-table-btn" elevation="0">
             Submit
           </v-btn>
         </div>
@@ -55,15 +58,18 @@
       <!-- // End form -->
     </div>
   </div>
-
-  <!-- // End #container -->
 </template>
 <script>
+import Spinner from "../components/utils/Spinner.vue";
 import ApiCall from "../api/apiInterface";
 export default {
   name: "AddTable",
+  components: {
+    Spinner,
+  },
   data() {
     return {
+      showSpinner: false,
       showPseudoContent: true,
       isbase64Available: false,
       tableInfo: {
@@ -99,16 +105,18 @@ export default {
       this.isbase64Available = true;
     },
     async addTableToDb() {
+      console.log("button clicked");
+      this.showSpinner = true;
       try {
-        const response = await ApiCall.post("api/Table/create", this.tableInfo);
+        await ApiCall.post("api/table/create", this.tableInfo);
+        this.showSpinner = false;
       } catch (e) {
+        this.showSpinner = false;
         console.log(e);
       }
-      this.$refs.form.reset();
-    },
-    submitForm() {
       this.tableInfo.base64 = "";
       this.isbase64Available = false;
+      this.$refs.form.reset();
     },
   },
 };
@@ -156,7 +164,16 @@ h1 {
   margin: -0.512em auto;
   width: clamp(53px, 68px, 80px);
 }
-
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 form {
   padding: 20px;
   margin: 40px 0;
