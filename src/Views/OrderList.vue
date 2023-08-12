@@ -58,7 +58,6 @@
           </v-slide-group>
         </v-sheet>
       </section>
-      {{ this.model }}
       <section class="food-section">
         <div class="menu_title text-center mb-4">
           <h1>Our Menu</h1>
@@ -88,7 +87,15 @@
                     </div>
                   </div>
                   <div class="btn-container mt-5">
-                    <v-btn :disabled="this.model == null" elevation="0"
+                    <v-btn
+                      :disabled="
+                        model == null ||
+                        selectedFoodItem.some(
+                          (item) => item.food.id === food.id
+                        )
+                      "
+                      elevation="0"
+                      @click="addToCart(food)"
                       >Add To Cart</v-btn
                     >
                   </div>
@@ -101,9 +108,57 @@
     </section>
     <section class="cart-section d-flex justify-center">
       <div class="cart d-flex justify-center">
-        <div class="cart-header d-flex justify-space-between">
+        <div class="cart-header d-flex justify-space-between border">
           <p class="d-block">Order</p>
           <v-icon class="d-block">mdi-cart-outline</v-icon>
+        </div>
+        <div class="cart-items-container">
+          <div
+            v-for="(cartItem, index) in selectedFoodItem"
+            :key="index"
+            class="d-flex cart-item justify-space-between pa-3"
+          >
+            <div class="d-flex justify-space-between align-center cart-info">
+              <v-img
+                class="rounded-circle"
+                :src="renderFoodImage(cartItem.food.image)"
+                width="70"
+                height="70"
+              />
+              <div class="cart-text ml-6">
+                <h4 class="pb-2">{{ cartItem.food.name }}</h4>
+                <div
+                  class="cart-quantity border d-flex justify-space-between align-center"
+                >
+                  <div class="cart-control-btn-minus px-1">
+                    <v-icon
+                      class="d-inline-block icon"
+                      icon="mdi-minus"
+                    ></v-icon>
+                  </div>
+                  <div class="cart-quantity mx-4">1</div>
+                  <div class="cart-control-btn-plus px-1">
+                    <v-icon
+                      class="d-inline-block icon"
+                      icon="mdi-plus"
+                    ></v-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-right ma-0">
+              <v-icon class="delete-cart-icon"> mdi-delete-outline</v-icon>
+              <div class="mt-5">
+                <p>Price {{ cartItem.food.price }}</p>
+              </div>
+            </div>
+
+            <!-- <p>
+              {{ cartItem.food.name }} - {{ cartItem.food.price }} /= x{{
+                cartItem.quantity
+              }}
+            </p> -->
+          </div>
         </div>
       </div>
     </section>
@@ -119,6 +174,7 @@ export default {
       foodList: [],
       tableList: [],
       model: null,
+      selectedFoodItem: [],
       imageUrl: imageUrl,
       currentPage: 1,
       itemsPerPage: 10,
@@ -128,6 +184,21 @@ export default {
     };
   },
   methods: {
+    addToCart(food) {
+      console.log(food);
+      const existingItem = this.selectedFoodItem.find(
+        (item) => item.food.id === food.id
+      );
+      console.log(existingItem);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        this.selectedFoodItem.push({
+          food: food,
+          quantity: 1,
+        });
+      }
+    },
     truncateDescription(description) {
       const maxLength = 180;
       if (description.length > maxLength) {
@@ -172,7 +243,6 @@ export default {
         }
         this.foodList = [...this.foodList, ...response.data.data];
         this.currentPage++;
-        console.log(this.foodList);
         // Call the fetchData function recursively to fetch the next page
         await this.fetchFoodList();
       } catch (error) {
@@ -317,17 +387,45 @@ export default {
 .discount-text {
   font-size: 15px;
 }
+
+/* cart  */
 .cart-section {
   height: fit-content;
 }
 .cart {
   width: 80%;
   margin: 20px auto;
-  border: 1px solid #bbbaba;
+  flex-direction: column;
+}
+.cart-items-container {
+  border-left: 1px solid #bbbaba;
+  border-right: 1px solid #bbbaba;
 }
 .cart-header {
   width: 100%;
   padding: 15px 25px;
   background-color: #e4e1e1;
+}
+
+.cart-item {
+  border-bottom: 1px solid #ccc;
+}
+
+.cart-quantity {
+  width: fit-content;
+  cursor: pointer;
+}
+.cart-control-btn-minus {
+  border-right: 1px solid #bbbaba;
+}
+.cart-control-btn-plus {
+  border-left: 1px solid #bbbaba;
+}
+.delete-cart-icon {
+  cursor: pointer;
+  color: #484646;
+}
+.delete-cart-icon:hover {
+  color: red;
 }
 </style>
