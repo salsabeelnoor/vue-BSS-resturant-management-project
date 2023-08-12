@@ -106,6 +106,7 @@
         </v-container>
       </section>
     </section>
+
     <section class="cart-section d-flex justify-center">
       <div class="cart d-flex justify-center">
         <div class="cart-header d-flex justify-space-between border">
@@ -158,6 +159,27 @@
                 cartItem.quantity
               }}
             </p> -->
+          </div>
+
+          <div
+            v-if="selectedFoodItem.length !== 0"
+            class="cart-footer-container border"
+          >
+            <div class="cart-footer-total d-flex justify-space-between ma-5">
+              <h3>Total</h3>
+              <h3>1400</h3>
+            </div>
+            <div
+              class="cart-footer-btn d-flex justify-center align-center mb-4 mx-5"
+            >
+              <v-btn
+                :disabled="model == null"
+                elevation="0"
+                size="x-large"
+                density="compact"
+                >Checkout</v-btn
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -427,5 +449,15 @@ export default {
 }
 .delete-cart-icon:hover {
   color: red;
+}
+.cart-btn-container {
+  height: 100px;
+}
+.cart-footer-btn button {
+  width: 100%;
+  background-color: #c94335;
+  font-size: 16px;
+  border-radius: 0;
+  color: white;
 }
 </style>
