@@ -126,19 +126,25 @@
                 width="70"
                 height="70"
               />
-              <div class="cart-text ml-6">
+              <div class="cart-text ml-3">
                 <h4 class="pb-2">{{ cartItem.food.name }}</h4>
                 <div
                   class="cart-quantity border d-flex justify-space-between align-center"
                 >
-                  <div class="cart-control-btn-minus px-1">
+                  <div
+                    class="cart-control-btn-minus px-1"
+                    @click="decreaseQuantity(cartItem)"
+                  >
                     <v-icon
                       class="d-inline-block icon"
                       icon="mdi-minus"
                     ></v-icon>
                   </div>
-                  <div class="cart-quantity mx-4">1</div>
-                  <div class="cart-control-btn-plus px-1">
+                  <div class="cart-quantity mx-2">{{ cartItem.quantity }}</div>
+                  <div
+                    class="cart-control-btn-plus px-1"
+                    @click="increaseQuantity(cartItem)"
+                  >
                     <v-icon
                       class="d-inline-block icon"
                       icon="mdi-plus"
@@ -148,29 +154,29 @@
               </div>
             </div>
             <div class="text-right ma-0">
-              <v-icon class="delete-cart-icon"> mdi-delete-outline</v-icon>
-              <div class="mt-5">
-                <p>Price {{ cartItem.food.price }}</p>
+              <v-icon
+                class="delete-cart-icon"
+                @click="removeFromCart(cartItem)"
+              >
+                mdi-delete-outline
+              </v-icon>
+              <div class="mt-2">
+                <h4 style="color: #c94335">
+                  {{ cartItem.food.price * cartItem.quantity }}৳
+                </h4>
               </div>
             </div>
-
-            <!-- <p>
-              {{ cartItem.food.name }} - {{ cartItem.food.price }} /= x{{
-                cartItem.quantity
-              }}
-            </p> -->
           </div>
-
           <div
             v-if="selectedFoodItem.length !== 0"
-            class="cart-footer-container border"
+            class="cart-footer-container"
           >
-            <div class="cart-footer-total d-flex justify-space-between ma-5">
+            <div class="cart-footer-total d-flex justify-space-between pa-5">
               <h3>Total</h3>
-              <h3>1400</h3>
+              <h3>{{ calculateTotalPrice }}</h3>
             </div>
             <div
-              class="cart-footer-btn d-flex justify-center align-center mb-4 mx-5"
+              class="cart-footer-btn d-flex justify-center align-center pb-4 mx-5"
             >
               <v-btn
                 :disabled="model == null"
@@ -205,7 +211,32 @@ export default {
       sortBy: "",
     };
   },
+  computed: {
+    calculateTotalPrice() {
+      return this.selectedFoodItem.reduce(
+        (total, item) => total + item.food.price * item.quantity,
+        0
+      );
+    },
+  },
   methods: {
+    removeFromCart(item) {
+      console.log(item);
+      const foodIndex = this.selectedFoodItem.findIndex(
+        (selectedItem) => selectedItem.food.id === item.food.id
+      );
+      if (foodIndex !== -1) {
+        this.selectedFoodItem.splice(foodIndex, 1);
+      }
+    },
+    increaseQuantity(item) {
+      item.quantity++;
+    },
+    decreaseQuantity(item) {
+      if (item.quantity > 1) {
+        item.quantity--;
+      }
+    },
     addToCart(food) {
       console.log(food);
       const existingItem = this.selectedFoodItem.find(
@@ -283,7 +314,7 @@ export default {
 .order-container {
   margin: 20px;
   display: grid;
-  grid-template-columns: 2fr 0.8fr;
+  grid-template-columns: 2fr 1fr;
   gap: 1.2rem;
 }
 .heading {
@@ -372,7 +403,7 @@ export default {
   clip-path: polygon(0% 0%, 100% 0, 100% 50%, 100% 100%, 0% 100%);
 }
 .single_menu img {
-  width: 20%;
+  width: 18%;
   position: absolute;
   height: 140px;
   -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
@@ -450,8 +481,9 @@ export default {
 .delete-cart-icon:hover {
   color: red;
 }
-.cart-btn-container {
-  height: 100px;
+.cart-footer-container {
+  background-color: #f3f2f2;
+  border-bottom: 1px solid #ccc;
 }
 .cart-footer-btn button {
   width: 100%;
