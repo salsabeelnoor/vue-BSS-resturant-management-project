@@ -5,52 +5,60 @@
         <h1>Select a Table</h1>
       </div>
       <section class="table-section">
-        <v-sheet class="mx-auto table-card-container my-4" max-width="800">
+        <v-sheet class="mx-auto table-card-container my-4" max-width="815">
           <v-slide-group v-model="model" class="pa-0" show-arrows>
             <v-slide-group-item
               v-for="(table, i) in tableList"
               :key="i"
               v-slot="{ isSelected, toggle, selectedClass }"
             >
-              <v-img
-                @click="toggle"
-                height="200"
-                width="200"
-                :class="['ma-4', selectedClass]"
-                :src="renderImage(table.image)"
-              >
-                <div
-                  :class="[
-                    'table-select',
-                    'fill-height',
-                    'align-center',
-                    'justify-center',
-                    isSelected ? 'transition-on-select' : '',
-                  ]"
-                >
-                  <v-scale-transition>
-                    <p
-                      class="table-number-text mb-5"
-                      color="#000"
-                      v-if="isSelected"
-                    >
-                      {{ table.tableNumber }}
-                    </p>
-                  </v-scale-transition>
-                  <v-scale-transition>
-                    <v-icon
-                      v-if="isSelected"
-                      color="red"
-                      size="30"
-                      icon="mdi-close-circle-outline"
-                    ></v-icon>
-                  </v-scale-transition>
+              <div class="table-info-container">
+                <div class="text-center ma-0 pa-0">
+                  <p class="mt-0 pt-2 font-weight-bold">
+                    {{ table.tableNumber }}
+                  </p>
                 </div>
-              </v-img>
+                <v-img
+                  @click="toggle"
+                  height="200"
+                  width="200"
+                  :class="['ma-4', selectedClass]"
+                  :src="renderImage(table.image)"
+                >
+                  <div
+                    :class="[
+                      'table-select',
+                      'fill-height',
+                      'align-center',
+                      'justify-center',
+                      isSelected ? 'transition-on-select' : '',
+                    ]"
+                  >
+                    <v-scale-transition>
+                      <p
+                        class="table-number-text mb-5"
+                        color="#000"
+                        v-if="isSelected"
+                      >
+                        {{ table.tableNumber }}
+                      </p>
+                    </v-scale-transition>
+                    <v-scale-transition>
+                      <v-icon
+                        v-if="isSelected"
+                        color="red"
+                        size="30"
+                        icon="mdi-close-circle-outline"
+                      ></v-icon>
+                    </v-scale-transition>
+                  </div>
+                </v-img>
+              </div>
             </v-slide-group-item>
           </v-slide-group>
         </v-sheet>
       </section>
+      {{ this.model }}
       <section class="food-section">
         <div class="menu_title text-center mb-4">
           <h1>Our Menu</h1>
@@ -80,7 +88,9 @@
                     </div>
                   </div>
                   <div class="btn-container mt-5">
-                    <v-btn elevation="0">Add To Cart</v-btn>
+                    <v-btn :disabled="this.model == null" elevation="0"
+                      >Add To Cart</v-btn
+                    >
                   </div>
                 </div>
               </div>
@@ -108,7 +118,7 @@ export default {
     return {
       foodList: [],
       tableList: [],
-      model: [],
+      model: null,
       imageUrl: imageUrl,
       currentPage: 1,
       itemsPerPage: 10,
@@ -193,6 +203,10 @@ export default {
 .table-section {
   min-height: 280px;
   border: 2px solid white;
+}
+.table-info-container {
+  background-color: #ccc;
+  margin-right: 5px;
 }
 .btn-container {
   display: flex;
