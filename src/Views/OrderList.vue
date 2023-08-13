@@ -2,10 +2,10 @@
   <section class="order-container">
     <section class="order-section">
       <div class="menu_title text-center">
-        <h1>Select a Table</h1>
+        <h1>Select A Table</h1>
       </div>
       <section class="table-section">
-        <v-sheet class="mx-auto table-card-container my-4" max-width="815">
+        <v-sheet class="mx-auto table-card-container my-4">
           <v-slide-group v-model="model" class="pa-0" show-arrows>
             <v-slide-group-item
               v-for="(table, i) in tableList"
@@ -66,41 +66,66 @@
         <v-container>
           <v-row>
             <v-col v-for="(food, i) in foodList" :key="i" cols="12">
-              <div class="single_menu">
-                <img :src="renderFoodImage(food.image)" alt="burger" />
-                <div class="menu_content">
-                  <h4>
-                    {{ food.name }}<span> {{ food.price }} /=</span>
-                  </h4>
-                  <p>
-                    {{ truncateDescription(food.description) }}
-                  </p>
-                  <div class="discount-section mt-1">
-                    <div class="discount-text">
-                      Discount: <span>{{ food.discount }}</span>
-                    </div>
-                    <div class="discount-text">
-                      Discount Price: <span>{{ food.discountPrice }}</span>
-                    </div>
-                    <div class="discount-text">
-                      Discount Type: <span>{{ food.discountType }}</span>
-                    </div>
-                  </div>
-                  <div class="btn-container mt-5">
-                    <v-btn
-                      :disabled="
-                        model == null ||
-                        selectedFoodItem.some(
-                          (item) => item.food.id === food.id
-                        )
-                      "
-                      elevation="0"
-                      @click="addToCart(food)"
-                      >Add To Cart</v-btn
+              <v-row class="single_menu">
+                <v-col cols="12" md="2" class="d-flex justify-center">
+                  <img :src="renderFoodImage(food.image)" alt="burger" />
+                </v-col>
+                <v-col cols="12" md="10">
+                  <div class="menu_content">
+                    <div
+                      class="menu_content_header d-flex justify-space-between mb-2"
                     >
+                      <h4>
+                        {{ food.name }}
+                      </h4>
+                      <h4 class="food-price">
+                        {{
+                          food.discountPrice > 0
+                            ? food.discountPrice + " ৳"
+                            : food.price + " ৳"
+                        }}
+                      </h4>
+                    </div>
+
+                    <p>
+                      {{ truncateDescription(food.description) }}
+                    </p>
+                    <div class="d-flex">
+                      <p
+                        v-if="food.discount > 0"
+                        class="discount-text mt-2"
+                        style="background-color: #f05e4e"
+                      >
+                        Discount: <span>{{ food.discount }}</span>
+                        {{
+                          food.discountType.toLowerCase() == "flat" ? "৳" : "%"
+                        }}
+                      </p>
+                      <p
+                        v-if="food.discount > 0"
+                        class="discount-text mt-2 ml-5"
+                        style="background-color: #f0db3b; color: black"
+                      >
+                        Regular Price: <span>{{ food.price }} ৳</span>
+                      </p>
+                    </div>
+
+                    <div class="btn-container mt-5">
+                      <v-btn
+                        :disabled="
+                          model == null ||
+                          selectedFoodItem.some(
+                            (item) => item.food.id === food.id
+                          )
+                        "
+                        elevation="0"
+                        @click="addToCart(food)"
+                        >Add To Cart</v-btn
+                      >
+                    </div>
                   </div>
-                </div>
-              </div>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-container>
@@ -119,7 +144,9 @@
             :key="index"
             class="d-flex cart-item justify-space-between pa-3"
           >
-            <div class="d-flex justify-space-between align-center cart-info">
+            <div
+              class="d-flex justify-space-between align-center cart-item-left"
+            >
               <v-img
                 class="rounded-circle"
                 :src="renderFoodImage(cartItem.food.image)"
@@ -173,7 +200,7 @@
           >
             <div class="cart-footer-total d-flex justify-space-between pa-5">
               <h3>Total</h3>
-              <h3>{{ calculateTotalPrice }}</h3>
+              <h3>{{ calculateTotalPrice }} ৳</h3>
             </div>
             <div
               class="cart-footer-btn d-flex justify-center align-center pb-4 mx-5"
@@ -186,6 +213,9 @@
                 >Checkout</v-btn
               >
             </div>
+            <p v-if="model == null" class="danger-text text-center mb-2">
+              Please Select a Table
+            </p>
           </div>
         </div>
       </div>
@@ -246,6 +276,11 @@ export default {
       if (existingItem) {
         existingItem.quantity++;
       } else {
+        if (food.discountPrice > 0) {
+          food.price = food.discountPrice;
+        } else {
+          food.price = food.price;
+        }
         this.selectedFoodItem.push({
           food: food,
           quantity: 1,
@@ -253,7 +288,7 @@ export default {
       }
     },
     truncateDescription(description) {
-      const maxLength = 180;
+      const maxLength = 300;
       if (description.length > maxLength) {
         return description.substring(0, maxLength) + "...";
       }
@@ -313,9 +348,15 @@ export default {
 <style scoped>
 .order-container {
   margin: 20px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 992px) {
+  .order-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.2rem;
+  }
 }
 .heading {
   color: #c0392b;
@@ -325,7 +366,6 @@ export default {
 }
 .table-section {
   min-height: 280px;
-  border: 2px solid white;
 }
 .table-info-container {
   background-color: #ccc;
@@ -339,6 +379,13 @@ export default {
   border-radius: 0;
   background-color: #c0392b;
   color: #fff;
+}
+@media screen and (max-width: 393px) {
+  .btn-container button {
+    /* width: 100%; */
+    font-size: 10px;
+    padding: 5px 10px;
+  }
 }
 .transition-on-select {
   display: flex;
@@ -362,6 +409,12 @@ export default {
 }
 .table-card-container {
   cursor: pointer;
+  max-width: 1000px;
+}
+@media screen and (min-width: 992px) {
+  .table-card-container {
+    max-width: 815px;
+  }
 }
 /* Food */
 .menu_title h1 {
@@ -394,53 +447,67 @@ export default {
   transform: translate(-50%, -50%);
 }
 .single_menu {
+  display: flex;
   position: relative;
   margin-bottom: 75px;
-  transition: 0.3s;
 }
-.single_menu:hover img {
-  -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 50%, 100% 100%, 0% 100%);
-  clip-path: polygon(0% 0%, 100% 0, 100% 50%, 100% 100%, 0% 100%);
-}
+
 .single_menu img {
-  width: 18%;
-  position: absolute;
+  width: auto;
   height: 140px;
-  -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
-  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+
   transition: 0.3s;
   border-radius: 5px;
 }
-.menu_content {
-  padding-left: 200px;
+
+@media screen and (min-width: 992px) {
+  .single_menu img {
+    width: 100%;
+  }
+  .single_menu img {
+    -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+    transition: 0.3s;
+  }
+  .single_menu:hover img {
+    -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 50%, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0, 100% 50%, 100% 100%, 0% 100%);
+  }
 }
 .menu_content h4 {
-  font-size: 25px;
-  font-weight: 300;
-  border-bottom: 1px dashed #c0392b;
+  font-size: clamp(16px, -0.875rem + 8.333vw, 25px);
+  font-weight: 600;
   line-height: 2;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   text-transform: capitalize;
 }
-.menu_content h4 span {
-  font-size: 25px;
-  font-weight: 800;
-  float: right;
+.menu_content_header {
+  border-bottom: 2px dashed #c0392b;
+}
+
+.food-price {
+  font-weight: 800 !important;
   font-style: italic;
   color: #c0392b;
 }
+.menu_content_header {
+  border-bottom: 1px dashed #c0392b;
+}
 .menu_content p {
   font-weight: 200;
-  font-size: 16px;
+  font-size: clamp(12px, -0.875rem + 5.333vw, 16px);
   letter-spacing: 0.8px;
 }
-.discount-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
 .discount-text {
-  font-size: 15px;
+  display: inline-block;
+  /* font-size: 14px !important; */
+  font-size: clamp(9px, 3vw, 14px) !important;
+  letter-spacing: 0px !important;
+  padding: 2px 8px;
+  border-radius: 20px;
+  color: white;
 }
-
 /* cart  */
 .cart-section {
   height: fit-content;
@@ -461,7 +528,17 @@ export default {
 }
 
 .cart-item {
+  flex-direction: row;
   border-bottom: 1px solid #ccc;
+}
+
+@media screen and (max-width: 300px) {
+  .cart-item {
+    flex-direction: column;
+  }
+  .cart-item-left {
+    flex-direction: column;
+  }
 }
 
 .cart-quantity {
@@ -491,5 +568,8 @@ export default {
   font-size: 16px;
   border-radius: 0;
   color: white;
+}
+.danger-text {
+  color: red;
 }
 </style>
