@@ -251,7 +251,6 @@ export default {
   },
   methods: {
     removeFromCart(item) {
-      console.log(item);
       const foodIndex = this.selectedFoodItem.findIndex(
         (selectedItem) => selectedItem.food.id === item.food.id
       );
@@ -268,19 +267,17 @@ export default {
       }
     },
     addToCart(food) {
-      console.log(food);
       const existingItem = this.selectedFoodItem.find(
         (item) => item.food.id === food.id
       );
-      console.log(existingItem);
       if (existingItem) {
         existingItem.quantity++;
       } else {
-        if (food.discountPrice > 0) {
-          food.price = food.discountPrice;
-        } else {
-          food.price = food.price;
-        }
+        // if (food.discountPrice > 0) {
+        //   food.price = food.discountPrice;
+        // } else {
+        //   food.price = food.price;
+        // }
         this.selectedFoodItem.push({
           food: food,
           quantity: 1,
