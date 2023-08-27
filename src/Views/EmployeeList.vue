@@ -220,6 +220,7 @@ export default {
         const response = await apiCall.get(
           `api/Employee/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
         );
+        console.log(response);
         this.employees = response.data.data;
         console.log(this.employees);
         this.totalPages = response.data.totalPages;

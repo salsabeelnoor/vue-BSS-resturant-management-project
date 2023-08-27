@@ -59,10 +59,22 @@
         </v-sheet>
       </section>
       <section class="food-section">
-        <div class="menu_title text-center mb-4">
+        <div class="menu_title text-center">
           <h1>Our Menu</h1>
         </div>
         <div class="single_line"></div>
+        <v-row class="d-none search mb-6">
+          <v-col cols="12" md="4">
+            <v-text-field
+              class="search-input"
+              v-model="search"
+              label="Search Food"
+              single-line
+              hide-details
+              @update:modelValue="fetchFoodList"
+            ></v-text-field>
+          </v-col>
+        </v-row>
         <v-container>
           <v-row>
             <v-col v-for="(food, i) in foodList" :key="i" cols="12">
@@ -128,11 +140,19 @@
               </v-row>
             </v-col>
           </v-row>
+          <div class="pagination_section text-center">
+            <v-pagination
+              v-model="currentPage"
+              :length="totalPages"
+              @update:modelValue="fetchFoodList"
+              rounded="circle"
+            ></v-pagination>
+          </div>
         </v-container>
       </section>
     </section>
-
-    <section class="cart-section d-flex justify-center">
+    <!-- cart section -->
+    <section class="d-flex justify-center">
       <div class="cart d-flex justify-center">
         <div class="cart-header d-flex justify-space-between border">
           <p class="d-block">Order</p>
@@ -229,6 +249,7 @@ export default {
   name: "OrderList",
   data() {
     return {
+      search: "",
       foodList: [],
       tableList: [],
       model: null,
@@ -239,6 +260,7 @@ export default {
       totalPages: 0,
       totalItems: 0,
       sortBy: "",
+      search: "",
     };
   },
   computed: {
@@ -250,6 +272,9 @@ export default {
     },
   },
   methods: {
+    changedValue() {
+      console.log(this.currentPage);
+    },
     removeFromCart(item) {
       const foodIndex = this.selectedFoodItem.findIndex(
         (selectedItem) => selectedItem.food.id === item.food.id
@@ -319,17 +344,11 @@ export default {
     async fetchFoodList() {
       try {
         const response = await ApiCall.get(
-          `api/Food/datatable?sort=${this.sortBy}&page=${this.currentPage}&per_page=${this.itemsPerPage}`
+          `api/Food/datatable?sort=${this.sortBy}&page=${this.currentPage}&per_page=${this.itemsPerPage}&search=${this.search}`
         );
-
-        if (response.data.data.length === 0) {
-          // Stop fetching if no more data
-          return;
-        }
-        this.foodList = [...this.foodList, ...response.data.data];
-        this.currentPage++;
-        // Call the fetchData function recursively to fetch the next page
-        await this.fetchFoodList();
+        this.foodList = response.data.data;
+        this.totalPages = response.data.totalPages;
+        this.totalItems = response.data.totalPages;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -344,14 +363,14 @@ export default {
 
 <style scoped>
 .order-container {
-  margin: 20px;
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
 }
 @media screen and (min-width: 992px) {
   .order-container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr 0.9fr;
     gap: 1.2rem;
   }
 }
@@ -443,6 +462,13 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.search {
+  display: flex;
+  justify-content: flex-end;
+}
+.search-input {
+  background-color: #ddd0d0;
+}
 .single_menu {
   display: flex;
   position: relative;
@@ -482,7 +508,6 @@ export default {
 .menu_content_header {
   border-bottom: 2px dashed #c0392b;
 }
-
 .food-price {
   font-weight: 800 !important;
   font-style: italic;
@@ -506,13 +531,21 @@ export default {
   color: white;
 }
 /* cart  */
-.cart-section {
+.cart {
+  width: 100%;
+  flex-direction: column;
   height: fit-content;
 }
-.cart {
-  width: 80%;
-  margin: 20px auto;
-  flex-direction: column;
+@media screen and (max-width: 992px) {
+  .cart {
+    margin-bottom: 20px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .cart {
+    position: sticky;
+    top: 80px;
+  }
 }
 .cart-items-container {
   border-left: 1px solid #bbbaba;

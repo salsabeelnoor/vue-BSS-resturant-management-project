@@ -362,7 +362,6 @@ h1 {
   background-color: white;
 }
 .img-section {
-  /* background-color: #ccc; */
   display: flex;
   justify-content: center;
   align-items: center;
