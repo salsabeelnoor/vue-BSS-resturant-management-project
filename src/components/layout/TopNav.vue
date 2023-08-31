@@ -23,7 +23,7 @@ export default {
   name: "TopNav",
   data: () => ({
     btnText: "Log In",
-    toggleDashBoard: false,
+    // toggleDashBoard: false,
   }),
   methods: {
     ...mapMutations(["TOGGLE_DASHBOARD"]),

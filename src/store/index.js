@@ -2,13 +2,10 @@ import {createStore} from 'vuex'
 
 import authModule from './modules/auth/index'
 import spinnerModule from './modules/spinner';
-// import dashboardModule from './modules/dashboardToggle';
 
 const store = createStore ({
     modules: {
         auth: authModule,
-        spinner: spinnerModule,
-        // dashboard: dashboardModule
     },
     state() {
         return {

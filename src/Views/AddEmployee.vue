@@ -275,8 +275,8 @@ export default {
       document.getElementById("image").click();
     },
     handleImage(e) {
-      const selectedImage = e.target.files[0]; //console log it
-      this.employeeInfo.image = selectedImage.name; ///console log
+      const selectedImage = e.target.files[0];
+      this.employeeInfo.image = selectedImage.name;
       // this.employeeInfo.image = URL.createObjectURL(selectedImage);
       this.createBase64Image(selectedImage);
     },

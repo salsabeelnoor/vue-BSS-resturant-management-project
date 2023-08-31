@@ -1,10 +1,5 @@
 <template>
   <v-layout>
-    <!-- :prepend-avatar="
-            user.image
-              ? imageUrl + 'user/' + user.image
-              : 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'
-          " -->
     <v-navigation-drawer
       v-model="$store.state.toggleDashboard"
       class="dashboard-drawer dashboard-container"
