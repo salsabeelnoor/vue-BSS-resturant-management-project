@@ -58,6 +58,7 @@
           </v-slide-group>
         </v-sheet>
       </section>
+
       <section class="food-section">
         <div class="menu_title text-center">
           <h1>Our Menu</h1>
@@ -80,7 +81,7 @@
             <v-col v-for="(food, i) in foodList" :key="i" cols="12">
               <v-row class="single_menu">
                 <v-col cols="12" md="2" class="d-flex justify-center">
-                  <img :src="renderFoodImage(food.image)" alt="burger" />
+                  <img :src="renderFoodImage(food.image)" alt="soup" />
                 </v-col>
                 <v-col cols="12" md="10">
                   <div class="menu_content">
@@ -295,14 +296,10 @@ export default {
       const existingItem = this.selectedFoodItem.find(
         (item) => item.food.id === food.id
       );
-      if (existingItem) {
-        existingItem.quantity++;
-      } else {
-        // if (food.discountPrice > 0) {
-        //   food.price = food.discountPrice;
-        // } else {
-        //   food.price = food.price;
-        // }
+      if (existingItem == null) {
+        if (food.discountPrice > 0) {
+          food.price = food.discountPrice;
+        }
         this.selectedFoodItem.push({
           food: food,
           quantity: 1,
