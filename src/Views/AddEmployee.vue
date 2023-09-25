@@ -254,6 +254,7 @@ export default {
     };
   },
   watch: {
+    //Gender Id watch
     selectedGender: {
       deep: true,
       handler(value) {
@@ -262,12 +263,12 @@ export default {
     },
   },
   methods: {
-    format(date) {
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    },
+    // format(date) {
+    //   const day = date.getDate();
+    //   const month = date.getMonth() + 1;
+    //   const year = date.getFullYear();
+    //   return `${day}/${month}/${year}`;
+    // },
     renderImage() {
       return new URL("../assets/image/employeeImg.jpg", import.meta.url).href;
     },

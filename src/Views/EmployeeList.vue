@@ -62,9 +62,6 @@
               <p class="d-block child-truncate btn-hover">
                 {{ item.raw.user.fullName }}
               </p>
-              <span class="tooltip-text top">
-                {{ item.raw.user.fullName }}
-              </span>
               <v-icon
                 @click="toggleColor"
                 :color="isOrange ? 'orange' : '#b5adac'"
@@ -180,18 +177,14 @@ export default {
       totalItems: 0,
       editedIndex: -1,
       sortBy: "",
-      defaultItem: {
-        name: "",
-        joiningDate: "",
-        designation: "",
-      },
+      // defaultItem: {
+      //   name: "",
+      //   joiningDate: "",
+      //   designation: "",
+      // },
     };
   },
-  watch: {
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
+  watch: {},
   computed: {},
   methods: {
     styleElements() {
@@ -220,7 +213,6 @@ export default {
         const response = await apiCall.get(
           `api/Employee/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
         );
-        console.log(response);
         this.employees = response.data.data;
         console.log(this.employees);
         this.totalPages = response.data.totalPages;
@@ -247,17 +239,7 @@ export default {
         console.log(e.message);
       }
     },
-    deleteItemConfirm() {
-      this.employees.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+
     toggleColor() {
       this.isOrange = !this.isOrange;
     },
