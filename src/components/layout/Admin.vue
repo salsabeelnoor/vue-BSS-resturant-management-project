@@ -24,6 +24,7 @@
 
       <v-list density="compact" nav>
         <v-list-item
+          id="list-item"
           class="list-children font"
           prepend-icon="mdi-account-multiple"
           @click="$router.push('/admin')"
@@ -31,6 +32,7 @@
           value="employeeList"
         ></v-list-item>
         <v-list-item
+          id="list-item"
           class="font"
           prepend-icon="mdi-clipboard-account"
           @click="$router.push('/admin/table')"
@@ -38,6 +40,7 @@
           value="tableList"
         ></v-list-item>
         <v-list-item
+          id="list-item"
           class="font"
           prepend-icon="mdi-food "
           @click="$router.push('/admin/food-list')"
@@ -45,11 +48,20 @@
           value="foodList"
         ></v-list-item>
         <v-list-item
+          id="list-item"
           class="font"
           prepend-icon="mdi-clipboard-outline"
           @click="$router.push('/admin/order-list')"
           title="Order Food"
           value="orderFood"
+        ></v-list-item>
+        <v-list-item
+          id="list-item"
+          class="font"
+          prepend-icon="mdi-format-list-bulleted"
+          @click="$router.push('/admin/order-list')"
+          title="All Orders"
+          value="allOrders"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -98,6 +110,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .dashboard-container {
   background-color: #fff;
@@ -120,31 +133,31 @@ hr {
 .profile-section {
   display: flex;
 }
-
-.v-list-item--nav .v-list-item-title {
-  border: 2px solid green;
-  font-size: 16px !important;
-  color: black;
-}
 </style>
 <style>
+.v-list-item-title {
+  color: black !important;
+  font-weight: 600;
+}
+.v-list-item-subtitle {
+  opacity: 1 !important;
+}
 .v-list-item--nav .v-list-item-title {
   border-radius: 0px;
-  color: #59504c !important;
+  color: black !important;
   font-size: 14px !important;
-  opacity: 1;
-  font-weight: 550;
+  font-weight: 600;
 }
 .v-list-item__prepend > .v-icon {
-  color: #59504c !important;
+  color: black !important;
 }
 .v-list-item--variant-text .v-list-item__overlay {
-  background: rgb(250, 88, 0);
+  background: rgb(255, 91, 2);
   border-radius: 0;
 }
 hr[data-v-794909c8] {
   color: black;
   border: 0.5px solid #c73602;
-  opacity: 0.2;
+  /* opacity: 0.2; */
 }
 </style>

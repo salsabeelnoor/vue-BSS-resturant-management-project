@@ -117,6 +117,7 @@ export default {
         .then((res) => {
           if (res.data) {
             // this.$store.commit("hideSpinner");
+            console.log(res);
             this.showSpinner = false;
             this.visible = false;
             this.addUserInfo(res.data);

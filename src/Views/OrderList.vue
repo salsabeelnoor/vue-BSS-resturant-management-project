@@ -64,15 +64,24 @@
           <h1>Our Menu</h1>
         </div>
         <div class="single_line"></div>
-        <v-row class="d-none search mb-6">
+        <v-row class="search mb-6">
           <v-col cols="12" md="4">
+            <!-- <v-text-field
+          class="d-block search-field"
+          v-model="searchText"
+          variant="outlined"
+          label="Search food...."
+          color="#79a33d"
+          @input="searchFood"
+          :hide-details="true"
+        ></v-text-field> -->
             <v-text-field
               class="search-input"
               v-model="search"
               label="Search Food"
-              single-line
+              variant="outlined"
               hide-details
-              @update:modelValue="fetchFoodList"
+              @input="fetchSearchedFoodList"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -250,7 +259,6 @@ export default {
   name: "OrderList",
   data() {
     return {
-      search: "",
       foodList: [],
       tableList: [],
       model: null,
@@ -339,6 +347,18 @@ export default {
       }
     },
     async fetchFoodList() {
+      try {
+        const response = await ApiCall.get(
+          `api/Food/datatable?sort=${this.sortBy}&page=${this.currentPage}&per_page=${this.itemsPerPage}&search=${this.search}`
+        );
+        this.foodList = response.data.data;
+        this.totalPages = response.data.totalPages;
+        this.totalItems = response.data.totalPages;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+    async fetchSearchedFoodList() {
       try {
         const response = await ApiCall.get(
           `api/Food/datatable?sort=${this.sortBy}&page=${this.currentPage}&per_page=${this.itemsPerPage}&search=${this.search}`
@@ -463,9 +483,9 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-.search-input {
+/* .search-input {
   background-color: #ddd0d0;
-}
+} */
 .single_menu {
   display: flex;
   position: relative;
