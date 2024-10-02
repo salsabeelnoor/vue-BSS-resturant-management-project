@@ -9,6 +9,7 @@ User Friendly online resturant management system with an admin role that allows 
 
 ## Login Information
 **email**: admin@mail.com
+
 **password** Admin@123
 
 ## Features
