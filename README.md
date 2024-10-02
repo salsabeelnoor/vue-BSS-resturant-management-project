@@ -6,6 +6,15 @@
 User Friendly online resturant management system with an admin role that allows adding new chef and waiters as well as assiging waiters to specific or multiple tables in the resturant. The frontend interface enables customers to effortlessly place orders and make table reservations according to their preferences. 
 
 
+## Login Information
+**email**: admin@mail.com
+
+**password** Admin@123
+
+
+## Live site : https://sunny-praline-a2263b.netlify.app
+
+
 ## Features
 
 - User Login
@@ -54,13 +63,7 @@ User Friendly online resturant management system with an admin role that allows 
 ![App Screenshot](src/assets/projectImages/food_list.png)
 
 
-## Login Information
-**email**: admin@mail.com
 
-**password** Admin@123
-
-
-## Live site : https://sunny-praline-a2263b.netlify.app
 
 
 
