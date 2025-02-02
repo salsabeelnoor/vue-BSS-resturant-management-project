@@ -54,10 +54,10 @@ User Friendly online resturant management system with an admin role that allows 
 ![App Screenshot](src/assets/projectImages/food_list.png)
 
 
-[//]: ## Live site : https://sunny-praline-a2263b.netlify.app
-[//]: ## Login Information
-[//]: **email**: admin@mail.com
-[//]: **password**: Admin@123
+[//]: # (Live site : https://sunny-praline-a2263b.netlify.app)
+[//]: # (Login Information)
+[//]: # (email: admin@mail.com)
+[//]: # (password: Admin@123)
 
 
 
