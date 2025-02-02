@@ -1,16 +1,10 @@
 
 # BSS Resturant management
 
-## Live site : https://sunny-praline-a2263b.netlify.app
+
 
 ## Frontend
 User Friendly online resturant management system with an admin role that allows adding new chef and waiters as well as assiging waiters to specific or multiple tables in the resturant. The frontend interface enables customers to effortlessly place orders and make table reservations according to their preferences. 
-
-
-## Login Information
-**email**: admin@mail.com
-
-**password**: Admin@123
 
 ## Features
 
@@ -59,6 +53,11 @@ User Friendly online resturant management system with an admin role that allows 
 ![App Screenshot](src/assets/projectImages/Table_list_modal_responsive.png)
 ![App Screenshot](src/assets/projectImages/food_list.png)
 
+
+[//]: ## Live site : https://sunny-praline-a2263b.netlify.app
+[//]: ## Login Information
+[//]: **email**: admin@mail.com
+[//]: **password**: Admin@123
 
 
 
